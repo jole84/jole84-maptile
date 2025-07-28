@@ -276,6 +276,7 @@ export function styleStuff(feature) {
         stroke: new Stroke({
           color: getColor[feature.get("objekttyp")],
           width: feature.get("storleksklass") * 2 || 3,
+          lineCap: "butt",
         }),
         // text: new Text({
         //     text: feature.get("objekttyp"),
