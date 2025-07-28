@@ -191,8 +191,8 @@
     <SrcSQL>select geom, objekttyp from byggnad</SrcSQL>
   </OGRVRTLayer>
 
-  <OGRVRTLayer name="byggnadspunkt50">
-    <SrcDataSource>/home/johan/Karta/topografi50/byggnadsverk.gpkg</SrcDataSource>
+  <OGRVRTLayer name="byggnadspunkt100">
+    <SrcDataSource>/home/johan/Karta/topografi100/byggnadsverk.gpkg</SrcDataSource>
     <SrcSQL>select geom, objekttyp, objekttypnr, rotation from byggnadspunkt</SrcSQL>
   </OGRVRTLayer>
 

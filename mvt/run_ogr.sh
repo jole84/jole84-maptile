@@ -1,13 +1,13 @@
 #!/bin/bash
 
-rm tiles/ -r
+rm ../ol-webmap/tiles/ -r
 
 # clipsrc = "-clipsrc 1550000 7900000 1600000 7950000" # jönköping      31s     8,4mb
 # clipsrc = "-clipsrc 1450000 7800000 1700000 8100000" # jönköping++    150s    180mb
 # clipsrc = "-clipsrc 1200000 7400000 1900000 8250000" # götaland       785s    1gb
 # -dsco SIMPLIFICATION=50 \
 
-ogr2ogr tiles/ -f MVT \
+ogr2ogr ../ol-webmap/tiles/ -f MVT \
     -clipsrc 1450000 7800000 1700000 8100000 \
     -t_srs "EPSG:3857" \
     -dsco MINZOOM=0 \

@@ -25,13 +25,15 @@ const tileDebug = new TileLayer({
   visible: false,
 });
 
+const view = new View({
+    center: [1580736, 7925420],
+    zoom: 14
+  });
+
 const map = new Map({
   target: 'map',
   layers: [localVector, tileDebug],
-  view: new View({
-    center: [1580736, 7925420],
-    zoom: 10
-  })
+  view: view,
 });
 
 map.on("singleclick", function (evt) {
@@ -39,3 +41,7 @@ map.on("singleclick", function (evt) {
     console.table(feature.getProperties())
   });
 });
+
+view.addEventListener("change:resolution", () => {
+  console.log(view.getZoom().toFixed(1));
+})
