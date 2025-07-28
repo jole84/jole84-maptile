@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <script src="https://cdn.jsdelivr.net/npm/ol@v10.6.0/dist/ol.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v10.6.0/ol.css">
+  <script src="styleFunctions.js"></script>
+  
+  <title>Karta</title>
+  <style>
+    html,
+    body,
+    #map {
+      font-family: "Roboto", Courier, monospace;
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      background-color: #bfe6ff;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="map"></div>
+
+  <script type="text/javascript">
+
+    const view = new ol.View({
+      center: [1580736, 7925420],
+      zoom: 10,
+      enableRotation: false,
+    });
+
+    const layers = [
+      // local map
+      localVector = new ol.layer.VectorTile({
+        source: new ol.source.VectorTile({
+          format: new ol.format.MVT(),
+          url: 'https://jole84.se/tiles/{z}/{x}/{y}.pbf',
+          minZoom: 6,
+          maxZoom: 14
+        }),
+      }),
+
+      // // Jole84
+      // slitlagerkarta = new ol.layer.Tile({
+      //   source: new ol.source.XYZ({
+      //     url: 'https://jole84.se/slitlagerkarta/{z}/{x}/{y}.jpg',
+      //     minZoom: 6,
+      //     maxZoom: 14,
+      //   }),
+      //   visible: false,
+      // }),
+
+      tileDebug = new ol.layer.Tile({
+        source: new ol.source.TileDebug({
+          template: 'z:{z} x:{x} y:{y} -y:{-y}'
+        }),
+        visible: false,
+      }),
+    ];
+
+    const map = new ol.Map({
+      target: 'map',
+      layers: layers,
+      view: view,
+      keyboardEventTarget: document
+    });
+  </script>
+
+</body>
+
+</html>

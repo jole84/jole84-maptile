@@ -1,0 +1,40 @@
+import './style.css';
+import { Map, View } from 'ol';
+import TileLayer from 'ol/layer/Tile';
+import VectorTileLayer from 'ol/layer/VectorTile.js';
+import VectorTileSource from 'ol/source/VectorTile.js';
+import MVT from 'ol/format/MVT.js';
+import TileDebug from 'ol/source/TileDebug.js';
+import { styleStuff } from './styleFunctions';
+
+const localVector = new VectorTileLayer({
+  source: new VectorTileSource({
+    format: new MVT(),
+    url: 'https://jole84.se/tiles/{z}/{x}/{y}.pbf',
+    minZoom: 6,
+    maxZoom: 14,
+  }),
+  style: styleStuff
+});
+
+const tileDebug = new TileLayer({
+  source: new TileDebug({
+    template: 'z:{z} x:{x} y:{y} -y:{-y}'
+  }),
+  visible: false,
+});
+
+const map = new Map({
+  target: 'map',
+  layers: [localVector, tileDebug],
+  view: new View({
+    center: [1580736, 7925420],
+    zoom: 10
+  })
+});
+
+map.on("singleclick", function (evt) {
+  map.forEachFeatureAtPixel(evt.pixel, feature => {
+    console.table(feature.getProperties())
+  });
+});
