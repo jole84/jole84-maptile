@@ -16,13 +16,10 @@ ogr2ogr tiles/ -f MVT \
     -dsco conf=layerconf.json \
     layers.vrt
 
-    # -dsco SIMPLIFICATION=5 \
 
-
-# textpunkt + TNE_FT_VAGDATA_SIMPLIFIED
-# vaglinje style
+# TNE_FT_VAGDATA_SIMPLIFIED
 
 # minzoom 12 syns på >13 (+1)
 # maxzoom 8 släcks på >10 (+2)
 
-# rsync -aPhz --info=progress2 --progress --include '*.pbf' --exclude 'webmap-ol.html' tiles root@192.46.232.175:/var/www/html/
+# rsync -aPhz --info=progress2 --progress --include '*.pbf' tiles root@192.46.232.175:/var/www/html/

@@ -5,12 +5,13 @@ import VectorTileLayer from 'ol/layer/VectorTile.js';
 import VectorTileSource from 'ol/source/VectorTile.js';
 import MVT from 'ol/format/MVT.js';
 import TileDebug from 'ol/source/TileDebug.js';
-import { styleStuff } from './styleFunctions';
+import { styleStuff } from './styleTileFunctions';
 
 const localVector = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVT(),
-    url: 'https://jole84.se/tiles/{z}/{x}/{y}.pbf',
+    url: './tiles/{z}/{x}/{y}.pbf',
+    // url: 'https://jole84.se/tiles/{z}/{x}/{y}.pbf',
     minZoom: 6,
     maxZoom: 14,
   }),
