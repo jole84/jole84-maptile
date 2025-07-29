@@ -81,7 +81,7 @@
     },
     "textpunkt1M": {
         "target_name": "textpunkt",
-        "minzoom": 7,
+        "minzoom": 8,
         "maxzoom": 9
     },
     "textpunkt250": {
@@ -129,20 +129,20 @@
         "minzoom": 10,
         "maxzoom": 11
     },
-    "landningsbana50": {
-        "target_name": "landningsbana",
-        "minzoom": 13,
-        "maxzoom": 14
+    "landningsbana250": {
+        "target_name": "landningsbana_linje",
+        "minzoom": 7,
+        "maxzoom": 9
     },
     "landningsbana100": {
         "target_name": "landningsbana",
         "minzoom": 10,
         "maxzoom": 12
     },
-    "landningsbana250": {
-        "target_name": "landningsbana_linje",
-        "minzoom": 6,
-        "maxzoom": 9
+    "landningsbana50": {
+        "target_name": "landningsbana",
+        "minzoom": 13,
+        "maxzoom": 14
     },
     "byggnadspunkt100": {
         "target_name": "byggnadspunkt",
