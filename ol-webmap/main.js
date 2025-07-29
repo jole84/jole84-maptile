@@ -43,5 +43,11 @@ map.on("singleclick", function (evt) {
 });
 
 view.addEventListener("change:resolution", () => {
-  console.log(view.getZoom().toFixed(1));
+  document.getElementById("info1").innerHTML = view.getZoom().toFixed(1);
+    document.getElementById("info2").innerHTML = view.getResolution().toFixed(1);
+})
+
+document.getElementById("checkbox1").checked = JSON.parse(sessionStorage.vagkarta || "false");
+document.getElementById("checkbox1").addEventListener("change", () => {
+  sessionStorage.vagkarta = document.getElementById("checkbox1").checked;
 })

@@ -48,7 +48,7 @@
 
   <OGRVRTLayer name="ovrig_vag50">
     <SrcDataSource>/home/johan/Karta/topografi50/kommunikation.gpkg</SrcDataSource>
-    <SrcSQL>select geom, objekttypnr from ovrig_vag WHERE objekttypnr = 1628</SrcSQL>
+    <SrcSQL>select geom, objekttyp from ovrig_vag WHERE objekttypnr = 1628</SrcSQL>
   </OGRVRTLayer>
 
 
@@ -230,30 +230,21 @@
 
   <OGRVRTLayer name="mark1M">
     <SrcDataSource>/home/johan/Karta/topografi1M/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT Simplify(geom, 500), objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN
-      (2632, 2633,
-      2631,
-      2634)</SrcSQL>
+    <SrcSQL>SELECT Simplify(geom, 500), objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2632, 2633, 2654, 2631, 2634)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="mark250">
     <SrcDataSource>/home/johan/Karta/topografi250/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2632, 2633,
-      2631,
-      2634)</SrcSQL>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2632, 2633, 2654, 2631, 2634)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="mark100">
     <SrcDataSource>/home/johan/Karta/topografi100/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2632, 2633,
-      2631,
-      2634)</SrcSQL>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2632, 2633, 2654, 2631, 2634)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="mark50">
     <SrcDataSource>/home/johan/Karta/topografi50/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2632, 2633,
-      2631,
-      2634)</SrcSQL>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2632, 2633, 2654, 2631, 2634)</SrcSQL>
   </OGRVRTLayer>
 </OGRVRTDataSource>

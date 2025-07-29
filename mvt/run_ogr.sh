@@ -8,7 +8,7 @@ rm ../ol-webmap/tiles/ -r
 # -dsco SIMPLIFICATION=50 \
 
 ogr2ogr ../ol-webmap/tiles/ -f MVT \
-    -clipsrc 1450000 7800000 1700000 8100000 \
+    -clipsrc 1550000 7900000 1600000 7950000 \
     -t_srs "EPSG:3857" \
     -dsco MINZOOM=0 \
     -dsco MAXZOOM=14 \

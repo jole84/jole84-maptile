@@ -116,12 +116,10 @@ const textBaseline = {
   9: "top",
 }
 
-const getColor = {
+const colorArray = {
   "Anlagt vatten": "#bfe6ffff",
   "Barr- och blandskog": "#d4eeb7ff",
   "Bebyggelse": "#eebf8fff",
-  "Start- och landningsbana": "#7d7d7d",
-  "Start- och landningsbana, linje": "#7d7d7d",
   "Djurskyddsområde": "#77e250a6",
   "Ej karterat område": "#bfe6ffff",
   "Elljusspår": "#fff201ff",
@@ -140,9 +138,12 @@ const getColor = {
   "Militärt övningsfält": "#00a6e6ff",
   "Nationalpark": "#77e250a6",
   "Naturreservat": "#77e250a6",
+  "rondell": '#007dff',
   "Sjö": "#bfe6ffff",
   "Skog": "#d4eeb7ff",
   "Sluten bebyggelse": "#d99461ff",
+  "Start- och landningsbana, linje": "#7d7d7d",
+  "Start- och landningsbana": "#7d7d7d",
   "Traktorväg": "#ac7c45ff",
   "Vattendrag": "#bfe6ffff",
   "Vattendragsyta": "#bfe6ffff",
@@ -153,13 +154,85 @@ const getColor = {
   2: "#ac7c45ff",
 }
 
+const colorArrayVagkarta = {
+  "Anlagt vatten": "#bfe6ffff",
+  "Barr- och blandskog": "#ededed",
+  "Bebyggelse": "#d4d4d4",
+  "Ej karterat område": "#bfe6ffff",
+  "Elljusspår": "#fff201ff",
+  "Fjällbjörkskog": "#ededed",
+  "Fruktodling": "#ededed",
+  "Glaciär": "#ffffff",
+  "Gångstig": "#6e6e6eff",
+  "Hav": "#bfe6ffff",
+  "Hög bebyggelse": "#cecece",
+  "Industri- och handelsbebyggelse": "#dddddd",
+  "Kalfjäll": "#fcfcfc",
+  "Kulturreservat": "black",
+  "Låg bebyggelse": "#d4d4d4",
+  "Lövskog": "#ededed",
+  "Militärt skjutfält": "#00a6e6ff",
+  "Militärt övningsfält": "#00a6e6ff",
+  "rondell": '#007dff',
+  "Sjö": "#bfe6ffff",
+  "Skog": "#ededed",
+  "Sluten bebyggelse": "#b9b9b9",
+  "Start- och landningsbana, linje": "#7d7d7d",
+  "Start- och landningsbana": "#7d7d7d",
+  "Traktorväg": "#bababa",
+  "Vattendrag": "#bfe6ffff",
+  "Vattendragsyta": "#bfe6ffff",
+  "Vattenyta": "#bfe6ffff",
+  "Åker": "#fcfcfc",
+  "Öppen mark": "#fcfcfc",
+  1: "#000000",
+  2: "#bababa",
+}
+
+export function styleStuff2(feature, currentResolution) {
+  const featureType = feature.getGeometry().getType();
+  const vagkarta = JSON.parse(sessionStorage.vagkarta || "false");
+  if (featureType == "LineString" || featureType == "MultiLineString") {
+    if (feature.get("layer") == "TNE_FT_VAGDATA" && feature.get("Klass_181") < 5) {
+      return new Style({
+        zIndex: 10,
+        stroke: new Stroke({
+          color: "black",
+          width: 5,
+          lineCap: "round",
+        }),
+      });
+    }
+  }
+  if (featureType == "Polygon" || featureType == "MultiPolygon") {
+    if (feature.get("objekttyp") in colorArrayVagkarta) {
+      return new Style({
+        zIndex: 5,
+        fill: new Fill({
+          color: vagkarta ? colorArrayVagkarta[feature.get("objekttyp")] : colorArray[feature.get("objekttyp")],
+        }),
+
+      });
+    }
+  }
+  if (featureType == "Point") {
+    if (feature.get("objekttypnr") in kartsymboler) {
+      return new Style({
+        // zIndex: 5,
+        image: new Icon({
+          rotation: degToRad(360 - feature.get("rotation")) || 0,
+          rotateWithView: true,
+          src: kartsymboler[feature.get("objekttypnr")],
+          scale: 1.5,
+        }),
+      });
+    }
+  }
+}
 
 export function styleStuff(feature) {
   const featureType = feature.getGeometry().getType();
   if (featureType == "LineString" || featureType == "MultiLineString") {
-    //     console.log(feature.get("objekttyp"));
-    //     console.log(feature.getProperties());
-
     if (feature.get("layer") == "TNE_FT_VAGDATA") {
       if (feature.get("bidrag")) {
         return [
@@ -186,6 +259,7 @@ export function styleStuff(feature) {
         zIndex: 10 - feature.get("Klass_181"),
         stroke: new Stroke({
           color: feature.get("color"),
+          // color: colorArray[feature.get("Slitl_152")],
           width: feature.get("width") / 8,
           lineCap: "round",
         }),
@@ -203,9 +277,6 @@ export function styleStuff(feature) {
         //   }),
         // }),
       });
-
-
-
     } else if (feature.get("layer") == "kurvighet") {
       return new Style({
         zIndex: 2,
@@ -275,7 +346,7 @@ export function styleStuff(feature) {
     } else {
       return new Style({
         stroke: new Stroke({
-          color: getColor[feature.get("objekttyp")],
+          color: colorArray[feature.get("objekttyp")],
           width: feature.get("storleksklass") * 2 || 3,
           lineCap: "butt",
         }),
@@ -302,7 +373,7 @@ export function styleStuff(feature) {
       // no fill only border
       return new Style({
         stroke: new Stroke({
-          color: getColor[feature.get("objekttyp")],
+          color: colorArray[feature.get("objekttyp")],
           width: 4,
         }),
         // text: new Text({
@@ -326,14 +397,14 @@ export function styleStuff(feature) {
       return new Style({
         zIndex: 15,
         fill: new Fill({
-          color: getColor[feature.get("objekttyp")],
+          color: colorArray[feature.get("objekttyp")],
         }),
 
       });
     } else {
       return new Style({
         fill: new Fill({
-          color: getColor[feature.get("objekttyp")],
+          color: colorArray[feature.get("objekttyp")],
         }),
         // text: new Text({
         //     text: feature.get("objekttyp"),
@@ -347,13 +418,7 @@ export function styleStuff(feature) {
   }
 
   if (featureType == "Point") {
-    // if (feature.get("layer") != "textpunkt") {
-    //     console.log(feature.get("objekttyp"));
-    //     console.log(feature.getProperties());
-    // }
-
     if (feature.get("layer") == "textpunkt") {
-      // console.table(feature.getProperties());
       return new Style({
         text: new Text({
           // declutterMode: "none",
@@ -361,8 +426,8 @@ export function styleStuff(feature) {
           text: feature.get("karttext"),
           textAlign: textAlign[feature.get("textlage")],
           textBaseline: textBaseline[feature.get("textlage")],
-          rotation: degToRad(feature.get("rotation")) || 0,
-          rotateWithView: true,
+          rotation: degToRad(360 - feature.get("textriktning")),
+          rotateWithView: !!feature.get("textriktning"),
           font: (feature.get("textstorleksklass") * 4) + 5 + "px arial, sans-serif",
           fill: new Fill({
             color: textColor[feature.get("textkategori")] || "black",
@@ -385,8 +450,8 @@ export function styleStuff(feature) {
       try {
         return new Style({
           image: new Icon({
-            rotation: degToRad(360 - feature.get("rotation")) || 0,
-            rotateWithView: true,
+            rotation: degToRad(360 - feature.get("rotation")),
+            rotateWithView: !!feature.get("rotation"),
             src: kartsymboler[feature.get("andamal")] || "https://jole84.se/kartsymboler/infotavla.svg",
           }),
         });
