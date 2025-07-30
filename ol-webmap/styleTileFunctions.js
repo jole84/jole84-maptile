@@ -150,8 +150,6 @@ const colorArray = {
   "Vattenyta": "#bfe6ffff",
   "Åker": "#fff7a6ff",
   "Öppen mark": "#ffffeaff",
-  1: "#000000",
-  2: "#ac7c45ff",
 }
 
 const colorArrayVagkarta = {
@@ -185,8 +183,6 @@ const colorArrayVagkarta = {
   "Vattenyta": "#bfe6ffff",
   "Åker": "#fcfcfc",
   "Öppen mark": "#fcfcfc",
-  1: "#000000",
-  2: "#bababa",
 }
 
 export function styleStuff2(feature, currentResolution) {
@@ -259,30 +255,38 @@ export function styleStuff(feature) {
         zIndex: 10 - feature.get("Klass_181"),
         stroke: new Stroke({
           color: feature.get("color"),
-          // color: colorArray[feature.get("Slitl_152")],
+          // color: feature.get("colorstratvag"),
           width: feature.get("width") / 8,
           lineCap: "round",
         }),
-        // text: new Text({
-        //   zIndex: 5,
-        //   text: feature.get("Namn_130"),
-        //   font: "12px arial, sans-serif",
-        //   placement: "line",
-        //   fill: new Fill({
-        //     color: "black",
-        //   }),
-        //   stroke: new Stroke({
-        //     color: "white",
-        //     width: 4,
-        //   }),
-        // }),
+        text: new Text({
+          zIndex: 5,
+          text: feature.get("Namn_130"),
+          font: "12px arial, sans-serif",
+          placement: "line",
+          fill: new Fill({
+            color: "black",
+          }),
+          stroke: new Stroke({
+            color: "white",
+            width: 4,
+          }),
+        }),
+      });
+    } else if (feature.get("layer") == "markkantlinje") {
+      return new Style({
+        zIndex: 2,
+        stroke: new Stroke({
+          color: "#00a6ff",
+          width: 1,
+        }),
       });
     } else if (feature.get("layer") == "kurvighet") {
       return new Style({
         zIndex: 2,
         stroke: new Stroke({
           color: "#df006840",
-          width: 10,
+          width: 8,
         }),
       });
     } else if (feature.get("layer") == "hojdlinje") {
@@ -310,7 +314,6 @@ export function styleStuff(feature) {
         }),
       });
     } else if (feature.get("layer") == "vaglinje") {
-      // console.table(feature.getProperties());
       return new Style({
         stroke: new Stroke({
           color: "black",
@@ -423,7 +426,7 @@ export function styleStuff(feature) {
         text: new Text({
           // declutterMode: "none",
           zIndex: (feature.get("textstorleksklass") * 10) || 100,
-          text: feature.get("karttext"),
+          text: feature.get("textstrang"),
           textAlign: textAlign[feature.get("textlage")],
           textBaseline: textBaseline[feature.get("textlage")],
           rotation: degToRad(360 - feature.get("textriktning")),
@@ -508,16 +511,30 @@ export function styleStuff(feature) {
         }),
       })
     } else if (feature.get("layer") == "atk") {
-      return new Style({
+      return [
+        new Style({
+          zIndex: 20,
+          image: new Icon({
+            // anchor: [0.5, 1],
+            src: "https://www.transportstyrelsen.se/globalassets/global/vag/vagmarken2/e.-anvisningsmarken/e24.-automatisk-trafikovervakning/e24-1.png",
+            scale: 0.07,
+            rotateWithView: true,
+            rotation: ((feature.get("vinkel") * Math.PI * 2) / 360) - Math.PI,
+            displacement: [15, -13],
+          }),
+        }),
+        new Style({
         zIndex: 20,
         image: new Icon({
           declutterMode: "none",
           rotateWithView: true,
           src: createSpeedSign(feature.get("HTHAST")),
           rotation: ((feature.get("vinkel") * Math.PI * 2) / 360) - Math.PI,
-          scale: 0.35,
+          displacement: [15, 13],
+          scale: 0.3,
         }),
-      })
+      }),
+    ]
     } else {
       return new Style({
         // zIndex: 5,

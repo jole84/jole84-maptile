@@ -1,20 +1,25 @@
 <OGRVRTDataSource>
   <!-- < = &lt; > = &gt; -->
   <OGRVRTLayer name="TNE_FT_VAGDATA">
-    <SrcDataSource>/home/johan/Karta/NVDB/vagnat.gpkg</SrcDataSource>
+    <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
     <SrcSQL>select Shape, Korfa_524, Vagde_10379, Klass_181, Namn_130, F_Hogst_225 AS maxspeed,
       Slitl_152, Korfa_52,
 
       CASE
       WHEN F_Cirkulationsplats != 0 THEN '#007dff'
       WHEN B_Cirkulationsplats != 0 THEN '#007dff'
-
-      WHEN Vagna_406 NOT NULL THEN '#2baf2b'
-
       WHEN Slitl_152 = 1 THEN '#000000'
       WHEN Slitl_152 = 2 THEN '#ac7c45'
       ELSE '#ff0000ff'
       END color,
+
+      CASE
+      WHEN F_Cirkulationsplats != 0 OR B_Cirkulationsplats != 0 THEN '#007dff'
+      WHEN Vagna_406 AND Slitl_152 = 1 NOT NULL THEN '#2baf2b'
+      WHEN Slitl_152 = 1 THEN '#000000'
+      WHEN Slitl_152 = 2 THEN '#bababa'
+      ELSE '#ff0000ff'
+      END colorstratvag,
 
       CASE
       WHEN Slitl_152 = 2 AND Bredd_156 &lt;= 6 THEN Bredd_156 * 9
@@ -78,12 +83,6 @@
     <SrcSQL>select geom, objekttyp from ralstrafik</SrcSQL>
   </OGRVRTLayer>
 
-  <OGRVRTLayer name="ralstrafik50">
-    <SrcDataSource>/home/johan/Karta/topografi50/kommunikation.gpkg</SrcDataSource>
-    <SrcSQL>select geom, objekttyp from ralstrafik</SrcSQL>
-  </OGRVRTLayer>
-
-
   <OGRVRTLayer name="atk">
     <SrcDataSource>/home/johan/Karta/NVDB/ATK.gpkg</SrcDataSource>
     <SrcSQL>select geom, vinkel, HTHAST from atk</SrcSQL>
@@ -114,25 +113,27 @@
   <OGRVRTLayer name="textpunkt1M">
     <SrcDataSource>/home/johan/Karta/topografi1M/text.gpkg</SrcDataSource>
     <SrcSQL>select geom, textstrang, textkategori, textstorleksklass, textlage, texttyp,
-      textsparrning, karttext, textdelnr, textriktning from textpunkt</SrcSQL>
+      textsparrning, textriktning from textpunkt where textdelnr &lt;= 1 AND textkategori !=
+      'Administrativ indelning'</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="textpunkt250">
     <SrcDataSource>/home/johan/Karta/topografi250/text.gpkg</SrcDataSource>
     <SrcSQL>select geom, textstrang, textkategori, textstorleksklass, textlage, texttyp,
-      textsparrning, karttext, textdelnr, textriktning from textpunkt</SrcSQL>
+      textsparrning, textriktning from textpunkt where textdelnr &lt;= 1 AND textkategori !=
+      'Administrativ indelning'</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="textpunkt100">
     <SrcDataSource>/home/johan/Karta/topografi100/text.gpkg</SrcDataSource>
     <SrcSQL>select geom, textstrang, textkategori, textstorleksklass, textlage, texttyp,
-      textsparrning, karttext, textdelnr, textriktning from textpunkt</SrcSQL>
+      textsparrning, textriktning from textpunkt where textdelnr &lt;= 1</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="textpunkt50">
     <SrcDataSource>/home/johan/Karta/topografi50/text.gpkg</SrcDataSource>
     <SrcSQL>select geom, textstrang, textkategori, textstorleksklass, textlage, texttyp,
-      textsparrning, karttext, textdelnr, textriktning from textpunkt</SrcSQL>
+      textsparrning, textriktning from textpunkt where textdelnr &lt;= 1</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="anlaggningsomradespunkt50">
@@ -228,23 +229,37 @@
     <SrcSQL>select geom, objekttyp, storleksklass from hydrolinje</SrcSQL>
   </OGRVRTLayer>
 
+  <OGRVRTLayer name="markkantlinje1M">
+    <SrcDataSource>/home/johan/Karta/topografi1M/mark.gpkg</SrcDataSource>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2613, 2614,
+      2612, 2615, 2616)</SrcSQL>
+  </OGRVRTLayer>
+
+  <OGRVRTLayer name="markkantlinje250">
+    <SrcDataSource>/home/johan/Karta/topografi250/mark.gpkg</SrcDataSource>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2613, 2614,
+      2612, 2615, 2616)</SrcSQL>
+  </OGRVRTLayer>
+
+  <OGRVRTLayer name="markkantlinje100">
+    <SrcDataSource>/home/johan/Karta/topografi100/mark.gpkg</SrcDataSource>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2613, 2614,
+      2612, 2615, 2616)</SrcSQL>
+  </OGRVRTLayer>
+
   <OGRVRTLayer name="mark1M">
     <SrcDataSource>/home/johan/Karta/topografi1M/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT Simplify(geom, 500), objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2632, 2633, 2654, 2631, 2634)</SrcSQL>
+    <SrcSQL>SELECT Simplify(geom, 500), objekttyp, objekttypnr FROM mark</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="mark250">
     <SrcDataSource>/home/johan/Karta/topografi250/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2632, 2633, 2654, 2631, 2634)</SrcSQL>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="mark100">
     <SrcDataSource>/home/johan/Karta/topografi100/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2632, 2633, 2654, 2631, 2634)</SrcSQL>
-  </OGRVRTLayer>
-
-  <OGRVRTLayer name="mark50">
-    <SrcDataSource>/home/johan/Karta/topografi50/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2632, 2633, 2654, 2631, 2634)</SrcSQL>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2632, 2633,
+      2654, 2631, 2634)</SrcSQL>
   </OGRVRTLayer>
 </OGRVRTDataSource>

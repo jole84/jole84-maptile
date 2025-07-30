@@ -3,6 +3,7 @@
 
 INPUT="$HOME/Karta/NVDB/vagnat.gdb"
 OUTPUT="$HOME/Karta/NVDB/vagnat.gpkg"
+OUTPUT_UNION="$HOME/Karta/NVDB/vagnat_union.gpkg"
 
 echo "Skapar vägnät..."
 ogr2ogr $OUTPUT \
@@ -12,6 +13,15 @@ ogr2ogr $OUTPUT \
     -t_srs "EPSG:3857" \
     -where "Vagtr_474 = 1" \
     $INPUT
+
+echo "Skapar vägnät union..."
+ogr2ogr $OUTPUT_UNION \
+    -nln "TNE_FT_VAGDATA" \
+    -nlt MULTILINESTRING \
+    -progress \
+    -skipfailures \
+    -sql @vagnat_union.sql \
+    $OUTPUT
 
 echo "Skapar förenklat vägnät..."
 ogr2ogr "$HOME/Karta/NVDB/vagnat_simplified.gpkg" \

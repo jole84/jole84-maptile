@@ -26,12 +26,12 @@
     },
     "ledningslinje250": {
         "target_name": "ledningslinje",
-        "minzoom": 9,
-        "maxzoom": 10
+        "minzoom": 10,
+        "maxzoom": 11
     },
     "ledningslinje100": {
         "target_name": "ledningslinje",
-        "minzoom": 11,
+        "minzoom": 12,
         "maxzoom": 14
     },
     "ralstrafik1M": {
@@ -42,16 +42,11 @@
     "ralstrafik250": {
         "target_name": "ralstrafik",
         "minzoom": 8,
-        "maxzoom": 9
+        "maxzoom": 10
     },
     "ralstrafik100": {
         "target_name": "ralstrafik",
-        "minzoom": 10,
-        "maxzoom": 11
-    },
-    "ralstrafik50": {
-        "target_name": "ralstrafik",
-        "minzoom": 12,
+        "minzoom": 11,
         "maxzoom": 14
     },
     "atk": {
@@ -189,6 +184,21 @@
         "minzoom": 12,
         "maxzoom": 14
     },
+    "markkantlinje1M": {
+        "target_name": "markkantlinje",
+        "minzoom": 0,
+        "maxzoom": 8
+    },
+    "markkantlinje250": {
+        "target_name": "markkantlinje",
+        "minzoom": 9,
+        "maxzoom": 10
+    },
+    "markkantlinje100": {
+        "target_name": "markkantlinje",
+        "minzoom": 11,
+        "maxzoom": 14
+    },
     "mark1M": {
         "target_name": "mark",
         "minzoom": 0,
@@ -202,11 +212,6 @@
     "mark100": {
         "target_name": "mark",
         "minzoom": 11,
-        "maxzoom": 11
-    },
-    "mark50": {
-        "target_name": "mark",
-        "minzoom": 12,
         "maxzoom": 14
     }
 }
