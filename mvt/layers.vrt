@@ -33,6 +33,52 @@
       from TNE_FT_VAGDATA</SrcSQL>
   </OGRVRTLayer>
 
+    <OGRVRTLayer name="TNE_FT_VAGDATA_LAND">
+    <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
+    <SrcSQL>select Shape, Korfa_524, Vagde_10379, Klass_181, Namn_130, F_Hogst_225 AS maxspeed,
+      Slitl_152, Korfa_52,
+
+      CASE
+      WHEN F_Cirkulationsplats != 0 THEN '#007dff'
+      WHEN B_Cirkulationsplats != 0 THEN '#007dff'
+      WHEN Slitl_152 = 1 THEN '#000000'
+      WHEN Slitl_152 = 2 THEN '#ac7c45'
+      ELSE '#ff0000ff'
+      END color,
+
+      CASE
+      WHEN F_Cirkulationsplats != 0 OR B_Cirkulationsplats != 0 THEN '#007dff'
+      WHEN Vagna_406 AND Slitl_152 = 1 NOT NULL THEN '#2baf2b'
+      WHEN Slitl_152 = 1 THEN '#000000'
+      WHEN Slitl_152 = 2 THEN '#bababa'
+      ELSE '#ff0000ff'
+      END colorstratvag,
+
+      CASE
+      WHEN Slitl_152 = 2 AND Bredd_156 &lt;= 6 THEN Bredd_156 * 9
+      WHEN Slitl_152 = 1 THEN F_Hogst_225 / 2
+
+      ELSE 20
+      END width,
+
+      CASE WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 1 END bidrag
+
+      from TNE_FT_VAGDATA WHERE TattbebyggtOmrade != -1 OR Vagna_406 OR Klass_181 &lt;= 5</SrcSQL>
+  </OGRVRTLayer>
+
+  <OGRVRTLayer name="vaglinje1M+">
+    <SrcDataSource>/home/johan/Karta/topografi1M/kommunikation.gpkg</SrcDataSource>
+    <SrcSQL>SELECT ST_Union(geom), objekttyp, objekttypnr, vardvagnummer FROM vaglinje WHERE
+      objekttypnr NOT IN (1805, 1806) GROUP BY
+      objekttyp, objekttypnr, vardvagnummer</SrcSQL>
+  </OGRVRTLayer>
+
+  <OGRVRTLayer name="vaglinje1M">
+    <SrcDataSource>/home/johan/Karta/topografi1M/kommunikation.gpkg</SrcDataSource>
+    <SrcSQL>SELECT ST_Union(geom), objekttyp, objekttypnr, vardvagnummer FROM vaglinje GROUP BY
+      objekttyp, objekttypnr, vardvagnummer</SrcSQL>
+  </OGRVRTLayer>
+
   <OGRVRTLayer name="vaglinje250">
     <SrcDataSource>/home/johan/Karta/topografi250/kommunikation.gpkg</SrcDataSource>
     <SrcSQL>SELECT ST_Union(geom), objekttyp, objekttypnr, vardvagnummer FROM vaglinje GROUP BY
@@ -42,13 +88,6 @@
   <OGRVRTLayer name="kurvighet">
     <SrcDataSource>/home/johan/Karta/NVDB/kurvighet.gpkg</SrcDataSource>
     <SrcSQL>SELECT * FROM kurvighet</SrcSQL>
-  </OGRVRTLayer>
-
-  <!-- 1805 landsväg liten -->
-  <OGRVRTLayer name="vaglinje1M">
-    <SrcDataSource>/home/johan/Karta/topografi1M/kommunikation.gpkg</SrcDataSource>
-    <SrcSQL>SELECT ST_Union(geom), objekttyp, objekttypnr, vardvagnummer FROM vaglinje GROUP BY
-      objekttyp, objekttypnr, vardvagnummer</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="ovrig_vag50">
@@ -90,7 +129,7 @@
 
   <OGRVRTLayer name="VIS_DK_O_90_P_ficka">
     <SrcDataSource>/home/johan/Karta/NVDB/Stratvag.gpkg</SrcDataSource>
-    <SrcSQL>select geom from VIS_DK_O_90_P_ficka</SrcSQL>
+    <SrcSQL>select geom, Placering from VIS_DK_O_90_P_ficka</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="Rastplats">
@@ -108,7 +147,13 @@
     <SrcSQL>SELECT geom, trafikplatsnamn, trafikplatsnummer FROM Trafikplats_3857 WHERE
       trafikplatsnummer IS NOT NULL</SrcSQL>
   </OGRVRTLayer>
-  <!--  -->
+
+  <OGRVRTLayer name="textpunkt1M+">
+    <SrcDataSource>/home/johan/Karta/topografi1M/text.gpkg</SrcDataSource>
+    <SrcSQL>select geom, textstrang, textkategori, textstorleksklass, textlage, texttyp,
+      textsparrning, textriktning from textpunkt where textdelnr &lt;= 1 AND textkategori !=
+      'Administrativ indelning' AND textstorleksklass &gt;= 4</SrcSQL>
+  </OGRVRTLayer>
 
   <OGRVRTLayer name="textpunkt1M">
     <SrcDataSource>/home/johan/Karta/topografi1M/text.gpkg</SrcDataSource>

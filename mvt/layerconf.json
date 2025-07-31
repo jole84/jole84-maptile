@@ -1,12 +1,22 @@
 {
-    "vaglinje1M": {
+    "vaglinje1M+": {
         "target_name": "vaglinje",
         "minzoom": 7,
+        "maxzoom": 7
+    },
+    "vaglinje1M": {
+        "target_name": "vaglinje",
+        "minzoom": 8,
         "maxzoom": 8
     },
     "vaglinje250": {
         "target_name": "vaglinje",
         "minzoom": 9,
+        "maxzoom": 10
+    },
+    "TNE_FT_VAGDATA_LAND": {
+        "target_name": "TNE_FT_VAGDATA",
+        "minzoom": 11,
         "maxzoom": 11
     },
     "TNE_FT_VAGDATA": {
@@ -16,7 +26,7 @@
     },
     "kurvighet": {
         "target_name": "kurvighet",
-        "minzoom": 9,
+        "minzoom": 10,
         "maxzoom": 11
     },
     "ovrig_vag50": {
@@ -73,6 +83,11 @@
         "target_name": "Trafikplats",
         "minzoom": 10,
         "maxzoom": 14
+    },
+    "textpunkt1M+": {
+        "target_name": "textpunkt",
+        "minzoom": 7,
+        "maxzoom": 9
     },
     "textpunkt1M": {
         "target_name": "textpunkt",
@@ -166,7 +181,7 @@
     },
     "skyddadnatur100": {
         "target_name": "skyddadnatur",
-        "minzoom": 8,
+        "minzoom": 9,
         "maxzoom": 11
     },
     "skyddadnatur250": {
