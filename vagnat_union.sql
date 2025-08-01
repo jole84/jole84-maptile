@@ -14,10 +14,11 @@ SELECT
     Vagna_406,
     TattbebyggtOmrade,
     Bredd_156,
-    Kateg_380,
+    -- Kateg_380,
     Vagtr_474,
     korfa_52,
-    Namn_132
+    Evag_555,
+    Huvnr_556_1
 
 FROM TNE_FT_VAGDATA
 
@@ -36,8 +37,9 @@ GROUP BY
     Vagna_406,
     TattbebyggtOmrade,
     Bredd_156,
-    Kateg_380,
+    -- Kateg_380,
     Vagtr_474,
     korfa_52,
-    Namn_132,
+    Evag_555,
+    Huvnr_556_1,
     ROUTE_ID

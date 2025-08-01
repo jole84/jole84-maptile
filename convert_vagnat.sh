@@ -20,22 +20,23 @@ ogr2ogr $OUTPUT_UNION \
     -nlt MULTILINESTRING \
     -progress \
     -skipfailures \
-    -sql @vagnat_union.sql \
+    -sql @/home/johan/git/jole84-maptile/vagnat_union.sql \
     $OUTPUT
 
-echo "Skapar förenklat vägnät..."
-ogr2ogr "$HOME/Karta/NVDB/vagnat_simplified.gpkg" \
-    -nln "TNE_FT_VAGDATA_SIMPLIFIED" \
-    -nlt MULTILINESTRING \
-    -progress \
-    -skipfailures \
-    -t_srs "EPSG:3857" \
-    "$HOME/Karta/topografi250/kommunikation_sverige.gpkg" vaglinje
+# echo "Skapar förenklat vägnät..."
+# ogr2ogr "$HOME/Karta/NVDB/vagnat_simplified.gpkg" \
+#     -nln "TNE_FT_VAGDATA_SIMPLIFIED" \
+#     -nlt MULTILINESTRING \
+#     -progress \
+#     -skipfailures \
+#     -t_srs "EPSG:3857" \
+#     "$HOME/Karta/topografi250/kommunikation_sverige.gpkg" vaglinje
 
 echo "Skapar höjdhinderlager"
 ogr2ogr $OUTPUT \
     -t_srs "epsg:3857" \
     -dialect sqlite \
+    -append \
     -sql "select Line_Interpolate_Point(SHAPE,0.5), Azimuth(StartPoint(SHAPE), EndPoint(SHAPE)) as rotation, Fri_h_143 as Fri_hojd from TNE_FT_VAGDATA where Fri_h_143 is not null and Vagtr_474 = 1" \
     -nln NVDB_DK_O_24_Hojdhinder45dm \
     -nlt MULTIPOINT \

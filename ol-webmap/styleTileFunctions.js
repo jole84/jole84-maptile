@@ -266,19 +266,36 @@ export function styleStuff(feature) {
         }),
       });
     } else if (feature.get("layer") == "vaglinje") {
+      let vagNummer = "";
+      let europaVag = false;
+      if (feature.get("vardvagnummer")) {
+        if (Array.from(feature.get("vardvagnummer"))[0] == "E" || feature.get("vardvagnummer") < 500) {
+          vagNummer = feature.get("vardvagnummer");
+          europaVag = Array.from(feature.get("vardvagnummer"))[0] == "E"
+        }
+      }
       return new Style({
         stroke: new Stroke({
           color: "black",
           width: roadWidth[feature.get("objekttyp")] || 3,
         }),
-        // text: new Text({
-        //     text: feature.get("vardvagnummer"),
-        //     font: "12px B612, sans-serif",
-        //     placement: "line",
-        //     fill: new Fill({
-        //         color: "red",
-        //     }),
-        // }),
+        text: new Text({
+          declutterMode: "declutter",
+          text: String(vagNummer),
+          font: "14px arial, sans-serif",
+          padding: [20, 20, 20, 20],
+          placement: "point",
+          fill: new Fill({
+            color: "white",
+          }),
+          stroke: new Stroke({
+            color: europaVag ? "#4daf4a" : "#377eb8",
+            width: 10,
+          }),
+          // backgroundFill: new Fill({
+          //   color: europaVag ? "#4daf4a" : "#377eb8",
+          // }),
+        }),
       });
     } else if (feature.get("layer") == "ralstrafik") {
       return [
@@ -376,7 +393,9 @@ export function styleStuff(feature) {
       });
     } else if (feature.get("layer") == "Rastplats") {
       return new Style({
+        zIndex: 18,
         image: new Icon({
+          declutterMode: "none",
           // anchor: [0.5, 1],
           src: "https://www.transportstyrelsen.se/globalassets/global/vag/vagmarken2/h.-lokaliseringsmarken-for-upplysning-om-serviceanlaggningar/h13.-rastplats/h13-1.png",
           scale: 0.07,
@@ -409,6 +428,7 @@ export function styleStuff(feature) {
           }),
         }),
         image: new Icon({
+          declutterMode: "none",
           src: "https://jole84.se/kartsymboler/f27-1.svg",
           scale: 0.18,
         }),
@@ -417,6 +437,7 @@ export function styleStuff(feature) {
       return new Style({
         zIndex: 30,
         text: new Text({
+          declutterMode: "none",
           text: feature.get("Fri_hojd").toFixed(1) + "m",
           rotateWithView: true,
           rotation: feature.get("rotation") - Math.PI,
@@ -426,6 +447,7 @@ export function styleStuff(feature) {
           }),
         }),
         image: new Icon({
+          declutterMode: "none",
           rotateWithView: true,
           rotation: feature.get("rotation") - Math.PI,
           src: "https://jole84.se/kartsymboler/c17-1.svg",
@@ -436,6 +458,7 @@ export function styleStuff(feature) {
       return new Style({
         zIndex: 18,
         image: new Icon({
+          declutterMode: "none",
           src: "https://jole84.se/kartsymboler/e19-1.svg",
           scale: feature.get("Placering") == 'Avskild från vägen' ? 0.1 : 0.07,
         }),
@@ -445,6 +468,7 @@ export function styleStuff(feature) {
         new Style({
           zIndex: 20,
           image: new Icon({
+            declutterMode: "none",
             // anchor: [0.5, 1],
             src: "https://jole84.se/kartsymboler/e24-1.svg",
             scale: 0.06,
@@ -456,6 +480,7 @@ export function styleStuff(feature) {
         new Style({
           zIndex: 20,
           image: new Icon({
+            declutterMode: "none",
             rotateWithView: true,
             rotation: degToRad(feature.get("vinkel")) - Math.PI,
             src: "https://jole84.se/kartsymboler/c31-3.svg",
@@ -463,6 +488,7 @@ export function styleStuff(feature) {
             scale: 0.07,
           }),
           text: new Text({
+            declutterMode: "none",
             offsetX: 17,
             offsetY: -26,
             text: feature.get("HTHAST"),

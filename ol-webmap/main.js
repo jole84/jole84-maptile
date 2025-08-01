@@ -15,6 +15,7 @@ const localVector = new VectorTileLayer({
     minZoom: 6,
     maxZoom: 14,
   }),
+  declutter: true,
   style: styleStuff
 });
 
