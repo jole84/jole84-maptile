@@ -119,7 +119,7 @@ const colorArray = {
   "Hög bebyggelse": "#eebf8fff",
   "Industri- och handelsbebyggelse": "#f0f0f0ff",
   "Kalfjäll": "#fffff2ff",
-  "Kulturreservat": "black",
+  "Kulturreservat": "#0000007e",
   "Låg bebyggelse": "#f2cf9bff",
   "Lövskog": "#e3f7c7ff",
   "Militärt skjutfält": "#00a6e6ff",
@@ -173,6 +173,11 @@ const colorArrayVagkarta = {
   "Öppen mark": "#fcfcfc",
 }
 
+const dashPolygon = [
+  'Militärt övningsfält',
+  "Kulturreservat",
+]
+
 export function styleStuff(feature) {
   const featureType = feature.getGeometry().getType();
   const vagkarta = JSON.parse(sessionStorage.vagkarta || "false");
@@ -220,7 +225,7 @@ export function styleStuff(feature) {
           }),
         }),
       });
-    } else if (feature.get("layer") == "markkantlinje") {
+    } else if (feature.get("layer") == "markkantlinje" && !vagkarta) {
       return new Style({
         zIndex: 2,
         stroke: new Stroke({
@@ -314,18 +319,12 @@ export function styleStuff(feature) {
     ) {
       // no fill only border
       return new Style({
+        zIndex: 5,
         stroke: new Stroke({
           color: colorArray[feature.get("objekttyp")],
-          width: 4,
+          lineDash: dashPolygon.includes(feature.get("objekttyp")) ? [10, 10] : undefined,
+          width: 3,
         }),
-        // text: new Text({
-        //     text: feature.get("objekttyp"),
-        //     font: "12px B612, sans-serif",
-        //     placement: "line",
-        //     fill: new Fill({
-        //         color: "red",
-        //     }),
-        // }),
       });
     } else if (feature.get("layer") == "byggnad") {
       return new Style({
@@ -400,18 +399,18 @@ export function styleStuff(feature) {
       return new Style({
         zIndex: 20,
         text: new Text({
-          offsetX: 13,
+          offsetX: 12,
           offsetY: 2,
           declutterMode: "none",
           text: feature.get("trafikplatsnummer"),
-          font: "bold 17px arial, sans-serif",
+          font: "bold 16px arial, sans-serif",
           fill: new Fill({
             color: "black",
           }),
         }),
         image: new Icon({
           src: "https://jole84.se/kartsymboler/f27-1.svg",
-          scale: 0.2,
+          scale: 0.18,
         }),
       })
     } else if (feature.get("layer") == "NVDB_DK_O_24_Hojdhinder45dm" && vagkarta) {
@@ -421,7 +420,7 @@ export function styleStuff(feature) {
           text: feature.get("Fri_hojd").toFixed(1) + "m",
           rotateWithView: true,
           rotation: feature.get("rotation") - Math.PI,
-          font: "bold 12px arial, sans-serif",
+          font: "bold 10px arial, sans-serif",
           fill: new Fill({
             color: "black",
           }),
@@ -430,7 +429,7 @@ export function styleStuff(feature) {
           rotateWithView: true,
           rotation: feature.get("rotation") - Math.PI,
           src: "https://jole84.se/kartsymboler/c17-1.svg",
-          scale: 0.08,
+          scale: 0.07,
         }),
       });
     } else if (feature.get("layer") == "VIS_DK_O_90_P_ficka") {
@@ -438,7 +437,7 @@ export function styleStuff(feature) {
         zIndex: 18,
         image: new Icon({
           src: "https://jole84.se/kartsymboler/e19-1.svg",
-          scale: feature.get("Placering") == 'Avskild från vägen' ? 0.12 : 0.08,
+          scale: feature.get("Placering") == 'Avskild från vägen' ? 0.1 : 0.07,
         }),
       })
     } else if (feature.get("layer") == "atk") {
@@ -448,10 +447,10 @@ export function styleStuff(feature) {
           image: new Icon({
             // anchor: [0.5, 1],
             src: "https://jole84.se/kartsymboler/e24-1.svg",
-            scale: 0.07,
+            scale: 0.06,
             rotateWithView: true,
             rotation: degToRad(feature.get("vinkel")) - Math.PI,
-            displacement: [18, 0],
+            displacement: [17, 0],
           }),
         }),
         new Style({
@@ -460,12 +459,12 @@ export function styleStuff(feature) {
             rotateWithView: true,
             rotation: degToRad(feature.get("vinkel")) - Math.PI,
             src: "https://jole84.se/kartsymboler/c31-3.svg",
-            displacement: [18, 31],
-            scale: 0.08,
+            displacement: [17, 28],
+            scale: 0.07,
           }),
           text: new Text({
-            offsetX: 18,
-            offsetY: -30,
+            offsetX: 17,
+            offsetY: -26,
             text: feature.get("HTHAST"),
             rotateWithView: true,
             rotation: degToRad(feature.get("vinkel")) - Math.PI,

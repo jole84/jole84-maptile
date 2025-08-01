@@ -26,9 +26,9 @@ const tileDebug = new TileLayer({
 });
 
 const view = new View({
-    center: [1580736, 7925420],
-    zoom: 14
-  });
+  center: [1580736, 7925420],
+  zoom: 14
+});
 
 const map = new Map({
   target: 'map',
@@ -38,13 +38,19 @@ const map = new Map({
 
 map.on("singleclick", function (evt) {
   map.forEachFeatureAtPixel(evt.pixel, feature => {
-    console.table(feature.getProperties())
+    console.table(feature.getProperties());
+
+
+    if (feature.get("layer") == "TNE_FT_VAGDATA") {
+      console.log(feature.get("maxspeed"))
+      return true;
+    }
   });
 });
 
 view.addEventListener("change:resolution", () => {
   document.getElementById("info1").innerHTML = view.getZoom().toFixed(1);
-    document.getElementById("info2").innerHTML = view.getResolution().toFixed(1);
+  document.getElementById("info2").innerHTML = view.getResolution().toFixed(1);
 })
 
 document.getElementById("checkbox1").checked = JSON.parse(sessionStorage.vagkarta || "false");
