@@ -57,4 +57,5 @@ view.addEventListener("change:resolution", () => {
 document.getElementById("checkbox1").checked = JSON.parse(sessionStorage.vagkarta || "false");
 document.getElementById("checkbox1").addEventListener("change", () => {
   sessionStorage.vagkarta = document.getElementById("checkbox1").checked;
+  localVector.getSource().refresh({ force: true })
 })

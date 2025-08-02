@@ -178,7 +178,7 @@ const dashPolygon = [
   "Kulturreservat",
 ]
 
-export function styleStuff(feature) {
+export function styleStuff(feature, currentResolution) {
   const featureType = feature.getGeometry().getType();
   const vagkarta = JSON.parse(sessionStorage.vagkarta || "false");
   if (featureType == "LineString" || featureType == "MultiLineString") {
@@ -212,7 +212,6 @@ export function styleStuff(feature) {
           lineCap: "round",
         }),
         text: new Text({
-          zIndex: 5,
           text: feature.get("Namn_130"),
           font: "12px arial, sans-serif",
           placement: "line",
@@ -374,7 +373,7 @@ export function styleStuff(feature) {
     if (feature.get("layer") == "textpunkt") {
       return new Style({
         text: new Text({
-          // declutterMode: "none",
+          declutterMode: "none",
           zIndex: (feature.get("textstorleksklass") * 10) || 100,
           text: feature.get("textstrang"),
           textAlign: textAlign[feature.get("textlage")],
