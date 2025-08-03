@@ -206,7 +206,7 @@ export function styleStuff(feature, currentResolution) {
         ];
       }
       return new Style({
-        zIndex: 10 - feature.get("Klass_181"),
+        zIndex: feature.get("color") == '#007dff' ? 100 : (10 - feature.get("Klass_181")),
         stroke: new Stroke({
           color: vagkarta ? feature.get("colorstratvag") : feature.get("color"),
           width: feature.get("width") / 8,
