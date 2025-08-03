@@ -1,4 +1,3 @@
-@ -1,34 +1,24 @@
 #!/bin/sh
 
 INPUT="$HOME/Karta/NVDB/vagnat.gdb"

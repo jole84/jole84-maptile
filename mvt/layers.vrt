@@ -2,8 +2,8 @@
   <!-- < = &lt; > = &gt; -->
   <OGRVRTLayer name="TNE_FT_VAGDATA">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select Shape, Korfa_524, Vagde_10379, Klass_181, Namn_130, F_Hogst_225 AS maxspeed,
-      Slitl_152, Korfa_52, Evag_555, Huvnr_556_1,
+    <SrcSQL>select Shape, Klass_181, Namn_130, F_Hogst_225 AS maxspeed,
+      Slitl_152, Evag_555, Huvnr_556_1,
 
       CASE
       WHEN F_Cirkulationsplats != 0 THEN '#007dff'
@@ -35,8 +35,8 @@
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_100">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select Shape, Korfa_524, Vagde_10379, Klass_181, F_Hogst_225 AS maxspeed,
-      Slitl_152, Korfa_52, Evag_555, Huvnr_556_1,
+    <SrcSQL>select Shape, Klass_181, F_Hogst_225 AS maxspeed,
+      Slitl_152, Evag_555, Huvnr_556_1,
 
       CASE
       WHEN F_Cirkulationsplats != 0 OR B_Cirkulationsplats != 0 THEN '#007dff'
@@ -70,8 +70,8 @@
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_250">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select Shape, Korfa_524, Vagde_10379, Klass_181, F_Hogst_225 AS maxspeed,
-      Slitl_152, Korfa_52, Evag_555, Huvnr_556_1,
+    <SrcSQL>select Shape, Klass_181, F_Hogst_225 AS maxspeed,
+      Slitl_152, Evag_555, Huvnr_556_1,
 
       CASE
       WHEN Slitl_152 = 1 THEN '#000000'

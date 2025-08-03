@@ -126,6 +126,7 @@ const colorArray = {
   "Militärt övningsfält": "#00a6e6ff",
   "Nationalpark": "#77e250a6",
   "Naturreservat": "#77e250a6",
+  'Naturvårdsområde': "#4fba2898",
   "rondell": '#007dff',
   "Sjö": "#bfe6ffff",
   "Skog": "#d4eeb7ff",
@@ -208,7 +209,7 @@ export function styleStuff(feature, currentResolution) {
         zIndex: 10 - feature.get("Klass_181"),
         stroke: new Stroke({
           color: vagkarta ? feature.get("colorstratvag") : feature.get("color"),
-          width: feature.get("width") / 10,
+          width: feature.get("width") / 8,
           lineCap: "round",
         }),
         text: new Text({
@@ -282,7 +283,7 @@ export function styleStuff(feature, currentResolution) {
           declutterMode: "declutter",
           text: String(vagNummer),
           font: "14px arial, sans-serif",
-          padding: [20, 20, 20, 20],
+          padding: [25, 25, 25, 25],
           placement: "point",
           fill: new Fill({
             color: "white",
@@ -339,7 +340,7 @@ export function styleStuff(feature, currentResolution) {
         stroke: new Stroke({
           color: colorArray[feature.get("objekttyp")],
           lineDash: dashPolygon.includes(feature.get("objekttyp")) ? [10, 10] : undefined,
-          width: 3,
+          width: 4,
         }),
       });
     } else if (feature.get("layer") == "byggnad") {
