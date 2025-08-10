@@ -502,15 +502,17 @@ export function styleStuff(feature, currentResolution) {
         }),
       ]
     } else if (feature.get("layer") == "byggnadspunkt" || feature.get("layer") == "kultur_lamning_punkt") {
-      return new Style({
-        // zIndex: 5,
-        image: new Icon({
-          rotation: degToRad(360 - feature.get("rotation")) || 0,
-          rotateWithView: true,
-          src: kartsymboler[feature.get("objekttypnr")] || "https://jole84.se/kartsymboler/infotavla.svg",
-          scale: 1.5,
-        }),
-      });
+      if (feature.get("objekttypnr") in kartsymboler) {
+        return new Style({
+          // zIndex: 5,
+          image: new Icon({
+            rotation: degToRad(360 - feature.get("rotation")) || 0,
+            rotateWithView: true,
+            src: kartsymboler[feature.get("objekttypnr")],
+            scale: 1.5,
+          }),
+        });
+      }
       // } else {
       //   console.table(feature.getProperties());
     }
