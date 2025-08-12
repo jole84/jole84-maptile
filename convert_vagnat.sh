@@ -22,15 +22,6 @@ ogr2ogr $OUTPUT_UNION \
     -sql @/home/johan/git/jole84-maptile/vagnat_union.sql \
     $OUTPUT
 
-# echo "Skapar förenklat vägnät..."
-# ogr2ogr "$HOME/Karta/NVDB/vagnat_simplified.gpkg" \
-#     -nln "TNE_FT_VAGDATA_SIMPLIFIED" \
-#     -nlt MULTILINESTRING \
-#     -progress \
-#     -skipfailures \
-#     -t_srs "EPSG:3857" \
-#     "$HOME/Karta/topografi250/kommunikation_sverige.gpkg" vaglinje
-
 echo "Skapar höjdhinderlager"
 ogr2ogr $OUTPUT \
     -t_srs "epsg:3857" \

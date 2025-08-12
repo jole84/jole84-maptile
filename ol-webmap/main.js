@@ -59,3 +59,12 @@ document.getElementById("checkbox1").addEventListener("change", () => {
   sessionStorage.vagkarta = document.getElementById("checkbox1").checked;
   localVector.getSource().refresh({ force: true })
 })
+
+document.addEventListener("keydown", function (event) {
+  if (event.key == "z") {
+    view.adjustRotation(0.2);
+  }
+  if (event.key == "x") {
+    view.adjustRotation(-0.2);
+  }
+});

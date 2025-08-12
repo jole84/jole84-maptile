@@ -402,17 +402,16 @@ export function styleStuff(feature, currentResolution) {
         }),
       })
     } else if (feature.get("layer") == "anlaggningsomradespunkt") {
-      try {
+      if (feature.get("andamal") in kartsymboler) {
         return new Style({
           image: new Icon({
             rotation: degToRad(360 - feature.get("rotation")),
             rotateWithView: !!feature.get("rotation"),
-            src: kartsymboler[feature.get("andamal")] || "https://jole84.se/kartsymboler/infotavla.svg",
+            src: kartsymboler[feature.get("andamal")],
           }),
         });
-      } catch {
-        console.log("error " + feature.get("objekttyp"));
-        console.log(feature.getProperties());
+      } else {
+        console.table(feature.getProperties());
       }
     } else if (feature.get("layer") == "Trafikplats") {
       return new Style({
@@ -501,7 +500,12 @@ export function styleStuff(feature, currentResolution) {
           }),
         }),
       ]
-    } else if (feature.get("layer") == "byggnadspunkt" || feature.get("layer") == "kultur_lamning_punkt") {
+    } else if (
+      feature.get("layer") == "byggnadspunkt" || 
+      feature.get("layer") == "kultur_lamning_punkt" || 
+      feature.get("layer") == "vagpunkt" || 
+      feature.get("layer") == "hydroanlaggningspunkt"
+    ) {
       if (feature.get("objekttypnr") in kartsymboler) {
         return new Style({
           // zIndex: 5,
@@ -512,9 +516,11 @@ export function styleStuff(feature, currentResolution) {
             scale: 1.5,
           }),
         });
+      } else {
+        console.table(feature.getProperties());
       }
-      // } else {
-      //   console.table(feature.getProperties());
+    } else {
+      console.table(feature.getProperties());
     }
   }
 }
