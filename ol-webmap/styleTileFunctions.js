@@ -198,7 +198,7 @@ export function styleStuff(feature, currentResolution) {
             stroke: new Stroke({
               color: "black",
               width: (feature.get("width") / 8),
-              lineDash: [5, 20],
+              lineDash: [6, 20],
               lineDashOffset: 10,
               lineCap: "square",
             }),
@@ -516,11 +516,11 @@ export function styleStuff(feature, currentResolution) {
             scale: 1.5,
           }),
         });
-      } else {
-        console.table(feature.getProperties());
+      // } else {
+      //   console.table(feature.getProperties());
       }
-    } else {
-      console.table(feature.getProperties());
+    // } else {
+    //   console.table(feature.getProperties());
     }
   }
 }
