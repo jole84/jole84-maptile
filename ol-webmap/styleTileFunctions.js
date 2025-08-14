@@ -134,7 +134,7 @@ const colorArray = {
   "Start- och landningsbana, linje": "#7d7d7d",
   "Start- och landningsbana": "#7d7d7d",
   "Traktorväg": "#ac7c45ff",
-  "Vattendrag": "#bfe6ffff",
+  "Vattendrag": "#00a6ff",
   "Vattendragsyta": "#bfe6ffff",
   "Vattenyta": "#bfe6ffff",
   "Åker": "#fff7a6ff",
@@ -238,7 +238,7 @@ export function styleStuff(feature, currentResolution) {
         zIndex: 2,
         stroke: new Stroke({
           color: "#df006840",
-          width: 8,
+          width: 12,
         }),
       });
     } else if (feature.get("layer") == "hojdlinje" && !vagkarta) {
@@ -319,8 +319,8 @@ export function styleStuff(feature, currentResolution) {
       return new Style({
         stroke: new Stroke({
           color: colorArray[feature.get("objekttyp")],
-          width: feature.get("storleksklass") * 2 || 3,
-          lineCap: "butt",
+          width: Number(feature.get("storleksklass")) || 3,
+          lineCap: "round",
         }),
       });
       // } else {
