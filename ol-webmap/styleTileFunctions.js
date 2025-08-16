@@ -436,7 +436,7 @@ export function styleStuff(feature, currentResolution) {
       return new Style({
         zIndex: 30,
         text: new Text({
-          declutterMode: "none",
+          // declutterMode: "none",
           text: feature.get("Fri_hojd").toFixed(1) + "m",
           rotateWithView: true,
           rotation: feature.get("rotation") - Math.PI,
@@ -446,7 +446,7 @@ export function styleStuff(feature, currentResolution) {
           }),
         }),
         image: new Icon({
-          declutterMode: "none",
+          // declutterMode: "none",
           rotateWithView: true,
           rotation: feature.get("rotation") - Math.PI,
           src: "https://jole84.se/kartsymboler/c17-1.svg",
@@ -511,7 +511,7 @@ export function styleStuff(feature, currentResolution) {
           // zIndex: 5,
           image: new Icon({
             rotation: degToRad(360 - feature.get("rotation")) || 0,
-            rotateWithView: true,
+            rotateWithView: feature.get("rotation") == 0 ? false : true,
             src: kartsymboler[feature.get("objekttypnr")],
             scale: 1.5,
           }),

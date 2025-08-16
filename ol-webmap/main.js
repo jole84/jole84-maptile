@@ -46,6 +46,7 @@ const map = new Map({
   target: 'map',
   layers: [localVector, remoteVector, tileDebug],
   view: view,
+  keyboardEventTarget: document,
 });
 
 map.on("singleclick", function (evt) {
@@ -72,18 +73,19 @@ function switchMap() {
 
 document.getElementById("layerSelector").addEventListener("change", () => {
   switchMap();
-})
+});
 
 view.addEventListener("change:resolution", () => {
   document.getElementById("info1").innerHTML = view.getZoom().toFixed(1);
   document.getElementById("info2").innerHTML = view.getResolution().toFixed(1);
-})
+});
 
 document.getElementById("checkbox1").checked = JSON.parse(sessionStorage.vagkarta || "false");
 document.getElementById("checkbox1").addEventListener("change", () => {
   sessionStorage.vagkarta = document.getElementById("checkbox1").checked;
-  localVector.getSource().refresh({ force: true })
-})
+  localVector.getSource().refresh({ force: true });
+  remoteVector.getSource().refresh({ force: true });
+});
 
 document.addEventListener("keydown", function (event) {
   if (event.key == "z") {

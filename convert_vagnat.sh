@@ -27,7 +27,7 @@ ogr2ogr $OUTPUT \
     -t_srs "epsg:3857" \
     -dialect sqlite \
     -append \
-    -sql "select Line_Interpolate_Point(SHAPE,0.5), Azimuth(StartPoint(SHAPE), EndPoint(SHAPE)) as rotation, Fri_h_143 as Fri_hojd from TNE_FT_VAGDATA where Fri_h_143 is not null and Vagtr_474 = 1 AND Shape_Length > 0.4" \
+    -sql "select Line_Interpolate_Point(SHAPE,0.5), Azimuth(StartPoint(SHAPE), EndPoint(SHAPE)) as rotation, Fri_h_143 as Fri_hojd from TNE_FT_VAGDATA where Fri_h_143 is not null and Vagtr_474 = 1" \
     -nln NVDB_DK_O_24_Hojdhinder45dm \
     -nlt MULTIPOINT \
     -update \
