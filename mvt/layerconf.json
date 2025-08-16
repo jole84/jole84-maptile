@@ -51,12 +51,12 @@
     },
     "ralstrafik1M": {
         "target_name": "ralstrafik",
-        "minzoom": 6,
-        "maxzoom": 7
+        "minzoom": 8,
+        "maxzoom": 8
     },
     "ralstrafik250": {
         "target_name": "ralstrafik",
-        "minzoom": 8,
+        "minzoom": 9,
         "maxzoom": 10
     },
     "ralstrafik100": {
@@ -89,6 +89,9 @@
         "minzoom": 10,
         "maxzoom": 14
     },
+
+
+
     "textpunkt1M++": {
         "target_name": "textpunkt",
         "minzoom": 5,
@@ -97,7 +100,7 @@
     "textpunkt1M+": {
         "target_name": "textpunkt",
         "minzoom": 7,
-        "maxzoom": 9
+        "maxzoom": 7
     },
     "textpunkt1M": {
         "target_name": "textpunkt",
@@ -114,6 +117,14 @@
         "minzoom": 11,
         "maxzoom": 12
     },
+    "textpunkt50": {
+        "target_name": "textpunkt",
+        "minzoom": 13,
+        "maxzoom": 14
+    },
+
+
+
     "vagpunkt50": {
         "target_name": "vagpunkt",
         "minzoom": 12,
@@ -129,18 +140,8 @@
         "minzoom": 12,
         "maxzoom": 14
     },
-    "textpunkt50": {
-        "target_name": "textpunkt",
-        "minzoom": 13,
-        "maxzoom": 14
-    },
     "kultur_lamning_punkt50": {
         "target_name": "kultur_lamning_punkt",
-        "minzoom": 12,
-        "maxzoom": 14
-    },
-    "hojdlinje100": {
-        "target_name": "hojdlinje",
         "minzoom": 12,
         "maxzoom": 14
     },
@@ -148,6 +149,11 @@
         "target_name": "hojdlinje",
         "minzoom": 10,
         "maxzoom": 11
+    },
+    "hojdlinje100": {
+        "target_name": "hojdlinje",
+        "minzoom": 12,
+        "maxzoom": 14
     },
     "landningsbana250": {
         "target_name": "landningsbana_linje",

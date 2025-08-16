@@ -11,12 +11,23 @@ const localVector = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVT(),
     url: './tiles/{z}/{x}/{y}.pbf',
-    // url: 'https://jole84.se/tiles/{z}/{x}/{y}.pbf',
     minZoom: 6,
     maxZoom: 14,
   }),
   declutter: true,
   style: styleStuff
+});
+
+const remoteVector = new VectorTileLayer({
+  source: new VectorTileSource({
+    format: new MVT(),
+    url: 'https://jole84.se/tiles/{z}/{x}/{y}.pbf',
+    minZoom: 6,
+    maxZoom: 14,
+  }),
+  declutter: true,
+  style: styleStuff,
+  visible: false,
 });
 
 const tileDebug = new TileLayer({
@@ -28,12 +39,12 @@ const tileDebug = new TileLayer({
 
 const view = new View({
   center: [1580736, 7925420],
-  zoom: 14
+  zoom: 12
 });
 
 const map = new Map({
   target: 'map',
-  layers: [localVector, tileDebug],
+  layers: [localVector, remoteVector, tileDebug],
   view: view,
 });
 
@@ -48,6 +59,20 @@ map.on("singleclick", function (evt) {
     }
   });
 });
+
+function switchMap() {
+  if (document.getElementById("layerSelector").value == "remote") {
+    localVector.setVisible(false);
+    remoteVector.setVisible(true);
+  } else {
+    localVector.setVisible(true);
+    remoteVector.setVisible(false);
+  }
+}
+
+document.getElementById("layerSelector").addEventListener("change", () => {
+  switchMap();
+})
 
 view.addEventListener("change:resolution", () => {
   document.getElementById("info1").innerHTML = view.getZoom().toFixed(1);
@@ -66,5 +91,13 @@ document.addEventListener("keydown", function (event) {
   }
   if (event.key == "x") {
     view.adjustRotation(-0.2);
+  }
+  if (event.key == "1") {
+    document.getElementById("layerSelector").value = "local";
+    switchMap();
+  }
+  if (event.key == "2") {
+    document.getElementById("layerSelector").value = "remote";
+    switchMap();
   }
 });

@@ -138,10 +138,10 @@
   </OGRVRTLayer>
 
 
-  <!-- <OGRVRTLayer name="ralstrafik1M">
+  <OGRVRTLayer name="ralstrafik1M">
     <SrcDataSource>/home/johan/Karta/topografi1M/kommunikation.gpkg</SrcDataSource>
     <SrcSQL>select geom, objekttyp from ralstrafik</SrcSQL>
-  </OGRVRTLayer> -->
+  </OGRVRTLayer>
 
   <OGRVRTLayer name="ralstrafik250">
     <SrcDataSource>/home/johan/Karta/topografi250/kommunikation.gpkg</SrcDataSource>
