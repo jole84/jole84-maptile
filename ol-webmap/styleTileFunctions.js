@@ -373,9 +373,9 @@ export function styleStuff(feature, currentResolution) {
   if (featureType == "Point") {
     if (feature.get("layer") == "textpunkt") {
       return new Style({
+        zIndex: (feature.get("textstorleksklass") * 10) || 100,
         text: new Text({
           declutterMode: "none",
-          zIndex: (feature.get("textstorleksklass") * 10) || 100,
           text: feature.get("textstrang"),
           textAlign: textAlign[feature.get("textlage")],
           textBaseline: textBaseline[feature.get("textlage")],
