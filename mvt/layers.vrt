@@ -314,35 +314,31 @@
 
   <OGRVRTLayer name="markkantlinje1M">
     <SrcDataSource>/home/johan/Karta/topografi1M/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2613, 2614,
-      2612, 2615, 2616)</SrcSQL>
+    <SrcSQL>SELECT Simplify(geom, 500), objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2612, 2613, 2614, 2615, 2616, 2625)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="markkantlinje250">
     <SrcDataSource>/home/johan/Karta/topografi250/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2613, 2614,
-      2612, 2615, 2616)</SrcSQL>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2612, 2613, 2614, 2615, 2616, 2625)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="markkantlinje100">
     <SrcDataSource>/home/johan/Karta/topografi100/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2613, 2614,
-      2612, 2615, 2616)</SrcSQL>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2612, 2613, 2614, 2615, 2616, 2625)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="mark1M">
     <SrcDataSource>/home/johan/Karta/topografi1M/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT Simplify(geom, 500), objekttyp, objekttypnr FROM mark</SrcSQL>
+    <SrcSQL>SELECT Simplify(geom, 500), objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2631, 2632, 2633, 2634, 2654)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="mark250">
     <SrcDataSource>/home/johan/Karta/topografi250/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark</SrcSQL>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2631, 2632, 2633, 2634, 2654)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="mark100">
     <SrcDataSource>/home/johan/Karta/topografi100/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2632, 2633,
-      2654, 2631, 2634)</SrcSQL>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2631, 2632, 2633, 2634, 2654)</SrcSQL>
   </OGRVRTLayer>
 </OGRVRTDataSource>
