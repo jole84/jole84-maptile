@@ -387,7 +387,7 @@ export function styleStuff(feature, currentResolution) {
           }),
           stroke: new Stroke({
             color: "white",
-            width: 4,
+            width: Number(feature.get("textstorleksklass") * 0.5) + 3,
           }),
         }),
       });
