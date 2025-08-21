@@ -89,9 +89,6 @@
         "minzoom": 10,
         "maxzoom": 14
     },
-
-
-
     "textpunkt1M++": {
         "target_name": "textpunkt",
         "minzoom": 5,
@@ -122,9 +119,6 @@
         "minzoom": 13,
         "maxzoom": 14
     },
-
-
-
     "vagpunkt50": {
         "target_name": "vagpunkt",
         "minzoom": 12,
@@ -168,6 +162,11 @@
     "landningsbana50": {
         "target_name": "landningsbana",
         "minzoom": 13,
+        "maxzoom": 14
+    },
+    "byggnadsanlaggningspunkt100": {
+        "target_name": "byggnadsanlaggningspunkt",
+        "minzoom": 12,
         "maxzoom": 14
     },
     "byggnadspunkt100": {

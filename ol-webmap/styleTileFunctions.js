@@ -68,6 +68,8 @@ const kartsymboler = {
   1922: "https://jole84.se/kartsymboler/slussport.svg",
   1923: "https://jole84.se/kartsymboler/dammbyggnad.svg",
   2016: "https://jole84.se/kartsymboler/cistern.svg", // Klockstapel
+  2019: "https://jole84.se/kartsymboler/mast.svg",
+  2022: "https://jole84.se/kartsymboler/skorsten.svg",
   2025: "https://jole84.se/kartsymboler/vindkraft.svg",
   2033: "https://jole84.se/kartsymboler/fjallstation.svg",
   2034: "https://jole84.se/kartsymboler/hus_herrgard.svg",
@@ -501,10 +503,13 @@ export function styleStuff(feature, currentResolution) {
         }),
       ]
     } else if (
-      feature.get("layer") == "byggnadspunkt" || 
-      feature.get("layer") == "kultur_lamning_punkt" || 
-      feature.get("layer") == "vagpunkt" || 
-      feature.get("layer") == "hydroanlaggningspunkt"
+      [
+        "byggnadspunkt",
+        "byggnadsanlaggningspunkt",
+        "kultur_lamning_punkt",
+        "vagpunkt",
+        "hydroanlaggningspunkt",
+      ].includes(feature.get("layer"))
     ) {
       if (feature.get("objekttypnr") in kartsymboler) {
         return new Style({
@@ -516,11 +521,11 @@ export function styleStuff(feature, currentResolution) {
             scale: 1.5,
           }),
         });
+        // } else {
+        //   console.table(feature.getProperties());
+      }
       // } else {
       //   console.table(feature.getProperties());
-      }
-    // } else {
-    //   console.table(feature.getProperties());
     }
   }
 }
