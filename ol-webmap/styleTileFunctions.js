@@ -110,12 +110,15 @@ const colorArray = {
   "Anlagt vatten": "#bfe6ffff",
   "Barr- och blandskog": "#d4eeb7ff",
   "Bebyggelse": "#eebf8fff",
+  "belagd": "#000000",
+  "bidrag": "#ac7c45",
   "Djurskyddsområde": "#77e250a6",
   "Ej karterat område": "#bfe6ffff",
   "Elljusspår": "#fff201ff",
   "Fjällbjörkskog": "#d9f5d1ff",
   "Fruktodling": "#fff7a6ff",
   "Glaciär": "#ffffffff",
+  "grus": "#ac7c45",
   "Gångstig": "#6e6e6eff",
   "Hav": "#bfe6ffff",
   "Hög bebyggelse": "#eebf8fff",
@@ -128,13 +131,15 @@ const colorArray = {
   "Militärt övningsfält": "#00a6e6ff",
   "Nationalpark": "#77e250a6",
   "Naturreservat": "#77e250a6",
-  'Naturvårdsområde': "#4fba2898",
+  "Naturvårdsområde": "#4fba2898",
+  "ovrigvag": "#ff0000",
   "rondell": '#007dff',
   "Sjö": "#bfe6ffff",
   "Skog": "#d4eeb7ff",
   "Sluten bebyggelse": "#d99461ff",
   "Start- och landningsbana, linje": "#7d7d7d",
   "Start- och landningsbana": "#7d7d7d",
+  "stratvag": "#000000",
   "Traktorväg": "#ac7c45ff",
   "Vattendrag": "#00a6ff",
   "Vattendragsyta": "#bfe6ffff",
@@ -147,11 +152,14 @@ const colorArrayVagkarta = {
   "Anlagt vatten": "#bfe6ffff",
   "Barr- och blandskog": "#ededed",
   "Bebyggelse": "#d4d4d4",
+  "belagd": "#000000",
+  "bidrag": "#bababa",
   "Ej karterat område": "#bfe6ffff",
   "Elljusspår": "#fff201ff",
   "Fjällbjörkskog": "#ededed",
   "Fruktodling": "#ededed",
   "Glaciär": "#ffffff",
+  "grus": "#bababa",
   "Gångstig": "#6e6e6eff",
   "Hav": "#bfe6ffff",
   "Hög bebyggelse": "#cecece",
@@ -162,12 +170,14 @@ const colorArrayVagkarta = {
   "Lövskog": "#ededed",
   "Militärt skjutfält": "#00a6e6ff",
   "Militärt övningsfält": "#00a6e6ff",
+  "ovrigvag": "#ff0000",
   "rondell": '#007dff',
   "Sjö": "#bfe6ffff",
   "Skog": "#ededed",
   "Sluten bebyggelse": "#b9b9b9",
   "Start- och landningsbana, linje": "#7d7d7d",
   "Start- och landningsbana": "#7d7d7d",
+  "stratvag": "#2baf2b",
   "Traktorväg": "#bababa",
   "Vattendrag": "#bfe6ffff",
   "Vattendragsyta": "#bfe6ffff",
@@ -185,12 +195,12 @@ export function styleStuff(feature, currentResolution) {
   const featureType = feature.getGeometry().getType();
   if (featureType == "LineString" || featureType == "MultiLineString") {
     if (feature.get("layer") == "TNE_FT_VAGDATA") {
-      if (feature.get("bidrag") && localStorage.mapMode == 0) {
+      if (feature.get("vagtyp") == "bidrag" && localStorage.mapMode == 0) {
         return [
           new Style({
             zIndex: 10 - feature.get("Klass_181"),
             stroke: new Stroke({
-              color: feature.get("color"),
+              color: colorArray["grus"],
               width: feature.get("width") / 10,
             }),
           }),
@@ -207,9 +217,9 @@ export function styleStuff(feature, currentResolution) {
         ];
       }
       return new Style({
-        zIndex: feature.get("color") == '#007dff' ? 100 : (10 - feature.get("Klass_181")),
+        zIndex: feature.get("vagtyp") == 'rondell' ? 100 : (10 - feature.get("Klass_181")),
         stroke: new Stroke({
-          color: localStorage.mapMode == 0 ? feature.get("color") : feature.get("colorstratvag"),
+          color: localStorage.mapMode == 0 ? colorArray[feature.get("vagtyp")] : colorArrayVagkarta[feature.get("vagtyp")],
           width: feature.get("width") / 8,
           lineCap: "round",
         }),
@@ -433,7 +443,7 @@ export function styleStuff(feature, currentResolution) {
           scale: 0.18,
         }),
       })
-    } else if (feature.get("layer") == "NVDB_DK_O_24_Hojdhinder45dm" && (localStorage.mapMode == 1 || localStorage.mapMode == 2)) {
+    } else if (feature.get("layer") == "NVDB_DK_O_24_Hojdhinder45dm" && localStorage.mapMode != 0) {
       return new Style({
         zIndex: 30,
         text: new Text({

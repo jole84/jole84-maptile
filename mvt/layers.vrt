@@ -2,65 +2,48 @@
   <!-- < = &lt; > = &gt; -->
   <OGRVRTLayer name="TNE_FT_VAGDATA">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select Shape, Klass_181, Namn_130, F_Hogst_225 AS maxspeed,
-      Slitl_152, Evag_555, Huvnr_556_1,
+    <SrcSQL>select Shape, Klass_181, Namn_130, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
-      WHEN F_Cirkulationsplats != 0 THEN '#007dff'
-      WHEN B_Cirkulationsplats != 0 THEN '#007dff'
-      WHEN Slitl_152 = 1 THEN '#000000'
-      WHEN Slitl_152 = 2 THEN '#ac7c45'
-      ELSE '#ff0000ff'
-      END color,
+      WHEN F_Cirkulationsplats != 0 THEN 'rondell'
+      WHEN B_Cirkulationsplats != 0 THEN 'rondell'
+      WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
+      WHEN Vagna_406 AND Slitl_152 = 1 NOT NULL THEN 'stratvag'
+      WHEN Slitl_152 = 1 THEN 'belagd'
+      WHEN Slitl_152 = 2 THEN 'grus'
+      ELSE 'ovrigvag'
+      END vagtyp,
 
       CASE
-      WHEN F_Cirkulationsplats != 0 OR B_Cirkulationsplats != 0 THEN '#007dff'
-      WHEN Vagna_406 AND Slitl_152 = 1 NOT NULL THEN '#2baf2b'
-      WHEN Slitl_152 = 1 THEN '#000000'
-      WHEN Slitl_152 = 2 THEN '#bababa'
-      ELSE '#ff0000ff'
-      END colorstratvag,
-
-      CASE
+      WHEN F_Cirkulationsplats != 0 THEN 40
+      WHEN B_Cirkulationsplats != 0 THEN 40
       WHEN Slitl_152 = 2 AND Bredd_156 &lt;= 6 THEN Bredd_156 * 9
       WHEN Slitl_152 = 1 THEN F_Hogst_225 / 2
 
       ELSE 20
-      END width,
-
-      CASE WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 1 END bidrag
+      END width
 
       from TNE_FT_VAGDATA</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_100">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select Shape, Klass_181, F_Hogst_225 AS maxspeed,
-      Slitl_152, Evag_555, Huvnr_556_1,
+    <SrcSQL>select Shape, Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
-      WHEN F_Cirkulationsplats != 0 OR B_Cirkulationsplats != 0 THEN '#007dff'
-      WHEN Slitl_152 = 1 THEN '#000000'
-      WHEN Slitl_152 = 2 THEN '#ac7c45'
-      ELSE '#ff0000ff'
-      END color,
-
-      CASE
-      WHEN F_Cirkulationsplats != 0 OR B_Cirkulationsplats != 0 THEN '#007dff'
-      WHEN Vagna_406 AND Slitl_152 = 1 NOT NULL THEN '#2baf2b'
-      WHEN Slitl_152 = 1 THEN '#000000'
-      WHEN Slitl_152 = 2 THEN '#bababa'
-      ELSE '#ff0000ff'
-      END colorstratvag,
+      WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
+      WHEN Vagna_406 AND Slitl_152 = 1 NOT NULL THEN 'stratvag'
+      WHEN Slitl_152 = 1 THEN 'belagd'
+      WHEN Slitl_152 = 2 THEN 'grus'
+      ELSE 'ovrigvag'
+      END vagtyp,
 
       CASE
       WHEN Slitl_152 = 2 AND Bredd_156 &lt;= 6 THEN Bredd_156 * 6
       WHEN Slitl_152 = 1 THEN F_Hogst_225 / 3
 
       ELSE 20
-      END width,
-
-      CASE WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 1 END bidrag
+      END width
 
       from TNE_FT_VAGDATA WHERE
       TattbebyggtOmrade != -1 OR
@@ -70,25 +53,16 @@
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_250">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select Shape, Klass_181, F_Hogst_225 AS maxspeed,
-      Slitl_152, Evag_555, Huvnr_556_1,
+    <SrcSQL>select Shape, Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
-      WHEN Slitl_152 = 1 THEN '#000000'
-      WHEN Slitl_152 = 2 THEN '#ac7c45'
-      ELSE '#ff0000ff'
-      END color,
+      WHEN Vagna_406 AND Slitl_152 = 1 NOT NULL THEN 'stratvag'
+      WHEN Slitl_152 = 1 THEN 'belagd'
+      WHEN Slitl_152 = 2 THEN 'grus'
+      ELSE 'ovrigvag'
+      END vagtyp,
 
-      CASE
-      WHEN Vagna_406 AND Slitl_152 = 1 NOT NULL THEN '#2baf2b'
-      WHEN Slitl_152 = 1 THEN '#000000'
-      WHEN Slitl_152 = 2 THEN '#bababa'
-      ELSE '#ff0000ff'
-      END colorstratvag,
-
-      F_Hogst_225 / 4 AS width,
-
-      CASE WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 1 END bidrag
+      F_Hogst_225 / 4 AS width
 
       from TNE_FT_VAGDATA WHERE
       Slitl_152 = 1 AND
