@@ -111,4 +111,12 @@ document.addEventListener("keydown", function (event) {
     localVector.getSource().refresh({ force: true });
     remoteVector.getSource().refresh({ force: true });
   }
+  if (event.code == "Space") {
+    if (document.getElementById("layerSelector").value == "local") {
+      document.getElementById("layerSelector").value = "remote";
+    } else {
+      document.getElementById("layerSelector").value = "local";
+    }
+    switchMap();
+  }
 });

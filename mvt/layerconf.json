@@ -164,14 +164,19 @@
         "minzoom": 13,
         "maxzoom": 14
     },
-    "byggnadsanlaggningspunkt100": {
+    "byggnadsanlaggningspunkt50": {
         "target_name": "byggnadsanlaggningspunkt",
         "minzoom": 12,
         "maxzoom": 14
     },
-    "byggnadspunkt100": {
+    "byggnadspunkt50": {
         "target_name": "byggnadspunkt",
         "minzoom": 12,
+        "maxzoom": 12
+    },
+    "byggnadspunkt50+": {
+        "target_name": "byggnadspunkt",
+        "minzoom": 13,
         "maxzoom": 14
     },
     "byggnad100": {
