@@ -7,6 +7,8 @@ import MVT from 'ol/format/MVT.js';
 import TileDebug from 'ol/source/TileDebug.js';
 import { styleStuff } from './styleTileFunctions';
 
+localStorage.mapMode = localStorage.mapMode || 0;
+
 const localVector = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVT(),
@@ -71,18 +73,21 @@ function switchMap() {
   }
 }
 
+document.getElementById("layerSelector").value = sessionStorage.layerSelector || "local";
 document.getElementById("layerSelector").addEventListener("change", () => {
+  sessionStorage.layerSelector = document.getElementById("layerSelector").value;
   switchMap();
 });
+switchMap();
 
 view.addEventListener("change:resolution", () => {
   document.getElementById("info1").innerHTML = view.getZoom().toFixed(1);
   document.getElementById("info2").innerHTML = view.getResolution().toFixed(1);
 });
 
-document.getElementById("checkbox1").checked = JSON.parse(sessionStorage.vagkarta || "false");
-document.getElementById("checkbox1").addEventListener("change", () => {
-  sessionStorage.vagkarta = document.getElementById("checkbox1").checked;
+document.getElementById("mapMode").value = localStorage.mapMode || 0;
+document.getElementById("mapMode").addEventListener("change", () => {
+  localStorage.mapMode = document.getElementById("mapMode").value;
   localVector.getSource().refresh({ force: true });
   remoteVector.getSource().refresh({ force: true });
 });
@@ -94,12 +99,16 @@ document.addEventListener("keydown", function (event) {
   if (event.key == "x") {
     view.adjustRotation(-0.2);
   }
-  if (event.key == "1") {
-    document.getElementById("layerSelector").value = "local";
-    switchMap();
+  if (event.key == "0") {
+    localStorage.mapMode = 0;
+    document.getElementById("mapMode").value = "0";
+    localVector.getSource().refresh({ force: true });
+    remoteVector.getSource().refresh({ force: true });
   }
-  if (event.key == "2") {
-    document.getElementById("layerSelector").value = "remote";
-    switchMap();
+  if (event.key == "1") {
+    localStorage.mapMode = 1;
+    document.getElementById("mapMode").value = "1";
+    localVector.getSource().refresh({ force: true });
+    remoteVector.getSource().refresh({ force: true });
   }
 });

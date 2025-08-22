@@ -183,10 +183,9 @@ const dashPolygon = [
 
 export function styleStuff(feature, currentResolution) {
   const featureType = feature.getGeometry().getType();
-  const vagkarta = JSON.parse(sessionStorage.vagkarta || "false");
   if (featureType == "LineString" || featureType == "MultiLineString") {
     if (feature.get("layer") == "TNE_FT_VAGDATA") {
-      if (feature.get("bidrag") && !vagkarta) {
+      if (feature.get("bidrag") && localStorage.mapMode == 0) {
         return [
           new Style({
             zIndex: 10 - feature.get("Klass_181"),
@@ -210,7 +209,7 @@ export function styleStuff(feature, currentResolution) {
       return new Style({
         zIndex: feature.get("color") == '#007dff' ? 100 : (10 - feature.get("Klass_181")),
         stroke: new Stroke({
-          color: vagkarta ? feature.get("colorstratvag") : feature.get("color"),
+          color: localStorage.mapMode == 0 ? feature.get("color") : feature.get("colorstratvag"),
           width: feature.get("width") / 8,
           lineCap: "round",
         }),
@@ -227,7 +226,17 @@ export function styleStuff(feature, currentResolution) {
           }),
         }),
       });
-    } else if (feature.get("layer") == "markkantlinje" && !vagkarta) {
+    } else if (feature.get("layer") == "traktor" && localStorage.mapMode == 0) {
+      return new Style({
+        stroke: new Stroke({
+          color: "#ac7c45",
+          width: 3,
+          lineDash: [10, 10],
+          lineDashOffset: 10,
+          lineCap: "square",
+        }),
+      });
+    } else if (feature.get("layer") == "markkantlinje" && localStorage.mapMode == 0) {
       return new Style({
         zIndex: 2,
         stroke: new Stroke({
@@ -235,7 +244,7 @@ export function styleStuff(feature, currentResolution) {
           width: 1,
         }),
       });
-    } else if (feature.get("layer") == "kurvighet" && !vagkarta) {
+    } else if (feature.get("layer") == "kurvighet" && localStorage.mapMode == 0) {
       return new Style({
         zIndex: 2,
         stroke: new Stroke({
@@ -243,7 +252,7 @@ export function styleStuff(feature, currentResolution) {
           width: 12,
         }),
       });
-    } else if (feature.get("layer") == "hojdlinje" && !vagkarta) {
+    } else if (feature.get("layer") == "hojdlinje" && localStorage.mapMode == 0) {
       return new Style({
         stroke: new Stroke({
           color: "#00000049",
@@ -255,16 +264,6 @@ export function styleStuff(feature, currentResolution) {
         stroke: new Stroke({
           color: "#000000a2",
           width: 2,
-        }),
-      });
-    } else if (feature.get("layer") == "traktor" && !vagkarta) {
-      return new Style({
-        stroke: new Stroke({
-          color: "#ac7c45",
-          width: 3,
-          lineDash: [10, 10],
-          lineDashOffset: 10,
-          lineCap: "square",
         }),
       });
     } else if (feature.get("layer") == "vaglinje") {
@@ -333,7 +332,7 @@ export function styleStuff(feature, currentResolution) {
 
   if (featureType == "Polygon" || featureType == "MultiPolygon") {
     if (
-      (feature.get("layer") == "skyddadnatur" && !vagkarta) ||
+      (feature.get("layer") == "skyddadnatur" && localStorage.mapMode == 0) ||
       feature.get("layer") == "militart_omrade"
     ) {
       // no fill only border
@@ -364,7 +363,7 @@ export function styleStuff(feature, currentResolution) {
     } else if (feature.get("layer") == "mark") {
       return new Style({
         fill: new Fill({
-          color: vagkarta ? colorArrayVagkarta[feature.get("objekttyp")] : colorArray[feature.get("objekttyp")],
+          color: localStorage.mapMode == 0 ? colorArray[feature.get("objekttyp")] : colorArrayVagkarta[feature.get("objekttyp")],
         }),
       });
       // } else {
@@ -434,7 +433,7 @@ export function styleStuff(feature, currentResolution) {
           scale: 0.18,
         }),
       })
-    } else if (feature.get("layer") == "NVDB_DK_O_24_Hojdhinder45dm" && vagkarta) {
+    } else if (feature.get("layer") == "NVDB_DK_O_24_Hojdhinder45dm" && (localStorage.mapMode == 1 || localStorage.mapMode == 2)) {
       return new Style({
         zIndex: 30,
         text: new Text({
