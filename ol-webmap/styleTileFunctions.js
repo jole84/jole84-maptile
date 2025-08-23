@@ -53,7 +53,7 @@ const kartsymboler = {
   "Galoppbana": "https://jole84.se/kartsymboler/idrott_anlaggning.svg",
   "Gästhamn": "https://jole84.se/kartsymboler/gasthamn.svg",
   "Hamn": "https://jole84.se/kartsymboler/gasthamn.svg",
-  "Idrottsanläggning": "https://jole84.se/kartsymboler/idrott_anlaggning.svg",
+  // "Idrottsanläggning": "https://jole84.se/kartsymboler/idrott_anlaggning.svg",
   "Skjutbana, mindre": "https://jole84.se/kartsymboler/idrott_skjutbana_liten.svg",
   "Skjutbana": "https://jole84.se/kartsymboler/idrott_skjutbana.svg",
   "Småbåtshamn": "https://jole84.se/kartsymboler/gasthamn.svg",
@@ -421,8 +421,8 @@ export function styleStuff(feature, currentResolution) {
             src: kartsymboler[feature.get("andamal")],
           }),
         });
-      } else {
-        console.table(feature.getProperties());
+      // } else {
+      //   console.table(feature.getProperties());
       }
     } else if (feature.get("layer") == "Trafikplats") {
       return new Style({

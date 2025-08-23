@@ -254,6 +254,11 @@
     <SrcSQL>select geom, objekttyp, objekttypnr, rotation from byggnadsanlaggningspunkt</SrcSQL>
   </OGRVRTLayer>
 
+  <OGRVRTLayer name="byggnadspunkt50-">
+    <SrcDataSource>/home/johan/Karta/topografi50/byggnadsverk.gpkg</SrcDataSource>
+    <SrcSQL>select geom, objekttyp, objekttypnr, rotation from byggnadspunkt WHERE objekttypnr IN (1051, 2035, 2038, 2025, 1047)</SrcSQL>
+  </OGRVRTLayer>
+
   <OGRVRTLayer name="byggnadspunkt50">
     <SrcDataSource>/home/johan/Karta/topografi50/byggnadsverk.gpkg</SrcDataSource>
     <SrcSQL>select geom, objekttyp, objekttypnr, rotation from byggnadspunkt WHERE objekttypnr NOT IN (2045, 2046)</SrcSQL>
