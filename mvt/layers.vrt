@@ -48,7 +48,8 @@
       from TNE_FT_VAGDATA WHERE
       TattbebyggtOmrade != -1 OR
       Vagna_406 OR
-      Klass_181 &lt;= 5</SrcSQL>
+      Klass_181 &lt;= 5 OR
+      Huvnr_556_1 IS NOT NULL</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_250">
@@ -68,7 +69,8 @@
       Slitl_152 = 1 AND
       (TattbebyggtOmrade != -1 OR
       Vagna_406 OR
-      Klass_181 &lt;= 5)</SrcSQL>
+      Klass_181 &lt;= 5 OR
+      Huvnr_556_1 IS NOT NULL)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="vaglinje1M+">
