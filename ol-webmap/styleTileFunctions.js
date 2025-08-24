@@ -215,15 +215,18 @@ export function styleStuff(feature, currentResolution) {
   const featureType = feature.getGeometry().getType();
   if (featureType == "LineString" || featureType == "MultiLineString") {
     if (feature.get("layer") == "TNE_FT_VAGDATA") {
-      if (feature.get("vagtyp") == "bidrag" && localStorage.mapMode == 0) {
-        return [
-          new Style({
-            zIndex: 10 - feature.get("Klass_181"),
-            stroke: new Stroke({
-              color: colorArray["grus"],
-              width: feature.get("width") / 10,
-            }),
+      const styleArray = [
+        new Style({
+          zIndex: feature.get("vagtyp") == 'rondell' ? 100 : (10 - feature.get("Klass_181")),
+          stroke: new Stroke({
+            color: localStorage.mapMode == 0 ? colorArray[feature.get("vagtyp")] : colorArrayVagkarta[feature.get("vagtyp")],
+            width: feature.get("width") / 8,
+            lineCap: "round",
           }),
+        })
+      ];
+      if (feature.get("vagtyp") == "bidrag" && localStorage.mapMode == 0) {
+        styleArray.push(
           new Style({
             zIndex: 10 - feature.get("Klass_181"),
             stroke: new Stroke({
@@ -234,48 +237,51 @@ export function styleStuff(feature, currentResolution) {
               lineCap: "square",
             }),
           }),
-        ];
+        )
       }
-      // new Style({
-      //   text: new Text({
-      //     text: feature.get("Evag_555") < 0 ? "E" + feature.get("Huvnr_556_1") : feature.get("Huvnr_556_1"),
-      //     font: "12px arial, sans-serif",
-      //     placement: "point",
-      //     padding: [
-      //       50,
-      //       50,
-      //       50,
-      //       50
-      //     ],
-      //     fill: new Fill({
-      //       color: "white",
-      //     }),
-      //     stroke: new Stroke({
-      //       color: feature.get("Evag_555") < 0 ? "#4daf4a" : "#377eb8",
-      //       width: 10,
-      //     }),
-      //   }),
-      // }),
-      return new Style({
-        zIndex: feature.get("vagtyp") == 'rondell' ? 100 : (10 - feature.get("Klass_181")),
-        stroke: new Stroke({
-          color: localStorage.mapMode == 0 ? colorArray[feature.get("vagtyp")] : colorArrayVagkarta[feature.get("vagtyp")],
-          width: feature.get("width") / 8,
-          lineCap: "round",
-        }),
-        text: new Text({
-          text: feature.get("Namn_130"),
-          font: "12px arial, sans-serif",
-          placement: "line",
-          fill: new Fill({
-            color: "black",
-          }),
-          stroke: new Stroke({
-            color: "white",
-            width: 4,
-          }),
-        }),
-      });
+      if (currentResolution < 10) {
+        styleArray.push(
+          new Style({
+            text: new Text({
+              text: feature.get("Namn_130"),
+              font: "12px arial, sans-serif",
+              placement: "line",
+              fill: new Fill({
+                color: "black",
+              }),
+              stroke: new Stroke({
+                color: "white",
+                width: 4,
+              }),
+            }),
+          })
+        )
+      }
+      if (feature.get("Huvnr_556_1") < 500) {
+        styleArray.push(
+          new Style({
+            text: new Text({
+              text: feature.get("Evag_555") < 0 ? "E" + feature.get("Huvnr_556_1") : feature.get("Huvnr_556_1"),
+              font: "14px arial, sans-serif",
+              placement: "point",
+              padding: [
+                50,
+                50,
+                50,
+                50
+              ],
+              fill: new Fill({
+                color: "white",
+              }),
+              stroke: new Stroke({
+                color: feature.get("Evag_555") < 0 ? "#4daf4a" : "#377eb8",
+                width: 10,
+              }),
+            }),
+          })
+        )
+      }
+      return styleArray;
     } else if (feature.get("layer") == "traktor" && localStorage.mapMode == 0) {
       return new Style({
         stroke: new Stroke({
