@@ -41,7 +41,8 @@ const tileDebug = new TileLayer({
 
 const view = new View({
   center: JSON.parse(localStorage.centerCoordinate || "[1580736, 7925420]"),
-  zoom: JSON.parse(localStorage.centerZoom || "12")
+  zoom: JSON.parse(localStorage.centerZoom || "12"),
+  maxZoom: 20,
 });
 
 const map = new Map({
@@ -64,6 +65,7 @@ map.on("singleclick", function (evt) {
 });
 
 function switchMap() {
+  sessionStorage.layerSelector = document.getElementById("layerSelector").value;
   if (document.getElementById("layerSelector").value == "remote") {
     localVector.setVisible(false);
     remoteVector.setVisible(true);
@@ -75,7 +77,6 @@ function switchMap() {
 
 document.getElementById("layerSelector").value = sessionStorage.layerSelector || "local";
 document.getElementById("layerSelector").addEventListener("change", () => {
-  sessionStorage.layerSelector = document.getElementById("layerSelector").value;
   switchMap();
 });
 switchMap();
@@ -84,6 +85,9 @@ window.onbeforeunload = function () {
   localStorage.centerCoordinate = JSON.stringify(view.getCenter());
   localStorage.centerZoom = view.getZoom();
 }
+
+document.getElementById("info1").innerHTML = view.getZoom().toFixed(1);
+document.getElementById("info2").innerHTML = view.getResolution().toFixed(1);
 
 view.addEventListener("change:resolution", () => {
   document.getElementById("info1").innerHTML = view.getZoom().toFixed(1);

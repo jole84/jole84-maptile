@@ -192,22 +192,23 @@ const dashPolygon = [
 ]
 
 function getTextFont(feature) {
-  let textStyle = "";
-  if ([
+  const italicText = [
+    "Administrativ indelning",
+    "Fjällupplysningstext",
+    "Hydrografi",
+    "Kulturhistorisk lämning",
     "Skyddad natur",
     "Terrängnamn",
-    "Hydrografi",
-    "Fjällupplysningstext",
-    "Administrativ indelning",
-    "Kulturhistorisk lämning",
-    "Upplysningstext"
-  ].includes(feature.get("textkategori"))) {
-    textStyle += "italic ";
-  }
-  // if (["Kyrka"].includes(feature.get("textkategori"))) {
-  //   textStyle += "bold ";
-  // }
-  return textStyle += Number((feature.get("textstorleksklass") * 4) + 6) + "px arial, sans-serif";
+    "Upplysningstext",
+  ];
+
+  // const boldText = [
+  //   "Kyrka"
+  // ];
+
+  return (italicText.includes(feature.get("textkategori")) ? "italic " : "") +
+    ((feature.get("textstorleksklass") * 4) + 6) +
+    "px arial, sans-serif";
 }
 
 export function styleStuff(feature, currentResolution) {
@@ -235,6 +236,26 @@ export function styleStuff(feature, currentResolution) {
           }),
         ];
       }
+      // new Style({
+      //   text: new Text({
+      //     text: feature.get("Evag_555") < 0 ? "E" + feature.get("Huvnr_556_1") : feature.get("Huvnr_556_1"),
+      //     font: "12px arial, sans-serif",
+      //     placement: "point",
+      //     padding: [
+      //       50,
+      //       50,
+      //       50,
+      //       50
+      //     ],
+      //     fill: new Fill({
+      //       color: "white",
+      //     }),
+      //     stroke: new Stroke({
+      //       color: feature.get("Evag_555") < 0 ? "#4daf4a" : "#377eb8",
+      //       width: 10,
+      //     }),
+      //   }),
+      // }),
       return new Style({
         zIndex: feature.get("vagtyp") == 'rondell' ? 100 : (10 - feature.get("Klass_181")),
         stroke: new Stroke({
