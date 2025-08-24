@@ -239,7 +239,7 @@ export function styleStuff(feature, currentResolution) {
           }),
         )
       }
-      if (currentResolution < 10) {
+      if (currentResolution < 9) {
         styleArray.push(
           new Style({
             zIndex: 10,
@@ -261,7 +261,7 @@ export function styleStuff(feature, currentResolution) {
       if (feature.get("Huvnr_556_1") < 500 && !feature.get("Namn_130")) {
         styleArray.push(
           new Style({
-            zIndex: 20,
+            zIndex: 10,
             text: new Text({
               text: feature.get("Evag_555") < 0 ? "E" + String(feature.get("Huvnr_556_1")) : String(feature.get("Huvnr_556_1")),
               font: "14px arial, sans-serif",
@@ -477,7 +477,7 @@ export function styleStuff(feature, currentResolution) {
         zIndex: 20,
         text: new Text({
           offsetX: 12,
-          offsetY: 2,
+          offsetY: 1,
           declutterMode: "none",
           text: feature.get("trafikplatsnummer"),
           font: "bold 16px arial, sans-serif",
