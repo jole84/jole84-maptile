@@ -257,7 +257,7 @@ export function styleStuff(feature, currentResolution) {
           })
         )
       }
-      if (feature.get("Huvnr_556_1") < 500) {
+      if (feature.get("Huvnr_556_1") < 500 && !feature.get("Namn_130")) {
         styleArray.push(
           new Style({
             text: new Text({
