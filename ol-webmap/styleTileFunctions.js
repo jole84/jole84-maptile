@@ -191,6 +191,25 @@ const dashPolygon = [
   "Kulturreservat",
 ]
 
+function getTextFont(feature) {
+  let textStyle = "";
+  if ([
+    "Skyddad natur",
+    "Terrängnamn",
+    "Hydrografi",
+    "Fjällupplysningstext",
+    "Administrativ indelning",
+    "Kulturhistorisk lämning",
+    "Upplysningstext"
+  ].includes(feature.get("textkategori"))) {
+    textStyle += "italic ";
+  }
+  // if (["Kyrka"].includes(feature.get("textkategori"))) {
+  //   textStyle += "bold ";
+  // }
+  return textStyle += Number((feature.get("textstorleksklass") * 4) + 6) + "px arial, sans-serif";
+}
+
 export function styleStuff(feature, currentResolution) {
   const featureType = feature.getGeometry().getType();
   if (featureType == "LineString" || featureType == "MultiLineString") {
@@ -392,13 +411,13 @@ export function styleStuff(feature, currentResolution) {
           textBaseline: textBaseline[feature.get("textlage")],
           rotation: degToRad(360 - feature.get("textriktning")),
           rotateWithView: !!feature.get("textriktning"),
-          font: (feature.get("textstorleksklass") * 4) + 5 + "px arial, sans-serif",
+          font: getTextFont(feature),
           fill: new Fill({
             color: textColor[feature.get("textkategori")] || "black",
           }),
           stroke: new Stroke({
             color: "white",
-            width: Number(feature.get("textstorleksklass") * 0.4) + 3,
+            width: Number(feature.get("textstorleksklass") * 0.3) + 3,
           }),
         }),
       });
@@ -421,8 +440,8 @@ export function styleStuff(feature, currentResolution) {
             src: kartsymboler[feature.get("andamal")],
           }),
         });
-      // } else {
-      //   console.table(feature.getProperties());
+        // } else {
+        //   console.table(feature.getProperties());
       }
     } else if (feature.get("layer") == "Trafikplats") {
       return new Style({

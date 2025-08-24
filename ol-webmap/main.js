@@ -40,8 +40,8 @@ const tileDebug = new TileLayer({
 });
 
 const view = new View({
-  center: [1580736, 7925420],
-  zoom: 12
+  center: JSON.parse(localStorage.centerCoordinate || "[1580736, 7925420]"),
+  zoom: JSON.parse(localStorage.centerZoom || "12")
 });
 
 const map = new Map({
@@ -79,6 +79,11 @@ document.getElementById("layerSelector").addEventListener("change", () => {
   switchMap();
 });
 switchMap();
+
+window.onbeforeunload = function () {
+  localStorage.centerCoordinate = JSON.stringify(view.getCenter());
+  localStorage.centerZoom = view.getZoom();
+}
 
 view.addEventListener("change:resolution", () => {
   document.getElementById("info1").innerHTML = view.getZoom().toFixed(1);
