@@ -261,7 +261,7 @@ export function styleStuff(feature, currentResolution) {
         styleArray.push(
           new Style({
             text: new Text({
-              text: feature.get("Evag_555") < 0 ? "E" + feature.get("Huvnr_556_1") : feature.get("Huvnr_556_1"),
+              text: feature.get("Evag_555") < 0 ? "E" + String(feature.get("Huvnr_556_1")) : String(feature.get("Huvnr_556_1")),
               font: "14px arial, sans-serif",
               placement: "point",
               padding: [
