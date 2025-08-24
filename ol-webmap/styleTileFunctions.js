@@ -242,6 +242,7 @@ export function styleStuff(feature, currentResolution) {
       if (currentResolution < 10) {
         styleArray.push(
           new Style({
+            zIndex: 10,
             text: new Text({
               text: feature.get("Namn_130"),
               font: "12px arial, sans-serif",
@@ -260,15 +261,16 @@ export function styleStuff(feature, currentResolution) {
       if (feature.get("Huvnr_556_1") < 500 && !feature.get("Namn_130")) {
         styleArray.push(
           new Style({
+            zIndex: 20,
             text: new Text({
               text: feature.get("Evag_555") < 0 ? "E" + String(feature.get("Huvnr_556_1")) : String(feature.get("Huvnr_556_1")),
               font: "14px arial, sans-serif",
               placement: "point",
               padding: [
-                50,
-                50,
-                50,
-                50
+                125,
+                125,
+                125,
+                125
               ],
               fill: new Fill({
                 color: "white",
@@ -340,7 +342,7 @@ export function styleStuff(feature, currentResolution) {
           declutterMode: "declutter",
           text: String(vagNummer),
           font: "14px arial, sans-serif",
-          padding: [25, 25, 25, 25],
+          padding: [50, 50, 50, 50],
           placement: "point",
           fill: new Fill({
             color: "white",
