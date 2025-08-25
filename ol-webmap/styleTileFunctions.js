@@ -207,8 +207,7 @@ function getTextFont(feature) {
   // ];
 
   return (italicText.includes(feature.get("textkategori")) ? "italic " : "") +
-    ((feature.get("textstorleksklass") * 2.5) + 8) +
-    "px arial, sans-serif";
+    ((feature.get("textstorleksklass") * 2.5) + 6) + "px arial, sans-serif";
 }
 
 export function styleStuff(feature, currentResolution) {
@@ -267,10 +266,10 @@ export function styleStuff(feature, currentResolution) {
               font: "14px arial, sans-serif",
               placement: "point",
               padding: [
-                125,
-                125,
-                125,
-                125
+                100,
+                100,
+                100,
+                100
               ],
               fill: new Fill({
                 color: "white",
