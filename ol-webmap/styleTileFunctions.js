@@ -207,7 +207,7 @@ function getTextFont(feature) {
   // ];
 
   return (italicText.includes(feature.get("textkategori")) ? "italic " : "") +
-    ((feature.get("textstorleksklass") * 4) + 6) +
+    ((feature.get("textstorleksklass") * 2.5) + 8) +
     "px arial, sans-serif";
 }
 

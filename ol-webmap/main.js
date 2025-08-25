@@ -102,6 +102,10 @@ document.getElementById("mapMode").addEventListener("change", () => {
 });
 
 document.addEventListener("keydown", function (event) {
+  if (event.key == "c") {
+    view.setZoom(14);
+    view.setRotation(0);
+  }
   if (event.key == "z") {
     view.adjustRotation(0.2);
   }
