@@ -65,6 +65,7 @@ map.on("singleclick", function (evt) {
 });
 
 function switchMap() {
+  document.getElementById("map").style.backgroundColor = localStorage.mapMode == 2 ? "#00263F" : "#bfe6ff";
   sessionStorage.layerSelector = document.getElementById("layerSelector").value;
   if (document.getElementById("layerSelector").value == "remote") {
     localVector.setVisible(false);
@@ -80,6 +81,7 @@ document.getElementById("layerSelector").addEventListener("change", () => {
   switchMap();
 });
 switchMap();
+// document.body.classList.add("darkmode");
 
 window.onbeforeunload = function () {
   localStorage.centerCoordinate = JSON.stringify(view.getCenter());
@@ -96,6 +98,7 @@ view.addEventListener("change:resolution", () => {
 
 document.getElementById("mapMode").value = localStorage.mapMode || 0;
 document.getElementById("mapMode").addEventListener("change", () => {
+  document.getElementById("map").style.backgroundColor = localStorage.mapMode == 2 ? "#00263F" : "#bfe6ff";
   localStorage.mapMode = document.getElementById("mapMode").value;
   localVector.getSource().refresh({ force: true });
   remoteVector.getSource().refresh({ force: true });
