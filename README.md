@@ -20,31 +20,31 @@
 	Vägtrafiknät/Nättyp
 	Vägtyp/körfältsbeskrivning
 
-|-----------------------|-------------------------------------------------------------------|------|
-| Korfa_524 			|	(Antal körfält2/Körfältsantal)									| 1-9|
-| F_Cirkulationsplats 	|	(Cirkulationsplats (F))| |
-| B_Cirkulationsplats 	|	(Cirkulationsplats (B))| |
-| Vagde_10379 			|	(Driftbidrag statligt/Vägdelsnr)| |
-| Klass_181 			|	(FunkVägklass/Klass)											| 0-9|
-| Namn_130 				|	(Gatunamn/Namn)| |
-| Typ_512 				|	(Gatutyp/Typ) 													| 10-100|
-| F_Hogst_225 			|	(Hastighetsgräns/Högsta tillåtna hastighet (F))| |
-| B_Hogst_225 			|	(Hastighetsgräns/Högsta tillåtna hastighet (B))| |
-| Fri_h_143 			|	(Höjdhinder45dm/Fri höjd)| |
-| Slitl_152 			|	(Slitlager/Slitlagertyp)| |
-| Vagna_406 			|	(Strateg VN tyngretranspo/Vägnät för tyngre transporter)| |
-| TattbebyggtOmrade 	|	(Tättbebyggt område)| |
-| Bredd_156 			|	(Vägbredd/Bredd)| |
-| Evag_555 				|	(Vägnummer/Europaväg)| |
-| Huvnr_556_1 			|	(Vägnummer/Huvudnummer (1))| |
-| Vagtr_474 			|	(Vägtrafiknät/Nättyp)											| 1-1|
-| korfa_52 				|	(Vägtyp/körfältsbeskrivning)									| 1-4 ("2+1" = 3)|
-| bidrag				|	Vagde_10379, Slitl_152| |
-| Klass_181				|	| |
-| color					|	F_Cirkulationsplats, B_Cirkulationsplats, Vagna_406, Slitl_152| |
-| width					|	Slitl_152, Bredd_156, F_Hogst_225| |
-| 2+1	offset			|	"Korfa_524" = 2 AND  "korfa_52"  = 3| |
-|-----------------------|-------------------------------------------------------------------|------|
+|-----------------------|-------------------------------------------------------------------|------|  
+| Korfa_524 			|	(Antal körfält2/Körfältsantal)									| 1-9|  
+| F_Cirkulationsplats 	|	(Cirkulationsplats (F))| |  
+| B_Cirkulationsplats 	|	(Cirkulationsplats (B))| |  
+| Vagde_10379 			|	(Driftbidrag statligt/Vägdelsnr)| |  
+| Klass_181 			|	(FunkVägklass/Klass)											| 0-9|  
+| Namn_130 				|	(Gatunamn/Namn)| |  
+| Typ_512 				|	(Gatutyp/Typ) 													| 10-100|  
+| F_Hogst_225 			|	(Hastighetsgräns/Högsta tillåtna hastighet (F))| |  
+| B_Hogst_225 			|	(Hastighetsgräns/Högsta tillåtna hastighet (B))| |  
+| Fri_h_143 			|	(Höjdhinder45dm/Fri höjd)| |  
+| Slitl_152 			|	(Slitlager/Slitlagertyp)| |  
+| Vagna_406 			|	(Strateg VN tyngretranspo/Vägnät för tyngre transporter)| |  
+| TattbebyggtOmrade 	|	(Tättbebyggt område)| |  
+| Bredd_156 			|	(Vägbredd/Bredd)| |  
+| Evag_555 				|	(Vägnummer/Europaväg)| |  
+| Huvnr_556_1 			|	(Vägnummer/Huvudnummer (1))| |  
+| Vagtr_474 			|	(Vägtrafiknät/Nättyp)											| 1-1|  
+| korfa_52 				|	(Vägtyp/körfältsbeskrivning)									| 1-4 ("2+1" = 3)|  
+| bidrag				|	Vagde_10379, Slitl_152| |  
+| Klass_181				|	| |  
+| color					|	F_Cirkulationsplats, B_Cirkulationsplats, Vagna_406, Slitl_152| |  
+| width					|	Slitl_152, Bredd_156, F_Hogst_225| |  
+| 2+1	offset			|	"Korfa_524" = 2 AND  "korfa_52"  = 3| |  
+|-----------------------|-------------------------------------------------------------------|------|  
 
 #### Source files
 	Karta/NVDB/ATK.gpkg
