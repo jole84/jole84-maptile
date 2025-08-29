@@ -384,7 +384,7 @@ export function styleStuff(feature, currentResolution) {
         text: new Text({
           declutterMode: "declutter",
           text: String(vagNummer),
-          font: "14px arial, sans-serif",
+          font: "bold 14px arial, sans-serif",
           padding: [50, 50, 50, 50],
           placement: "point",
           fill: new Fill({
