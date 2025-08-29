@@ -20,30 +20,69 @@
 	Vägtrafiknät/Nättyp
 	Vägtyp/körfältsbeskrivning
 
+|-----------------------|-------------------------------------------------------------------|------|
+| Korfa_524 			|	(Antal körfält2/Körfältsantal)									| 1-9|
+| F_Cirkulationsplats 	|	(Cirkulationsplats (F))| |
+| B_Cirkulationsplats 	|	(Cirkulationsplats (B))| |
+| Vagde_10379 			|	(Driftbidrag statligt/Vägdelsnr)| |
+| Klass_181 			|	(FunkVägklass/Klass)											| 0-9|
+| Namn_130 				|	(Gatunamn/Namn)| |
+| Typ_512 				|	(Gatutyp/Typ) 													| 10-100|
+| F_Hogst_225 			|	(Hastighetsgräns/Högsta tillåtna hastighet (F))| |
+| B_Hogst_225 			|	(Hastighetsgräns/Högsta tillåtna hastighet (B))| |
+| Fri_h_143 			|	(Höjdhinder45dm/Fri höjd)| |
+| Slitl_152 			|	(Slitlager/Slitlagertyp)| |
+| Vagna_406 			|	(Strateg VN tyngretranspo/Vägnät för tyngre transporter)| |
+| TattbebyggtOmrade 	|	(Tättbebyggt område)| |
+| Bredd_156 			|	(Vägbredd/Bredd)| |
+| Evag_555 				|	(Vägnummer/Europaväg)| |
+| Huvnr_556_1 			|	(Vägnummer/Huvudnummer (1))| |
+| Vagtr_474 			|	(Vägtrafiknät/Nättyp)											| 1-1|
+| korfa_52 				|	(Vägtyp/körfältsbeskrivning)									| 1-4 ("2+1" = 3)|
+| bidrag				|	Vagde_10379, Slitl_152| |
+| Klass_181				|	| |
+| color					|	F_Cirkulationsplats, B_Cirkulationsplats, Vagna_406, Slitl_152| |
+| width					|	Slitl_152, Bredd_156, F_Hogst_225| |
+| 2+1	offset			|	"Korfa_524" = 2 AND  "korfa_52"  = 3| |
+|-----------------------|-------------------------------------------------------------------|------|
 
-Korfa_524 				(Antal körfält2/Körfältsantal)		1-9
-F_Cirkulationsplats 	(Cirkulationsplats (F))
-B_Cirkulationsplats 	(Cirkulationsplats (B))
-Vagde_10379 			(Driftbidrag statligt/Vägdelsnr)
-Klass_181 				(FunkVägklass/Klass)				0-9
-Namn_130 				(Gatunamn/Namn)
-Typ_512 				(Gatutyp/Typ) 						10-100
-F_Hogst_225 			(Hastighetsgräns/Högsta tillåtna hastighet (F))
-B_Hogst_225 			(Hastighetsgräns/Högsta tillåtna hastighet (B))
-Fri_h_143 				(Höjdhinder45dm/Fri höjd)
-Slitl_152 				(Slitlager/Slitlagertyp)
-Vagna_406 				(Strateg VN tyngretranspo/Vägnät för tyngre transporter)
-TattbebyggtOmrade 		(Tättbebyggt område)
-Bredd_156 				(Vägbredd/Bredd)
-Evag_555 				(Vägnummer/Europaväg)
-Huvnr_556_1 			(Vägnummer/Huvudnummer (1))
-Vagtr_474 				(Vägtrafiknät/Nättyp)				1-1
-korfa_52 				(Vägtyp/körfältsbeskrivning)		1-4 ("2+1" = 3)
+#### Source files
+	Karta/NVDB/ATK.gpkg
+	Karta/NVDB/kurvighet.gpkg
+	Karta/NVDB/Rastplats.gpkg
+	Karta/NVDB/Stratvag.gpkg
+	Karta/NVDB/Trafikplats_vag.gpkg
+	Karta/NVDB/vagnat_union.gpkg
+	Karta/NVDB/vagnat.gpkg
 
-bidrag			Vagde_10379, Slitl_152
-Klass_181
-color			F_Cirkulationsplats, B_Cirkulationsplats, Vagna_406, Slitl_152
-width			Slitl_152, Bredd_156, F_Hogst_225
-2+1	offset		"Korfa_524" = 2 AND  "korfa_52"  = 3
+	Karta/topografi1M/kommunikation.gpkg
+	Karta/topografi1M/mark.gpkg
+	Karta/topografi1M/text.gpkg
 
-qgis_process run native:dissolve --distance_units=meters --area_units=m2 --ellipsoid=EPSG:7030 --INPUT='/home/johan/Karta/NVDB/vagnat.gpkg|layername=TNE_FT_VAGDATA' --FIELD=F_Cirkulationsplats --FIELD=B_Cirkulationsplats --FIELD=Vagde_10379 --FIELD=Klass_181 --FIELD=Namn_130 --FIELD=F_Hogst_225 --FIELD=Slitl_152 --FIELD=Vagna_406 --FIELD=TattbebyggtOmrade --FIELD=Bredd_156 --FIELD=Evag_555 --FIELD=Huvnr_556_1 --SEPARATE_DISJOINT=true --OUTPUT=/home/johan/Karta/NVDB/test_dissolve.gpkg
+	Karta/topografi250/anlaggningsomrade.gpkg
+	Karta/topografi250/hojd.gpkg
+	Karta/topografi250/hydrografi.gpkg
+	Karta/topografi250/kommunikation.gpkg
+	Karta/topografi250/ledningar.gpkg
+	Karta/topografi250/mark.gpkg
+	Karta/topografi250/militartomrade.gpkg
+	Karta/topografi250/naturvard.gpkg
+	Karta/topografi250/text.gpkg
+	
+	Karta/topografi100/anlaggningsomrade.gpkg
+	Karta/topografi100/byggnadsverk.gpkg
+	Karta/topografi100/hojd.gpkg
+	Karta/topografi100/hydrografi.gpkg
+	Karta/topografi100/kommunikation.gpkg
+	Karta/topografi100/ledningar.gpkg
+	Karta/topografi100/mark.gpkg
+	Karta/topografi100/militartomrade.gpkg
+	Karta/topografi100/naturvard.gpkg
+	Karta/topografi100/text.gpkg
+	
+	Karta/topografi50/anlaggningsomrade.gpkg
+	Karta/topografi50/byggnadsverk.gpkg
+	Karta/topografi50/hydrografi.gpkg
+	Karta/topografi50/kommunikation.gpkg
+	Karta/topografi50/kulturhistorisklamning.gpkg
+	Karta/topografi50/text.gpkg
