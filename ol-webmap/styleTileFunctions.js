@@ -615,6 +615,7 @@ export function styleStuff(feature, currentResolution) {
         return new Style({
           // zIndex: 5,
           image: new Icon({
+            declutterMode: "none",
             rotation: degToRad(360 - feature.get("rotation")) || 0,
             rotateWithView: feature.get("rotation") == 0 ? false : true,
             src: kartsymboler[feature.get("objekttypnr")],
