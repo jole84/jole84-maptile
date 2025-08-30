@@ -16,8 +16,8 @@ const textColor = {
 }
 
 const roadWidth = {
-  "Småväg": 1,
-  "Landsväg liten": 1,
+  "Småväg": 0.7,
+  "Landsväg liten": 1.5,
   "Landsväg": 2,
   "Motortrafikled": 3,
   "Mötesfri väg": 3,

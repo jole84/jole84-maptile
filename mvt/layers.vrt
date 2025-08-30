@@ -28,7 +28,7 @@
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_100">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select Shape, Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
+    <SrcSQL>select ST_Simplify(Shape, 25), Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
       WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
@@ -54,7 +54,7 @@
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_250">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select Shape, Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
+    <SrcSQL>select ST_Simplify(Shape, 100), Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
       WHEN Vagna_406 AND Slitl_152 = 1 NOT NULL THEN 'stratvag'
@@ -66,11 +66,10 @@
       F_Hogst_225 / 4 AS width
 
       from TNE_FT_VAGDATA WHERE
-      Slitl_152 = 1 AND
-      (TattbebyggtOmrade != -1 OR
+      TattbebyggtOmrade != -1 OR
       Vagna_406 OR
       Klass_181 &lt;= 5 OR
-      Huvnr_556_1 IS NOT NULL)</SrcSQL>
+      Huvnr_556_1 IS NOT NULL</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="vaglinje1M+">
