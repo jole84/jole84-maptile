@@ -57,6 +57,7 @@
     <SrcSQL>select ST_Simplify(Shape, 100), Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
+      WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
       WHEN Vagna_406 AND Slitl_152 = 1 NOT NULL THEN 'stratvag'
       WHEN Slitl_152 = 1 THEN 'belagd'
       WHEN Slitl_152 = 2 THEN 'grus'
