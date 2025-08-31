@@ -119,7 +119,7 @@
       F_Hogst_225 / 4 AS width
 
       from TNE_FT_VAGDATA WHERE
-      Klass_181 &lt;= 3 AND
+      Klass_181 &lt;= 4 AND
       (TattbebyggtOmrade != -1 OR
       Vagna_406)
     </SrcSQL>
