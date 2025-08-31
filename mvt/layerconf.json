@@ -4,13 +4,13 @@
         "minzoom": 6,
         "maxzoom": 7
     },
-    "vaglinje1M": {
-        "target_name": "vaglinje",
+    "TNE_FT_VAGDATA_1M+": {
+        "target_name": "TNE_FT_VAGDATA",
         "minzoom": 8,
         "maxzoom": 8
     },
-    "vaglinje250": {
-        "target_name": "vaglinje",
+    "TNE_FT_VAGDATA_1M": {
+        "target_name": "TNE_FT_VAGDATA",
         "minzoom": 9,
         "maxzoom": 9
     },

@@ -67,28 +67,63 @@
       F_Hogst_225 / 4 AS width
 
       from TNE_FT_VAGDATA WHERE
-      TattbebyggtOmrade != -1 OR
+      Klass_181 &lt;= 8 AND
+      (TattbebyggtOmrade != -1 OR
       Vagna_406 OR
       Klass_181 &lt;= 5 OR
-      Huvnr_556_1 IS NOT NULL</SrcSQL>
+      Huvnr_556_1 IS NOT NULL)</SrcSQL>
+  </OGRVRTLayer>
+
+  <OGRVRTLayer name="TNE_FT_VAGDATA_1M">
+    <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
+    <SrcSQL>select ST_Simplify(Shape, 1000), Klass_181, F_Hogst_225 AS maxspeed, Evag_555,
+      Huvnr_556_1,
+
+      CASE
+      WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
+      WHEN Vagna_406 AND Slitl_152 = 1 NOT NULL THEN 'stratvag'
+      WHEN Slitl_152 = 1 THEN 'belagd'
+      WHEN Slitl_152 = 2 THEN 'grus'
+      ELSE 'ovrigvag'
+      END vagtyp,
+
+      F_Hogst_225 / 4 AS width
+
+      from TNE_FT_VAGDATA WHERE
+      Klass_181 &lt;= 6 AND
+      (TattbebyggtOmrade != -1 OR
+      Vagna_406 OR
+      Huvnr_556_1 IS NOT NULL
+      )
+    </SrcSQL>
+  </OGRVRTLayer>
+
+  <OGRVRTLayer name="TNE_FT_VAGDATA_1M+">
+    <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
+    <SrcSQL>select ST_Simplify(Shape, 2000), Klass_181, F_Hogst_225 AS maxspeed, Evag_555,
+      Huvnr_556_1,
+
+      CASE
+      WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
+      WHEN Vagna_406 AND Slitl_152 = 1 NOT NULL THEN 'stratvag'
+      WHEN Slitl_152 = 1 THEN 'belagd'
+      WHEN Slitl_152 = 2 THEN 'grus'
+      ELSE 'ovrigvag'
+      END vagtyp,
+
+      F_Hogst_225 / 4 AS width
+
+      from TNE_FT_VAGDATA WHERE
+      Klass_181 &lt;= 3 AND
+      (TattbebyggtOmrade != -1 OR
+      Vagna_406)
+    </SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="vaglinje1M+">
     <SrcDataSource>/home/johan/Karta/topografi1M/kommunikation.gpkg</SrcDataSource>
     <SrcSQL>SELECT ST_Union(geom), objekttyp, objekttypnr, vardvagnummer FROM vaglinje WHERE
       objekttypnr NOT IN (1805, 1806) GROUP BY
-      objekttyp, objekttypnr, vardvagnummer</SrcSQL>
-  </OGRVRTLayer>
-
-  <OGRVRTLayer name="vaglinje1M">
-    <SrcDataSource>/home/johan/Karta/topografi1M/kommunikation.gpkg</SrcDataSource>
-    <SrcSQL>SELECT ST_Union(geom), objekttyp, objekttypnr, vardvagnummer FROM vaglinje GROUP BY
-      objekttyp, objekttypnr, vardvagnummer</SrcSQL>
-  </OGRVRTLayer>
-
-  <OGRVRTLayer name="vaglinje250">
-    <SrcDataSource>/home/johan/Karta/topografi250/kommunikation.gpkg</SrcDataSource>
-    <SrcSQL>SELECT ST_Union(geom), objekttyp, objekttypnr, vardvagnummer FROM vaglinje GROUP BY
       objekttyp, objekttypnr, vardvagnummer</SrcSQL>
   </OGRVRTLayer>
 
@@ -258,12 +293,14 @@
 
   <OGRVRTLayer name="byggnadspunkt50-">
     <SrcDataSource>/home/johan/Karta/topografi50/byggnadsverk.gpkg</SrcDataSource>
-    <SrcSQL>select geom, objekttyp, objekttypnr, rotation from byggnadspunkt WHERE objekttypnr IN (1051, 2035, 2038, 2025, 1047)</SrcSQL>
+    <SrcSQL>select geom, objekttyp, objekttypnr, rotation from byggnadspunkt WHERE objekttypnr IN
+      (1051, 2035, 2038, 2025, 1047)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="byggnadspunkt50">
     <SrcDataSource>/home/johan/Karta/topografi50/byggnadsverk.gpkg</SrcDataSource>
-    <SrcSQL>select geom, objekttyp, objekttypnr, rotation from byggnadspunkt WHERE objekttypnr NOT IN (2045, 2046)</SrcSQL>
+    <SrcSQL>select geom, objekttyp, objekttypnr, rotation from byggnadspunkt WHERE objekttypnr NOT
+      IN (2045, 2046)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="byggnadspunkt50+">
