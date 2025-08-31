@@ -274,10 +274,10 @@ export function styleStuff(feature, currentResolution) {
             zIndex: 10 - feature.get("Klass_181"),
             stroke: new Stroke({
               color: "black",
-              width: (feature.get("width") / 8),
-              lineDash: [5, 15],
+              width: (feature.get("width") / 8) + 1,
+              lineDash: [10, 15],
               lineDashOffset: 10,
-              lineCap: "square",
+              lineCap: "butt",
             }),
           }),
         )
