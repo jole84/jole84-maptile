@@ -287,7 +287,7 @@ export function styleStuff(feature, currentResolution) {
           new Style({
             zIndex: 10,
             text: new Text({
-              text: feature.get("Namn_130"),
+              text: feature.get("Namn_132") || feature.get("Namn_130"),
               font: "12px arial, sans-serif",
               placement: "line",
               fill: new Fill({

@@ -2,13 +2,13 @@
   <!-- < = &lt; > = &gt; -->
   <OGRVRTLayer name="TNE_FT_VAGDATA">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select Shape, Klass_181, Namn_130, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
+    <SrcSQL>select Shape, Klass_181, Namn_130, Namn_132, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
       WHEN F_Cirkulationsplats != 0 THEN 'rondell'
       WHEN B_Cirkulationsplats != 0 THEN 'rondell'
-      WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
-      WHEN Slitl_152 = 2 AND Klass_181 &lt;= 6 THEN 'bidrag'
+      WHEN Slitl_152 = 2 AND Vagde_10379 IS NOT NULL THEN 'bidrag'
+      WHEN Slitl_152 = 2 AND Vagha_6 = 1 THEN 'bidrag'
       WHEN Slitl_152 = 1 AND Vagna_406 IS NOT NULL THEN 'stratvag'
       WHEN Slitl_152 = 1 THEN 'belagd'
       WHEN Slitl_152 = 2 THEN 'grus'
@@ -34,7 +34,7 @@
 
       CASE
       WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
-      WHEN Slitl_152 = 2 AND Klass_181 &lt;= 6 THEN 'bidrag'
+      WHEN Slitl_152 = 2 AND Vagha_6 = 1 THEN 'bidrag'
       WHEN Slitl_152 = 1 AND Vagna_406 IS NOT NULL THEN 'stratvag'
       WHEN Slitl_152 = 1 THEN 'belagd'
       WHEN Slitl_152 = 2 THEN 'grus'
@@ -62,7 +62,7 @@
 
       CASE
       WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
-      WHEN Slitl_152 = 2 AND Klass_181 &lt;= 6 THEN 'bidrag'
+      WHEN Slitl_152 = 2 AND Vagha_6 = 1 THEN 'bidrag'
       WHEN Slitl_152 = 1 AND Vagna_406 IS NOT NULL THEN 'stratvag'
       WHEN Slitl_152 = 1 THEN 'belagd'
       WHEN Slitl_152 = 2 THEN 'grus'
@@ -86,7 +86,7 @@
 
       CASE
       WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
-      WHEN Slitl_152 = 2 AND Klass_181 &lt;= 6 THEN 'bidrag'
+      WHEN Slitl_152 = 2 AND Vagha_6 = 1 THEN 'bidrag'
       WHEN Slitl_152 = 1 AND Vagna_406 IS NOT NULL THEN 'stratvag'
       WHEN Slitl_152 = 1 THEN 'belagd'
       WHEN Slitl_152 = 2 THEN 'grus'
@@ -111,7 +111,7 @@
 
       CASE
       WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
-      WHEN Slitl_152 = 2 AND Klass_181 &lt;= 6 THEN 'bidrag'
+      WHEN Slitl_152 = 2 AND Vagha_6 = 1 THEN 'bidrag'
       WHEN Slitl_152 = 1 AND Vagna_406 IS NOT NULL THEN 'stratvag'
       WHEN Slitl_152 = 1 THEN 'belagd'
       WHEN Slitl_152 = 2 THEN 'grus'
