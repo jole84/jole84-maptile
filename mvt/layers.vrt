@@ -30,7 +30,8 @@
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_100">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(Shape, 25) AS Shape, Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
+    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 25) AS Shape, 
+      Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
       WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
@@ -58,7 +59,8 @@
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_250">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(Shape, 100) AS Shape, Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
+    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 50) AS Shape, 
+      Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
       WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
@@ -82,7 +84,8 @@
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_1M">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Union(ST_Simplify(Shape, 1000)) AS Shape, Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
+    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 100) AS Shape, 
+      Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
       WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
@@ -100,14 +103,13 @@
       Vagna_406 IS NOT NULL OR
       Huvnr_556_1 IS NOT NULL OR
       Typ_369 IS NULL
-      GROUP BY
-      Slitl_152, Vagna_406, F_Hogst_225, Evag_555, Huvnr_556_1, Vagde_10379, Klass_181
     </SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_1M+">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Union(ST_Simplify(Shape, 2000)) AS Shape, Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
+    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 200) AS Shape, 
+      Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
       WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
@@ -124,8 +126,6 @@
       Klass_181 &lt;= 4 AND
       (TattbebyggtOmrade != -1 OR
       Vagna_406 IS NOT NULL)
-      GROUP BY
-      Slitl_152, Vagna_406, F_Hogst_225, Evag_555, Huvnr_556_1, Vagde_10379
     </SrcSQL>
   </OGRVRTLayer>
 
@@ -349,7 +349,7 @@
 
   <OGRVRTLayer name="markkantlinje1M">
     <SrcDataSource>/home/johan/Karta/topografi1M/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT Simplify(geom, 500), objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2612, 2613, 2614, 2615, 2616, 2625)</SrcSQL>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2612, 2613, 2614, 2615, 2616, 2625)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="markkantlinje250">
@@ -364,7 +364,7 @@
 
   <OGRVRTLayer name="mark1M">
     <SrcDataSource>/home/johan/Karta/topografi1M/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT Simplify(geom, 500), objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2631, 2632, 2633, 2634, 2654)</SrcSQL>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2631, 2632, 2633, 2634, 2654)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="mark250">
