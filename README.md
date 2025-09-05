@@ -20,6 +20,11 @@
 	Vägtrafiknät/Nättyp
 	Vägtyp/körfältsbeskrivning
 
+	Vägslag/Typ
+	Vägtyp/typ
+	Vägkategori/Kategori
+	
+
 |-----------------------|-------------------------------------------------------------------|------|  
 | Korfa_524 			|	(Antal körfält2/Körfältsantal)									| 1-9|  
 | F_Cirkulationsplats 	|	(Cirkulationsplats (F))| |  
@@ -40,10 +45,12 @@
 | Vagtr_474 			|	(Vägtrafiknät/Nättyp)											| 1-1|  
 | korfa_52 				|	(Vägtyp/körfältsbeskrivning)									| 1-4 ("2+1" = 3)|  
 | bidrag				|	Vagde_10379, Slitl_152| |  
-| Klass_181				|	| |  
+| Typ_369				|	Vägslag/typ	|	10 - 160	|
+| vagty_41				|	Vägtyp/typ	|	1 - 6 motorväg/vanlig väg	|
+| Kateg_380				|	Vägkategori/Kategori			|	1 - 4 europaväg, övrig länsväg |
 | color					|	F_Cirkulationsplats, B_Cirkulationsplats, Vagna_406, Slitl_152| |  
 | width					|	Slitl_152, Bredd_156, F_Hogst_225| |  
-| 2+1	offset			|	"Korfa_524" = 2 AND  "korfa_52"  = 3| |  
+| 2+1	offset			|	"Korfa_524" = 2 AND  "korfa_52"  = 3| |
 |-----------------------|-------------------------------------------------------------------|------|  
 
 #### Source files

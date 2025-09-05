@@ -7,6 +7,7 @@ SELECT
     Klass_181,
     Namn_130,
     -- Typ_512,
+    Typ_369,
     F_Hogst_225,
     -- B_Hogst_225,
     -- Fri_h_143,
@@ -14,10 +15,11 @@ SELECT
     Vagna_406,
     TattbebyggtOmrade,
     Bredd_156,
-    -- Kateg_380,
+    Kateg_380,
     -- Vagtr_474,
     -- korfa_52,
     Evag_555,
+    vagty_41,
     Huvnr_556_1
 
 FROM TNE_FT_VAGDATA
@@ -30,6 +32,7 @@ GROUP BY
     Klass_181,
     Namn_130,
     -- Typ_512,
+    Typ_369,
     F_Hogst_225,
     -- B_Hogst_225,
     -- Fri_h_143,
@@ -37,9 +40,10 @@ GROUP BY
     Vagna_406,
     TattbebyggtOmrade,
     Bredd_156,
-    -- Kateg_380,
+    Kateg_380,
     -- Vagtr_474,
     -- korfa_52,
     Evag_555,
+    vagty_41,
     Huvnr_556_1,
     ROUTE_ID

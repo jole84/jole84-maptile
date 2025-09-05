@@ -275,7 +275,7 @@ export function styleStuff(feature, currentResolution) {
             stroke: new Stroke({
               color: "black",
               width: (feature.get("width") / 8) + 1,
-              lineDash: [10, 15],
+              lineDash: [6, 10],
               lineDashOffset: 10,
               lineCap: "butt",
             }),

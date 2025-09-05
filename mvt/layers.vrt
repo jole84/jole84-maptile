@@ -24,12 +24,13 @@
       ELSE 20
       END width
 
-      from TNE_FT_VAGDATA</SrcSQL>
+      from TNE_FT_VAGDATA
+    </SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_100">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(Shape, 25), Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
+    <SrcSQL>select ST_Simplify(Shape, 25) AS Shape, Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
       WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
@@ -48,15 +49,16 @@
       END width
 
       from TNE_FT_VAGDATA WHERE
-      TattbebyggtOmrade != -1 OR
-      Vagna_406 OR
-      Klass_181 &lt;= 5 OR
-      Huvnr_556_1 IS NOT NULL</SrcSQL>
+      TattbebyggtOmrade = 0 OR
+      Typ_369 IN (10,20,30) OR
+      Vagna_406 IS NOT NULL OR
+      Huvnr_556_1 IS NOT NULL
+      </SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_250">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(Shape, 100), Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
+    <SrcSQL>select ST_Simplify(Shape, 100) AS Shape, Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
       WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
@@ -70,17 +72,17 @@
       F_Hogst_225 / 4 AS width
 
       from TNE_FT_VAGDATA WHERE
-      Klass_181 &lt;= 8 AND
-      (TattbebyggtOmrade != -1 OR
-      Vagna_406 OR
-      Klass_181 &lt;= 5 OR
-      Huvnr_556_1 IS NOT NULL)</SrcSQL>
+      Klass_181 = 8 OR
+      Typ_369 IN (10,20,30,100,110,120,130,140,150) OR
+      Typ_369 IS NULL OR
+      Vagna_406 IS NOT NULL OR
+      Huvnr_556_1 IS NOT NULL
+    </SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_1M">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(Shape, 1000), Klass_181, F_Hogst_225 AS maxspeed, Evag_555,
-      Huvnr_556_1,
+    <SrcSQL>select ST_Union(ST_Simplify(Shape, 1000)) AS Shape, Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
       WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
@@ -94,18 +96,18 @@
       F_Hogst_225 / 4 AS width
 
       from TNE_FT_VAGDATA WHERE
-      Klass_181 &lt;= 6 AND
-      (TattbebyggtOmrade != -1 OR
-      Vagna_406 OR
-      Huvnr_556_1 IS NOT NULL
-      )
+      vagty_41 IS NOT NULL OR
+      Vagna_406 IS NOT NULL OR
+      Huvnr_556_1 IS NOT NULL OR
+      Typ_369 IS NULL
+      GROUP BY
+      Slitl_152, Vagna_406, F_Hogst_225, Evag_555, Huvnr_556_1, Vagde_10379, Klass_181
     </SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_1M+">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(Shape, 2000), Klass_181, F_Hogst_225 AS maxspeed, Evag_555,
-      Huvnr_556_1,
+    <SrcSQL>select ST_Union(ST_Simplify(Shape, 2000)) AS Shape, Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
       WHEN Vagde_10379 &gt; 0 AND Slitl_152 = 2 THEN 'bidrag'
@@ -121,7 +123,9 @@
       from TNE_FT_VAGDATA WHERE
       Klass_181 &lt;= 4 AND
       (TattbebyggtOmrade != -1 OR
-      Vagna_406)
+      Vagna_406 IS NOT NULL)
+      GROUP BY
+      Slitl_152, Vagna_406, F_Hogst_225, Evag_555, Huvnr_556_1, Vagde_10379
     </SrcSQL>
   </OGRVRTLayer>
 
@@ -298,14 +302,12 @@
 
   <OGRVRTLayer name="byggnadspunkt50-">
     <SrcDataSource>/home/johan/Karta/topografi50/byggnadsverk.gpkg</SrcDataSource>
-    <SrcSQL>select geom, objekttyp, objekttypnr, rotation from byggnadspunkt WHERE objekttypnr IN
-      (1051, 2035, 2038, 2025, 1047)</SrcSQL>
+    <SrcSQL>select geom, objekttyp, objekttypnr, rotation from byggnadspunkt WHERE objekttypnr IN (1051, 2035, 2038, 2025, 1047)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="byggnadspunkt50">
     <SrcDataSource>/home/johan/Karta/topografi50/byggnadsverk.gpkg</SrcDataSource>
-    <SrcSQL>select geom, objekttyp, objekttypnr, rotation from byggnadspunkt WHERE objekttypnr NOT
-      IN (2045, 2046)</SrcSQL>
+    <SrcSQL>select geom, objekttyp, objekttypnr, rotation from byggnadspunkt WHERE objekttypnr NOT IN (2045, 2046)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="byggnadspunkt50+">
@@ -347,37 +349,31 @@
 
   <OGRVRTLayer name="markkantlinje1M">
     <SrcDataSource>/home/johan/Karta/topografi1M/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT Simplify(geom, 500), objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr
-      IN (2612, 2613, 2614, 2615, 2616, 2625)</SrcSQL>
+    <SrcSQL>SELECT Simplify(geom, 500), objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2612, 2613, 2614, 2615, 2616, 2625)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="markkantlinje250">
     <SrcDataSource>/home/johan/Karta/topografi250/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2612, 2613,
-      2614, 2615, 2616, 2625)</SrcSQL>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2612, 2613, 2614, 2615, 2616, 2625)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="markkantlinje100">
     <SrcDataSource>/home/johan/Karta/topografi100/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2612, 2613,
-      2614, 2615, 2616, 2625)</SrcSQL>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2612, 2613, 2614, 2615, 2616, 2625)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="mark1M">
     <SrcDataSource>/home/johan/Karta/topografi1M/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT Simplify(geom, 500), objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN
-      (2631, 2632, 2633, 2634, 2654)</SrcSQL>
+    <SrcSQL>SELECT Simplify(geom, 500), objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2631, 2632, 2633, 2634, 2654)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="mark250">
     <SrcDataSource>/home/johan/Karta/topografi250/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2631, 2632,
-      2633, 2634, 2654)</SrcSQL>
+    <SrcSQL>SELECT ST_MakeValid(geom), objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2631, 2632, 2633, 2634, 2654)</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="mark100">
     <SrcDataSource>/home/johan/Karta/topografi100/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2631, 2632,
-      2633, 2634, 2654)</SrcSQL>
+    <SrcSQL>SELECT ST_MakeValid(geom), objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2631, 2632, 2633, 2634, 2654)</SrcSQL>
   </OGRVRTLayer>
 </OGRVRTDataSource>
