@@ -364,16 +364,16 @@
 
   <OGRVRTLayer name="mark1M">
     <SrcDataSource>/home/johan/Karta/topografi1M/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2631, 2632, 2633, 2634, 2654)</SrcSQL>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="mark250">
     <SrcDataSource>/home/johan/Karta/topografi250/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT ST_MakeValid(geom), objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2631, 2632, 2633, 2634, 2654)</SrcSQL>
+    <SrcSQL>SELECT ST_MakeValid(geom), objekttyp, objekttypnr FROM mark</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="mark100">
     <SrcDataSource>/home/johan/Karta/topografi100/mark.gpkg</SrcDataSource>
-    <SrcSQL>SELECT ST_MakeValid(geom), objekttyp, objekttypnr FROM mark WHERE objekttypnr NOT IN (2631, 2632, 2633, 2634, 2654)</SrcSQL>
+    <SrcSQL>SELECT ST_MakeValid(geom), objekttyp, objekttypnr FROM mark</SrcSQL>
   </OGRVRTLayer>
 </OGRVRTDataSource>
