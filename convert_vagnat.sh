@@ -7,6 +7,7 @@ OUTPUT_UNION="$HOME/Karta/NVDB/vagnat_union.gpkg"
 echo "Skapar vägnät..."
 ogr2ogr $OUTPUT \
     -nln "TNE_FT_VAGDATA" \
+    -nlt MULTILINESTRING \
     -progress \
     -skipfailures \
     -t_srs "EPSG:3857" \
