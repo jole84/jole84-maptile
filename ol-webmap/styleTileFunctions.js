@@ -275,7 +275,7 @@ export function styleStuff(feature, currentResolution) {
             stroke: new Stroke({
               color: "black",
               width: (feature.get("width") / 8),
-              lineDash: [6, 10],
+              lineDash: [6, 12],
               lineDashOffset: 10,
               lineCap: "butt",
             }),
@@ -310,10 +310,10 @@ export function styleStuff(feature, currentResolution) {
               font: "bold 14px arial, sans-serif",
               placement: "point",
               padding: [
-                100,
-                100,
-                100,
-                100
+                75,
+                75,
+                75,
+                75
               ],
               fill: new Fill({
                 color: "white",
