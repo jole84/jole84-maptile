@@ -43,7 +43,7 @@
       END vagtyp,
 
       CASE
-      WHEN Slitl_152 = 2 AND Bredd_156 &lt;= 6 THEN Bredd_156 * 6
+      WHEN Slitl_152 = 2 AND Bredd_156 &lt;= 6 THEN Bredd_156 * 7
       WHEN Slitl_152 = 1 THEN F_Hogst_225 / 3
 
       ELSE 20
@@ -59,7 +59,7 @@
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_250">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 50) AS Shape, 
+    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 50) AS Shape,
       Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
@@ -71,7 +71,12 @@
       ELSE 'ovrigvag'
       END vagtyp,
 
-      F_Hogst_225 / 4 AS width
+      CASE
+      WHEN Slitl_152 = 2 AND Bredd_156 &lt;= 6 THEN Bredd_156 * 6
+      WHEN Slitl_152 = 1 THEN F_Hogst_225 / 3
+
+      ELSE 20
+      END width
 
       from TNE_FT_VAGDATA WHERE
       Klass_181 = 8 OR
@@ -136,10 +141,10 @@
       objekttyp, objekttypnr, vardvagnummer</SrcSQL>
   </OGRVRTLayer>
 
-  <OGRVRTLayer name="kurvighet">
+  <!-- <OGRVRTLayer name="kurvighet">
     <SrcDataSource>/home/johan/Karta/NVDB/kurvighet.gpkg</SrcDataSource>
     <SrcSQL>SELECT * FROM kurvighet</SrcSQL>
-  </OGRVRTLayer>
+  </OGRVRTLayer> -->
 
   <OGRVRTLayer name="ovrig_vag50">
     <SrcDataSource>/home/johan/Karta/topografi50/kommunikation.gpkg</SrcDataSource>
