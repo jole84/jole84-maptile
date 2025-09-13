@@ -256,8 +256,9 @@ function getTextFont(feature) {
 
 export function styleStuff(feature, currentResolution) {
   const featureType = feature.getGeometry().getType();
+  const layerName = feature.get("layer");
   if (featureType == "LineString" || featureType == "MultiLineString") {
-    if (feature.get("layer") == "TNE_FT_VAGDATA") {
+    if (layerName == "TNE_FT_VAGDATA") {
       const styleArray = [
         new Style({
           zIndex: feature.get("vagtyp") == 'rondell' ? 100 : (10 - feature.get("Klass_181")),
@@ -302,11 +303,12 @@ export function styleStuff(feature, currentResolution) {
         )
       }
       if (feature.get("Huvnr_556_1") < 500 && !feature.get("Namn_130")) {
+        const europaVag = feature.get("Evag_555") == -1;
         styleArray.push(
           new Style({
-            zIndex: 10,
+            zIndex: europaVag ? 10 : 9,
             text: new Text({
-              text: feature.get("Evag_555") < 0 ? "E" + String(feature.get("Huvnr_556_1")) : String(feature.get("Huvnr_556_1")),
+              text: europaVag ? "E" + String(feature.get("Huvnr_556_1")) : String(feature.get("Huvnr_556_1")),
               font: "bold 14px arial, sans-serif",
               placement: "point",
               padding: [
@@ -319,7 +321,7 @@ export function styleStuff(feature, currentResolution) {
                 color: "white",
               }),
               stroke: new Stroke({
-                color: feature.get("Evag_555") < 0 ? "#4daf4a" : "#377eb8",
+                color: europaVag ? "#4daf4a" : "#377eb8",
                 width: 10,
               }),
             }),
@@ -327,17 +329,17 @@ export function styleStuff(feature, currentResolution) {
         )
       }
       return styleArray;
-    } else if (feature.get("layer") == "traktor" && localStorage.mapMode == 0) {
+    } else if (layerName == "traktor" && localStorage.mapMode == 0) {
       return new Style({
         stroke: new Stroke({
-          color: "#ac7c45",
+          color: colorArray[localStorage.mapMode][feature.get("objekttyp")],
           width: 3,
           lineDash: [10, 10],
           lineDashOffset: 10,
           lineCap: "square",
         }),
       });
-    } else if (feature.get("layer") == "markkantlinje" && localStorage.mapMode == 0) {
+    } else if (layerName == "markkantlinje" && localStorage.mapMode == 0) {
       return new Style({
         zIndex: 2,
         stroke: new Stroke({
@@ -345,7 +347,7 @@ export function styleStuff(feature, currentResolution) {
           width: 1,
         }),
       });
-    } else if (feature.get("layer") == "kurvighet" && localStorage.mapMode == 0) {
+    } else if (layerName == "kurvighet" && localStorage.mapMode == 0) {
       return new Style({
         zIndex: 2,
         stroke: new Stroke({
@@ -353,30 +355,31 @@ export function styleStuff(feature, currentResolution) {
           width: 12,
         }),
       });
-    } else if (feature.get("layer") == "hojdlinje" && localStorage.mapMode == 0) {
+    } else if (layerName == "hojdlinje" && localStorage.mapMode == 0) {
       return new Style({
         stroke: new Stroke({
           color: "#00000049",
           width: 1,
         }),
       });
-    } else if (feature.get("layer") == "ledningslinje") {
+    } else if (layerName == "ledningslinje") {
       return new Style({
         stroke: new Stroke({
           color: "#000000a2",
           width: 2,
         }),
       });
-    } else if (feature.get("layer") == "vaglinje") {
+    } else if (layerName == "vaglinje") {
       let vagNummer = "";
       let europaVag = false;
       if (feature.get("vardvagnummer")) {
         if (Array.from(feature.get("vardvagnummer"))[0] == "E" || feature.get("vardvagnummer") < 500) {
-          vagNummer = feature.get("vardvagnummer");
+          vagNummer = feature.get("vardvagnummer").split(".")[0];
           europaVag = Array.from(feature.get("vardvagnummer"))[0] == "E"
         }
       }
       return new Style({
+        zIndex: europaVag ? 10 : 3,
         stroke: new Stroke({
           color: colorArray[localStorage.mapMode]["belagd"],
           width: roadWidth[feature.get("objekttyp")] || 3,
@@ -399,7 +402,7 @@ export function styleStuff(feature, currentResolution) {
           // }),
         }),
       });
-    } else if (feature.get("layer") == "ralstrafik") {
+    } else if (layerName == "ralstrafik") {
       return [
         new Style({
           stroke: new Stroke({
@@ -417,7 +420,7 @@ export function styleStuff(feature, currentResolution) {
           }),
         }),
       ];
-    } else if (feature.get("layer") == "hydrolinje") {
+    } else if (layerName == "hydrolinje") {
       return new Style({
         stroke: new Stroke({
           color: colorArray[localStorage.mapMode][feature.get("objekttyp")],
@@ -433,8 +436,8 @@ export function styleStuff(feature, currentResolution) {
 
   if (featureType == "Polygon" || featureType == "MultiPolygon") {
     if (
-      (feature.get("layer") == "skyddadnatur" && localStorage.mapMode == 0) ||
-      feature.get("layer") == "militart_omrade"
+      (layerName == "skyddadnatur" && localStorage.mapMode == 0) ||
+      layerName == "militart_omrade"
     ) {
       // no fill only border
       return new Style({
@@ -445,7 +448,7 @@ export function styleStuff(feature, currentResolution) {
           width: 4,
         }),
       });
-    } else if (feature.get("layer") == "byggnad") {
+    } else if (layerName == "byggnad") {
       return new Style({
         zIndex: 5,
         fill: new Fill({
@@ -453,7 +456,7 @@ export function styleStuff(feature, currentResolution) {
         }),
 
       });
-    } else if (feature.get("layer") == "landningsbana") {
+    } else if (layerName == "landningsbana") {
       return new Style({
         zIndex: 15,
         fill: new Fill({
@@ -461,7 +464,7 @@ export function styleStuff(feature, currentResolution) {
         }),
 
       });
-    } else if (feature.get("layer") == "mark") {
+    } else if (layerName == "mark") {
       return new Style({
         fill: new Fill({
           color: colorArray[localStorage.mapMode][feature.get("objekttyp")],
@@ -473,7 +476,7 @@ export function styleStuff(feature, currentResolution) {
   }
 
   if (featureType == "Point") {
-    if (feature.get("layer") == "textpunkt") {
+    if (layerName == "textpunkt") {
       return new Style({
         zIndex: (feature.get("textstorleksklass") * 10) || 100,
         text: new Text({
@@ -493,7 +496,7 @@ export function styleStuff(feature, currentResolution) {
           }),
         }),
       });
-    } else if (feature.get("layer") == "Rastplats") {
+    } else if (layerName == "Rastplats") {
       return new Style({
         zIndex: 18,
         image: new Icon({
@@ -503,7 +506,7 @@ export function styleStuff(feature, currentResolution) {
           scale: 0.07,
         }),
       })
-    } else if (feature.get("layer") == "anlaggningsomradespunkt") {
+    } else if (layerName == "anlaggningsomradespunkt") {
       if (feature.get("andamal") in kartsymboler) {
         return new Style({
           image: new Icon({
@@ -515,7 +518,7 @@ export function styleStuff(feature, currentResolution) {
         // } else {
         //   console.table(feature.getProperties());
       }
-    } else if (feature.get("layer") == "Trafikplats") {
+    } else if (layerName == "Trafikplats") {
       return new Style({
         zIndex: 20,
         text: new Text({
@@ -534,7 +537,7 @@ export function styleStuff(feature, currentResolution) {
           scale: 0.18,
         }),
       })
-    } else if (feature.get("layer") == "NVDB_DK_O_24_Hojdhinder45dm" && localStorage.mapMode != 0) {
+    } else if (layerName == "NVDB_DK_O_24_Hojdhinder45dm" && localStorage.mapMode != 0) {
       return new Style({
         zIndex: 30,
         text: new Text({
@@ -555,7 +558,7 @@ export function styleStuff(feature, currentResolution) {
           scale: 0.07,
         }),
       });
-    } else if (feature.get("layer") == "VIS_DK_O_90_P_ficka") {
+    } else if (layerName == "VIS_DK_O_90_P_ficka") {
       return new Style({
         zIndex: 18,
         image: new Icon({
@@ -564,7 +567,7 @@ export function styleStuff(feature, currentResolution) {
           scale: feature.get("Placering") == 'Avskild från vägen' ? 0.1 : 0.07,
         }),
       })
-    } else if (feature.get("layer") == "atk") {
+    } else if (layerName == "atk") {
       return [
         new Style({
           zIndex: 20,
@@ -609,7 +612,7 @@ export function styleStuff(feature, currentResolution) {
         "kultur_lamning_punkt",
         "vagpunkt",
         "hydroanlaggningspunkt",
-      ].includes(feature.get("layer"))
+      ].includes(layerName)
     ) {
       if (feature.get("objekttypnr") in kartsymboler) {
         return new Style({
