@@ -13,7 +13,7 @@ const localVector = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVT(),
     url: './tiles/{z}/{x}/{y}.pbf',
-    minZoom: 6,
+    minZoom: 5,
     maxZoom: 14,
   }),
   declutter: true,
@@ -24,7 +24,7 @@ const remoteVector = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVT(),
     url: 'https://jole84.se/tiles/{z}/{x}/{y}.pbf',
-    minZoom: 6,
+    minZoom: 5,
     maxZoom: 14,
   }),
   declutter: true,

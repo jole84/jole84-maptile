@@ -11,7 +11,7 @@ rm tiles/ -r
 ogr2ogr tiles/ -f MVT \
     -clipsrc 1550000 7900000 1650000 8000000 \
     -t_srs "EPSG:3857" \
-    -dsco MINZOOM=0 \
+    -dsco MINZOOM=5 \
     -dsco MAXZOOM=14 \
     -dsco SIMPLIFICATION=5 \
     -dsco SIMPLIFICATION_MAX_ZOOM=2 \

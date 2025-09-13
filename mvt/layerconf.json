@@ -221,7 +221,7 @@
     },
     "markkantlinje1M": {
         "target_name": "markkantlinje",
-        "minzoom": 0,
+        "minzoom": 7,
         "maxzoom": 8
     },
     "markkantlinje250": {
@@ -236,7 +236,7 @@
     },
     "mark1M": {
         "target_name": "mark",
-        "minzoom": 0,
+        "minzoom": 5,
         "maxzoom": 8
     },
     "mark250": {
