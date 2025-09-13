@@ -135,7 +135,7 @@ const colorArray = [
     "Nationalpark": "#77e250a6",
     "Naturreservat": "#77e250a6",
     "Naturvårdsområde": "#4fba2898",
-    "ovrigvag": "#ff0000",
+    "ovrigvag": "#d94c26",
     "rondell": '#007dff',
     "Sjö": "#bfe6ffff",
     "Skog": "#d4eeb7ff",
@@ -174,7 +174,7 @@ const colorArray = [
     "Lövskog": "#ededed",
     "Militärt skjutfält": "#00a6e6ff",
     "Militärt övningsfält": "#00a6e6ff",
-    "ovrigvag": "#ff0000",
+    "ovrigvag": "#d94c26",
     "rondell": '#007dff',
     "Sjö": "#bfe6ffff",
     "Skog": "#ededed",
@@ -213,7 +213,7 @@ const colorArray = [
     "Lövskog": "#121212",
     "Militärt skjutfält": "#00a6e6ff",
     "Militärt övningsfält": "#00a6e6ff",
-    "ovrigvag": "#ff0000",
+    "ovrigvag": "#d94c26",
     "rondell": '#007dff',
     "Sjö": "#00263F",
     "Skog": "#121212",
@@ -266,6 +266,7 @@ export function styleStuff(feature, currentResolution) {
             color: colorArray[localStorage.mapMode][feature.get("vagtyp")],
             width: feature.get("width") / 8,
             lineCap: "round",
+            lineDash: feature.get("vagtyp") == 'ovrigvag' ? [10, 12] : undefined
           }),
         })
       ];
