@@ -270,7 +270,7 @@ export function styleStuff(feature, currentResolution) {
           }),
         })
       ];
-      if (feature.get("vagtyp") == "bidrag" && localStorage.mapMode == 0) {
+      if (feature.get("vagtyp") == "bidrag" && localStorage.mapMode == 0 && currentResolution < 80) {
         styleArray.push(
           new Style({
             zIndex: 10 - feature.get("Klass_181"),

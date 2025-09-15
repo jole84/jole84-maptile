@@ -30,7 +30,7 @@
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_100">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 25) AS Shape, 
+    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 25) AS Shape,
       Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
@@ -79,8 +79,9 @@
       END width
 
       from TNE_FT_VAGDATA WHERE
-      Klass_181 = 8 OR
       Typ_369 IN (10,20,30,100,110,120,130,140,150) OR
+      (Klass_181 = 8 AND TattbebyggtOmrade = 0) OR
+      Vagde_10379 IS NOT NULL OR
       Typ_369 IS NULL OR
       Vagna_406 IS NOT NULL OR
       Huvnr_556_1 IS NOT NULL
@@ -128,9 +129,9 @@
       F_Hogst_225 / 4 AS width
 
       from TNE_FT_VAGDATA WHERE
-      Klass_181 &lt;= 4 AND
-      (TattbebyggtOmrade != -1 OR
-      Vagna_406 IS NOT NULL)
+      TattbebyggtOmrade = 0 AND
+      Klass_181 &lt;= 4 OR
+      Vagna_406 IS NOT NULL
     </SrcSQL>
   </OGRVRTLayer>
 
