@@ -76,7 +76,7 @@
     },
     "NVDB_DK_O_24_Hojdhinder45dm": {
         "target_name": "NVDB_DK_O_24_Hojdhinder45dm",
-        "minzoom": 12,
+        "minzoom": 11,
         "maxzoom": 14
     },
     "Trafikplats": {
@@ -209,9 +209,14 @@
         "minzoom": 12,
         "maxzoom": 14
     },
-    "hydrolinje250": {
+    "hydrolinje1M": {
         "target_name": "hydrolinje",
         "minzoom": 9,
+        "maxzoom": 9
+    },
+    "hydrolinje250": {
+        "target_name": "hydrolinje",
+        "minzoom": 10,
         "maxzoom": 11
     },
     "hydrolinje100": {
@@ -222,31 +227,31 @@
     "markkantlinje1M": {
         "target_name": "markkantlinje",
         "minzoom": 7,
-        "maxzoom": 8
+        "maxzoom": 9
     },
     "markkantlinje250": {
         "target_name": "markkantlinje",
-        "minzoom": 9,
-        "maxzoom": 10
+        "minzoom": 10,
+        "maxzoom": 11
     },
     "markkantlinje100": {
         "target_name": "markkantlinje",
-        "minzoom": 11,
+        "minzoom": 12,
         "maxzoom": 14
     },
     "mark1M": {
         "target_name": "mark",
         "minzoom": 5,
-        "maxzoom": 8
+        "maxzoom": 9
     },
     "mark250": {
         "target_name": "mark",
-        "minzoom": 9,
-        "maxzoom": 10
+        "minzoom": 10,
+        "maxzoom": 11
     },
     "mark100": {
         "target_name": "mark",
-        "minzoom": 11,
+        "minzoom": 12,
         "maxzoom": 14
     }
 }

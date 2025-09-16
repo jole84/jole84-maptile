@@ -342,6 +342,10 @@
     <SrcSQL>select geom, objekttyp from skyddadnatur</SrcSQL>
   </OGRVRTLayer>
 
+  <OGRVRTLayer name="hydrolinje1M">
+    <SrcDataSource>/home/johan/Karta/topografi1M/hydrografi.gpkg</SrcDataSource>
+    <SrcSQL>select geom, objekttyp, storleksklass from hydrolinje</SrcSQL>
+  </OGRVRTLayer>
 
   <OGRVRTLayer name="hydrolinje100">
     <SrcDataSource>/home/johan/Karta/topografi100/hydrografi.gpkg</SrcDataSource>
