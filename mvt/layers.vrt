@@ -54,7 +54,7 @@
       Typ_369 IN (10,20,30) OR
       Vagna_406 IS NOT NULL OR
       Huvnr_556_1 IS NOT NULL
-      </SrcSQL>
+    </SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_250">
@@ -90,7 +90,7 @@
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_1M">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 100) AS Shape, 
+    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 100) AS Shape,
       Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
@@ -114,7 +114,7 @@
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_1M+">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 200) AS Shape, 
+    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 200) AS Shape,
       Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
@@ -266,13 +266,13 @@
     <SrcSQL>select geom, objekttyp, objekttypnr, rotation from kultur_lamning_punkt</SrcSQL>
   </OGRVRTLayer>
 
-  <OGRVRTLayer name="hojdlinje100">
-    <SrcDataSource>/home/johan/Karta/topografi100/hojd.gpkg</SrcDataSource>
-    <SrcSQL>select Simplify(geom, 10) from hojdlinje</SrcSQL>
-  </OGRVRTLayer>
-
   <OGRVRTLayer name="hojdlinje250">
     <SrcDataSource>/home/johan/Karta/topografi250/hojd.gpkg</SrcDataSource>
+    <SrcSQL>select Simplify(geom, 10) from hojdlinje</SrcSQL>
+  </OGRVRTLayer>
+  
+  <OGRVRTLayer name="hojdlinje100">
+    <SrcDataSource>/home/johan/Karta/topografi100/hojd.gpkg</SrcDataSource>
     <SrcSQL>select Simplify(geom, 10) from hojdlinje</SrcSQL>
   </OGRVRTLayer>
 
@@ -347,13 +347,18 @@
     <SrcSQL>select geom, objekttyp, storleksklass from hydrolinje</SrcSQL>
   </OGRVRTLayer>
 
+  <OGRVRTLayer name="hydrolinje250">
+    <SrcDataSource>/home/johan/Karta/topografi250/hydrografi.gpkg</SrcDataSource>
+    <SrcSQL>select geom, objekttyp, storleksklass from hydrolinje</SrcSQL>
+  </OGRVRTLayer>
+
   <OGRVRTLayer name="hydrolinje100">
     <SrcDataSource>/home/johan/Karta/topografi100/hydrografi.gpkg</SrcDataSource>
     <SrcSQL>select geom, objekttyp, storleksklass from hydrolinje</SrcSQL>
   </OGRVRTLayer>
 
-  <OGRVRTLayer name="hydrolinje250">
-    <SrcDataSource>/home/johan/Karta/topografi250/hydrografi.gpkg</SrcDataSource>
+  <OGRVRTLayer name="hydrolinje50">
+    <SrcDataSource>/home/johan/Karta/topografi50/hydrografi.gpkg</SrcDataSource>
     <SrcSQL>select geom, objekttyp, storleksklass from hydrolinje</SrcSQL>
   </OGRVRTLayer>
 
@@ -372,6 +377,11 @@
     <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2612, 2613, 2614, 2615, 2616, 2625)</SrcSQL>
   </OGRVRTLayer>
 
+  <OGRVRTLayer name="markkantlinje50">
+    <SrcDataSource>/home/johan/Karta/topografi50/mark.gpkg</SrcDataSource>
+    <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM markkantlinje WHERE objekttypnr IN (2612, 2613, 2614, 2615, 2616, 2625)</SrcSQL>
+  </OGRVRTLayer>
+
   <OGRVRTLayer name="mark1M">
     <SrcDataSource>/home/johan/Karta/topografi1M/mark.gpkg</SrcDataSource>
     <SrcSQL>SELECT geom, objekttyp, objekttypnr FROM mark</SrcSQL>
@@ -384,6 +394,11 @@
 
   <OGRVRTLayer name="mark100">
     <SrcDataSource>/home/johan/Karta/topografi100/mark.gpkg</SrcDataSource>
+    <SrcSQL>SELECT ST_MakeValid(geom), objekttyp, objekttypnr FROM mark</SrcSQL>
+  </OGRVRTLayer>
+
+  <OGRVRTLayer name="mark50">
+    <SrcDataSource>/home/johan/Karta/topografi50/mark.gpkg</SrcDataSource>
     <SrcSQL>SELECT ST_MakeValid(geom), objekttyp, objekttypnr FROM mark</SrcSQL>
   </OGRVRTLayer>
 </OGRVRTDataSource>

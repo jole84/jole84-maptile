@@ -222,6 +222,11 @@
     "hydrolinje100": {
         "target_name": "hydrolinje",
         "minzoom": 12,
+        "maxzoom": 12
+    },
+    "hydrolinje50": {
+        "target_name": "hydrolinje",
+        "minzoom": 13,
         "maxzoom": 14
     },
     "markkantlinje1M": {
@@ -237,6 +242,11 @@
     "markkantlinje100": {
         "target_name": "markkantlinje",
         "minzoom": 12,
+        "maxzoom": 12
+    },
+    "markkantlinje50": {
+        "target_name": "markkantlinje",
+        "minzoom": 13,
         "maxzoom": 14
     },
     "mark1M": {
@@ -252,6 +262,11 @@
     "mark100": {
         "target_name": "mark",
         "minzoom": 12,
+        "maxzoom": 12
+    },
+    "mark50": {
+        "target_name": "mark",
+        "minzoom": 13,
         "maxzoom": 14
     }
 }
