@@ -359,8 +359,8 @@ export function styleStuff(feature, currentResolution) {
     } else if (layerName == "hojdlinje" && localStorage.mapMode == 0) {
       return new Style({
         stroke: new Stroke({
-          color: "#00000049",
-          width: 1,
+          color: "#00000050",
+          width: feature.get("stodkurva") == "Ja" ? 2 : 1,
         }),
       });
     } else if (layerName == "ledningslinje") {

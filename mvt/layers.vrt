@@ -268,12 +268,17 @@
 
   <OGRVRTLayer name="hojdlinje250">
     <SrcDataSource>/home/johan/Karta/topografi250/hojd.gpkg</SrcDataSource>
-    <SrcSQL>select Simplify(geom, 10) from hojdlinje</SrcSQL>
+    <SrcSQL>select Simplify(geom, 20), stodkurva from hojdlinje</SrcSQL>
   </OGRVRTLayer>
-  
+
   <OGRVRTLayer name="hojdlinje100">
     <SrcDataSource>/home/johan/Karta/topografi100/hojd.gpkg</SrcDataSource>
-    <SrcSQL>select Simplify(geom, 10) from hojdlinje</SrcSQL>
+    <SrcSQL>select Simplify(geom, 20), stodkurva from hojdlinje</SrcSQL>
+  </OGRVRTLayer>
+
+  <OGRVRTLayer name="hojdlinje100-">
+    <SrcDataSource>/home/johan/Karta/topografi100/hojd.gpkg</SrcDataSource>
+    <SrcSQL>select geom, stodkurva from hojdlinje</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="landningsbana50">
