@@ -30,7 +30,7 @@
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_100">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 25) AS Shape,
+    <SrcSQL>select ST_Simplify(ST_Union(Shape), 25) AS Shape,
       Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
@@ -54,12 +54,14 @@
       Typ_369 IN (10,20,30) OR
       Vagna_406 IS NOT NULL OR
       Huvnr_556_1 IS NOT NULL
+
+      GROUP BY Klass_181, F_Hogst_225, Evag_555, Huvnr_556_1, Slitl_152, vagtyp, width
     </SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_250">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 50) AS Shape,
+    <SrcSQL>select ST_Simplify(ST_Union(Shape), 50) AS Shape,
       Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
@@ -85,12 +87,14 @@
       Typ_369 IS NULL OR
       Vagna_406 IS NOT NULL OR
       Huvnr_556_1 IS NOT NULL
+
+      GROUP BY Klass_181, F_Hogst_225, Evag_555, Huvnr_556_1, Slitl_152, vagtyp
     </SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_1M">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 100) AS Shape,
+    <SrcSQL>select ST_Simplify(ST_Union(Shape), 100) AS Shape,
       Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
@@ -109,12 +113,14 @@
       Vagna_406 IS NOT NULL OR
       Huvnr_556_1 IS NOT NULL OR
       Typ_369 IS NULL
+
+      GROUP BY Klass_181, F_Hogst_225, Evag_555, Huvnr_556_1, Slitl_152, vagtyp
     </SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_1M+">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 200) AS Shape,
+    <SrcSQL>select ST_Simplify(ST_Union(Shape), 2000) AS Shape,
       Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE
@@ -132,6 +138,8 @@
       TattbebyggtOmrade = 0 AND
       Klass_181 &lt;= 4 OR
       Vagna_406 IS NOT NULL
+
+      GROUP BY Klass_181, F_Hogst_225, Evag_555, Huvnr_556_1, Slitl_152, vagtyp
     </SrcSQL>
   </OGRVRTLayer>
 
