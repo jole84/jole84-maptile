@@ -136,7 +136,7 @@
     },
     "hojdlinje250": {
         "target_name": "hojdlinje",
-        "minzoom": 10,
+        "minzoom": 9,
         "maxzoom": 11
     },
     "hojdlinje100": {

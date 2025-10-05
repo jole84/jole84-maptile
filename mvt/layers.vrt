@@ -273,9 +273,9 @@
 
   <OGRVRTLayer name="hojdlinje100">
     <SrcDataSource>/home/johan/Karta/topografi100/hojd.gpkg</SrcDataSource>
-    <SrcSQL>select Simplify(geom, 20), stodkurva from hojdlinje</SrcSQL>
+    <SrcSQL>select Simplify(geom, 20), stodkurva from hojdlinje WHERE hojdvarde % 20 = 0</SrcSQL>
   </OGRVRTLayer>
-
+  
   <OGRVRTLayer name="hojdlinje100-">
     <SrcDataSource>/home/johan/Karta/topografi100/hojd.gpkg</SrcDataSource>
     <SrcSQL>select geom, stodkurva from hojdlinje</SrcSQL>
@@ -326,16 +326,15 @@
     <SrcSQL>select geom, objekttyp, objekttypnr, rotation from byggnadspunkt</SrcSQL>
   </OGRVRTLayer>
 
-  <OGRVRTLayer name="militart_omrade100">
-    <SrcDataSource>/home/johan/Karta/topografi100/militartomrade.gpkg</SrcDataSource>
-    <SrcSQL>select geom, objekttyp from militart_omrade</SrcSQL>
-  </OGRVRTLayer>
-
   <OGRVRTLayer name="militart_omrade250">
     <SrcDataSource>/home/johan/Karta/topografi250/militartomrade.gpkg</SrcDataSource>
     <SrcSQL>select geom, objekttyp from militart_omrade</SrcSQL>
   </OGRVRTLayer>
-
+  
+  <OGRVRTLayer name="militart_omrade100">
+    <SrcDataSource>/home/johan/Karta/topografi100/militartomrade.gpkg</SrcDataSource>
+    <SrcSQL>select geom, objekttyp from militart_omrade</SrcSQL>
+  </OGRVRTLayer>
 
   <OGRVRTLayer name="skyddadnatur100">
     <SrcDataSource>/home/johan/Karta/topografi100/naturvard.gpkg</SrcDataSource>
