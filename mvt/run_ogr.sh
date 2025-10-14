@@ -26,4 +26,4 @@ ogr2ogr tiles/ -f MVT \
 # minzoom 12 syns på >13 (+1)
 # maxzoom 8 släcks på >10 (+2)
 
-# rsync -aPhz --info=progress2 --progress --include '*.pbf' tiles root@192.46.232.175:/var/www/html/ --delete
+# rsync -aPhz --info=progress2 --progress tiles root@192.46.232.175:/var/www/html/ --delete

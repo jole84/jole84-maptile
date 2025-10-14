@@ -579,7 +579,7 @@ export function styleStuff(feature, currentResolution) {
             scale: 0.06,
             rotateWithView: true,
             rotation: degToRad(feature.get("vinkel")) - Math.PI,
-            displacement: [17, 0],
+            displacement: [14, 0],
           }),
         }),
         new Style({
@@ -589,12 +589,12 @@ export function styleStuff(feature, currentResolution) {
             rotateWithView: true,
             rotation: degToRad(feature.get("vinkel")) - Math.PI,
             src: "https://jole84.se/kartsymboler/c31-3.svg",
-            displacement: [17, 28],
+            displacement: [14, 28],
             scale: 0.07,
           }),
           text: new Text({
             declutterMode: "none",
-            offsetX: 17,
+            offsetX: 14,
             offsetY: -26,
             text: feature.get("HTHAST"),
             rotateWithView: true,
