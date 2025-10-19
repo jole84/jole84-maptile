@@ -83,7 +83,7 @@ for camera in data['RESPONSE']['RESULT'][0]["TrafficSafetyCamera"]:
 
 gdf = gpd.GeoDataFrame(data['RESPONSE']['RESULT'][0]["TrafficSafetyCamera"])
 gdf = gdf.drop(columns=['Geometry'])
-gdf.rename(columns={'Bearing':'vinkel'}, inplace=True) # to be fixed
+# gdf.rename(columns={'Bearing':'vinkel'}, inplace=True)
 
 total_cameras_number = str(len(gdf))
 current_number = 1

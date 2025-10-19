@@ -578,7 +578,7 @@ export function styleStuff(feature, currentResolution) {
             src: "https://jole84.se/kartsymboler/e24-1.svg",
             scale: 0.06,
             rotateWithView: true,
-            rotation: degToRad(feature.get("vinkel")) - Math.PI,
+            rotation: degToRad(feature.get("Bearing")) - Math.PI,
             displacement: [15, 0],
           }),
         }),
@@ -587,7 +587,7 @@ export function styleStuff(feature, currentResolution) {
           image: new Icon({
             declutterMode: "none",
             rotateWithView: true,
-            rotation: degToRad(feature.get("vinkel")) - Math.PI,
+            rotation: degToRad(feature.get("Bearing")) - Math.PI,
             src: "https://jole84.se/kartsymboler/c31-3.svg",
             displacement: [15, 28],
             scale: 0.07,
@@ -598,7 +598,7 @@ export function styleStuff(feature, currentResolution) {
             offsetY: -26,
             text: feature.get("HTHAST"),
             rotateWithView: true,
-            rotation: degToRad(feature.get("vinkel")) - Math.PI,
+            rotation: degToRad(feature.get("Bearing")) - Math.PI,
             font: "bold 19px arial, sans-serif",
             fill: new Fill({
               color: "black",

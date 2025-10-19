@@ -181,7 +181,7 @@
 
   <OGRVRTLayer name="atk">
     <SrcDataSource>/home/johan/Karta/NVDB/ATK.gpkg</SrcDataSource>
-    <SrcSQL>select geom, vinkel, HTHAST from atk</SrcSQL>
+    <SrcSQL>select geom, Bearing, HTHAST from ATK</SrcSQL>
   </OGRVRTLayer>
 
   <OGRVRTLayer name="VIS_DK_O_90_P_ficka">
