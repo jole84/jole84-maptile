@@ -7,15 +7,8 @@ url = "https://api.trafikinfo.trafikverket.se/v2/data.json"
 headers = {'Content-Type': 'application/xml'}
 authenticationkey = "fa68891ca1284d38a637fe8d100861f0"
 
-def getSpeedLimit(row):
-    global current_number
-    lat = row["geometry"].y # 64
-    long = row["geometry"].x # 15
-
-    try:
-        vagnummer = int(row["RoadNumber"].replace("E", ""))
-
-        xmlpayloadvagnummer = f"""
+def searchByVagnummer(long, lat, vagnummer):
+    xmlpayload = f"""
         <REQUEST>
             <LOGIN authenticationkey="{authenticationkey}"/>
             <QUERY objecttype='Vägnummer' namespace='vägdata.nvdb_dk_o' schemaversion='1.2' limit='1'>
@@ -26,12 +19,45 @@ def getSpeedLimit(row):
                 <INCLUDE>Element_Id</INCLUDE>
             </QUERY>
         </REQUEST>
-        """
-        response = requests.post(url, data=xmlpayloadvagnummer.encode('utf-8'), headers=headers)
-        data = json.loads(response.content)
-        elementId = data['RESPONSE']['RESULT'][0]["Vägnummer"][0]["Element_Id"]
-        
-        xmlpayload = f"""
+    """
+    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers)
+    data = json.loads(response.content)
+    return data['RESPONSE']['RESULT'][0]["Vägnummer"][0]["Element_Id"]
+
+def searchByGatunamn(long, lat, gatunamn):
+    xmlpayload = f"""
+        <REQUEST>
+            <LOGIN authenticationkey="demokey"/>
+            <QUERY objecttype="Gatunamn" namespace="vägdata.nvdb_dk_o" schemaversion="1.2" limit="10">
+                <FILTER>
+                <NEAR name='Geometry.WKT-WGS84-3D' value="{long} {lat}" maxdistance="20m" />
+                <EQ name="Namn" value="{gatunamn}" />
+                </FILTER>
+            </QUERY>
+        </REQUEST>
+    """
+    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers)
+    data = json.loads(response.content)
+    return data['RESPONSE']['RESULT'][0]["Gatunamn"][0]["Element_Id"]
+
+def searchSpeedlimitByCoordinate(long, lat):
+    xmlpayload = f"""
+        <REQUEST>
+            <LOGIN authenticationkey="{authenticationkey}"/>
+            <QUERY objecttype='Hastighetsgräns' namespace='vägdata.nvdb_dk_o' schemaversion='1.3' limit='1'>
+                <FILTER>
+                    <NEAR name='Geometry.WKT-WGS84-3D' value="{long} {lat}" maxdistance="20m" />
+                </FILTER>
+                <INCLUDE>Högsta_tillåtna_hastighet</INCLUDE>
+            </QUERY>
+        </REQUEST>
+    """
+    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers)
+    data = json.loads(response.content)
+    return data['RESPONSE']['RESULT'][0]['Hastighetsgräns'][0]["Högsta_tillåtna_hastighet"]
+
+def searchSpeedlimitByElementId(long, lat, elementId):
+    xmlpayload = f"""
         <REQUEST>
             <LOGIN authenticationkey="{authenticationkey}"/>
             <QUERY objecttype='Hastighetsgräns' namespace='vägdata.nvdb_dk_o' schemaversion='1.3' limit='1'>
@@ -42,26 +68,44 @@ def getSpeedLimit(row):
                 <INCLUDE>Högsta_tillåtna_hastighet</INCLUDE>
             </QUERY>
         </REQUEST>
-        """
-    except:
-        print("    Error: " + row["Name"] + " " + row["RoadNumber"])
-        xmlpayload = f"""
-        <REQUEST>
-            <LOGIN authenticationkey="{authenticationkey}"/>
-            <QUERY objecttype='Hastighetsgräns' namespace='vägdata.nvdb_dk_o' schemaversion='1.3' limit='1'>
-                <FILTER>
-                    <NEAR name='Geometry.WKT-WGS84-3D' value="{long} {lat}" maxdistance="20m" />
-                </FILTER>
-                <INCLUDE>Högsta_tillåtna_hastighet</INCLUDE>
-            </QUERY>
-        </REQUEST>
-        """
+    """
     response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers)
     data = json.loads(response.content)
-    print(str(current_number) + "/" + total_cameras_number + " " + row["Name"] + " " + str(data['RESPONSE']['RESULT'][0]['Hastighetsgräns'][0]["Högsta_tillåtna_hastighet"]) + "km/h")
-    current_number += 1
     return data['RESPONSE']['RESULT'][0]['Hastighetsgräns'][0]["Högsta_tillåtna_hastighet"]
 
+def getSpeedLimit(row):
+    global current_number
+    lat = row["geometry"].y # 64
+    long = row["geometry"].x # 15
+    name = row["Name"]
+    roadNumber = row["RoadNumber"]
+    errorString = ""
+
+    try:
+        try:
+            vagnummer = int(row["RoadNumber"].replace("E", ""))
+            elementId = searchByVagnummer(long, lat, vagnummer)
+            errorString = "vägnummer OK"
+        except:
+            errorString = "söker på vägnamn"
+            elementId = searchByGatunamn(long, lat, roadNumber)
+        speedLimit = searchSpeedlimitByElementId(long, lat, elementId)
+    except:
+        errorString = "elementId saknas"
+        speedLimit = searchSpeedlimitByCoordinate(long, lat)
+    
+    print("{:<15}{:<35}{:<25}{:<15}{:<15}".format(
+        str(current_number) + "/" + total_cameras_number,
+        row["Name"],
+        "väg: " + roadNumber,
+        str(speedLimit) + "km/h",
+        errorString
+    ))
+    current_number += 1
+    return speedLimit
+
+
+# <EQ name="RoadNumber" value="Häradsvägen" />
 xmlpayloadatk = f"""
 <REQUEST>
     <LOGIN authenticationkey="{authenticationkey}"/>
@@ -76,6 +120,7 @@ xmlpayloadatk = f"""
 """
 
 response = requests.post(url, data=xmlpayloadatk.encode('utf-8'), headers=headers)
+# print(response.text)
 data = json.loads(response.content)
 
 for camera in data['RESPONSE']['RESULT'][0]["TrafficSafetyCamera"]:
