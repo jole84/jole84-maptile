@@ -43,7 +43,7 @@
       END vagtyp,
 
       CASE
-      WHEN Slitl_152 = 2 AND Bredd_156 &lt;= 6 THEN Bredd_156 * 7
+      WHEN Slitl_152 = 2 AND Bredd_156 &lt;= 6 THEN Bredd_156 * 5
       WHEN Slitl_152 = 1 THEN F_Hogst_225 / 3
 
       ELSE 20
@@ -72,10 +72,10 @@
       END vagtyp,
 
       CASE
-      WHEN Slitl_152 = 2 AND Bredd_156 &lt;= 6 THEN Bredd_156 * 6
-      WHEN Slitl_152 = 1 THEN F_Hogst_225 / 3
+      WHEN Slitl_152 = 2 AND Bredd_156 &lt;= 6 THEN Bredd_156 * 5
+      WHEN Slitl_152 = 1 THEN F_Hogst_225 / 4
 
-      ELSE 20
+      ELSE 15
       END width
 
       from TNE_FT_VAGDATA WHERE
@@ -114,7 +114,7 @@
 
   <OGRVRTLayer name="TNE_FT_VAGDATA_1M+">
     <SrcDataSource>/home/johan/Karta/NVDB/vagnat_union.gpkg</SrcDataSource>
-    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 200) AS Shape,
+    <SrcSQL>select ST_Simplify(ST_linemerge(Shape), 250) AS Shape,
       Klass_181, F_Hogst_225 AS maxspeed, Evag_555, Huvnr_556_1,
 
       CASE

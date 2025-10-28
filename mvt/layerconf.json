@@ -136,12 +136,12 @@
     },
     "hojdlinje250": {
         "target_name": "hojdlinje",
-        "minzoom": 8,
-        "maxzoom": 10
+        "minzoom": 9,
+        "maxzoom": 11
     },
     "hojdlinje100": {
         "target_name": "hojdlinje",
-        "minzoom": 11,
+        "minzoom": 12,
         "maxzoom": 12
     },
     "hojdlinje100-": {
@@ -186,7 +186,7 @@
     },
     "byggnad100": {
         "target_name": "byggnad",
-        "minzoom": 11,
+        "minzoom": 12,
         "maxzoom": 12
     },
     "byggnad50": {
