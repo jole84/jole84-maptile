@@ -255,382 +255,373 @@ function getTextFont(feature) {
 }
 
 export function styleStuff(feature, currentResolution) {
-  const featureType = feature.getGeometry().getType();
   const layerName = feature.get("layer");
-  if (featureType == "LineString" || featureType == "MultiLineString") {
-    if (layerName == "TNE_FT_VAGDATA") {
-      const styleArray = [
+
+
+  // linestring
+  if (layerName == "TNE_FT_VAGDATA") {
+    const styleArray = [
+      new Style({
+        zIndex: feature.get("vagtyp") == 'rondell' ? 100 : (10 - feature.get("Klass_181")),
+        stroke: new Stroke({
+          color: colorArray[localStorage.mapMode][feature.get("vagtyp")],
+          width: feature.get("width") / 8,
+          lineCap: "round",
+          lineDash: feature.get("vagtyp") == 'ovrigvag' ? [10, 12] : undefined
+        }),
+      })
+    ];
+    if (feature.get("vagtyp") == "bidrag" && localStorage.mapMode == 0 && currentResolution < 80) {
+      styleArray.push(
         new Style({
-          zIndex: feature.get("vagtyp") == 'rondell' ? 100 : (10 - feature.get("Klass_181")),
+          zIndex: 10 - feature.get("Klass_181"),
           stroke: new Stroke({
-            color: colorArray[localStorage.mapMode][feature.get("vagtyp")],
-            width: feature.get("width") / 8,
-            lineCap: "round",
-            lineDash: feature.get("vagtyp") == 'ovrigvag' ? [10, 12] : undefined
+            color: "black",
+            width: (feature.get("width") / 8),
+            lineDash: [6, 12],
+            lineDashOffset: 10,
+            lineCap: "butt",
+          }),
+        }),
+      )
+    }
+    if (currentResolution < 9) {
+      styleArray.push(
+        new Style({
+          zIndex: 10,
+          text: new Text({
+            text: feature.get("Namn_132") || feature.get("Namn_130"),
+            font: "12px arial, sans-serif",
+            placement: "line",
+            fill: new Fill({
+              color: colorArray[localStorage.mapMode]["textColorFill"],
+            }),
+            stroke: new Stroke({
+              color: colorArray[localStorage.mapMode]["textColorStroke"],
+              width: 4,
+            }),
           }),
         })
-      ];
-      if (feature.get("vagtyp") == "bidrag" && localStorage.mapMode == 0 && currentResolution < 80) {
-        styleArray.push(
-          new Style({
-            zIndex: 10 - feature.get("Klass_181"),
+      )
+    }
+    if (feature.get("Huvnr_556_1") < 500 && !feature.get("Namn_130")) {
+      const europaVag = feature.get("Evag_555") == -1;
+      styleArray.push(
+        new Style({
+          zIndex: europaVag ? 10 : 9,
+          text: new Text({
+            text: europaVag ? "E" + String(feature.get("Huvnr_556_1")) : String(feature.get("Huvnr_556_1")),
+            font: "bold 14px arial, sans-serif",
+            placement: "point",
+            padding: [
+              75,
+              75,
+              75,
+              75
+            ],
+            fill: new Fill({
+              color: "white",
+            }),
             stroke: new Stroke({
-              color: "black",
-              width: (feature.get("width") / 8),
-              lineDash: [6, 12],
-              lineDashOffset: 10,
-              lineCap: "butt",
+              color: europaVag ? "#4daf4a" : "#377eb8",
+              width: 10,
             }),
           }),
-        )
+        })
+      )
+    }
+    return styleArray;
+  } else if (layerName == "traktor" && localStorage.mapMode == 0) {
+    return new Style({
+      stroke: new Stroke({
+        color: colorArray[localStorage.mapMode][feature.get("objekttyp")],
+        width: 3,
+        lineDash: [10, 10],
+        lineDashOffset: 10,
+        lineCap: "square",
+      }),
+    });
+  } else if (layerName == "markkantlinje" && localStorage.mapMode == 0) {
+    return new Style({
+      zIndex: 2,
+      stroke: new Stroke({
+        color: "#00a6ff",
+        width: 1,
+      }),
+    });
+  } else if (layerName == "kurvighet" && localStorage.mapMode == 0) {
+    return new Style({
+      zIndex: 2,
+      stroke: new Stroke({
+        color: "#df006840",
+        width: 12,
+      }),
+    });
+  } else if (layerName == "hojdlinje" && localStorage.mapMode == 0) {
+    return new Style({
+      stroke: new Stroke({
+        color: "#00000050",
+        width: feature.get("stodkurva") == "Ja" ? 2 : 1,
+      }),
+    });
+  } else if (layerName == "ledningslinje") {
+    return new Style({
+      stroke: new Stroke({
+        color: "#000000a2",
+        width: 2,
+      }),
+    });
+  } else if (layerName == "vaglinje") {
+    let vagNummer = "";
+    let europaVag = false;
+    if (feature.get("vardvagnummer")) {
+      if (Array.from(feature.get("vardvagnummer"))[0] == "E" || feature.get("vardvagnummer") < 500) {
+        vagNummer = feature.get("vardvagnummer").split(".")[0];
+        europaVag = Array.from(feature.get("vardvagnummer"))[0] == "E"
       }
-      if (currentResolution < 9) {
-        styleArray.push(
-          new Style({
-            zIndex: 10,
-            text: new Text({
-              text: feature.get("Namn_132") || feature.get("Namn_130"),
-              font: "12px arial, sans-serif",
-              placement: "line",
-              fill: new Fill({
-                color: colorArray[localStorage.mapMode]["textColorFill"],
-              }),
-              stroke: new Stroke({
-                color: colorArray[localStorage.mapMode]["textColorStroke"],
-                width: 4,
-              }),
-            }),
-          })
-        )
-      }
-      if (feature.get("Huvnr_556_1") < 500 && !feature.get("Namn_130")) {
-        const europaVag = feature.get("Evag_555") == -1;
-        styleArray.push(
-          new Style({
-            zIndex: europaVag ? 10 : 9,
-            text: new Text({
-              text: europaVag ? "E" + String(feature.get("Huvnr_556_1")) : String(feature.get("Huvnr_556_1")),
-              font: "bold 14px arial, sans-serif",
-              placement: "point",
-              padding: [
-                75,
-                75,
-                75,
-                75
-              ],
-              fill: new Fill({
-                color: "white",
-              }),
-              stroke: new Stroke({
-                color: europaVag ? "#4daf4a" : "#377eb8",
-                width: 10,
-              }),
-            }),
-          })
-        )
-      }
-      return styleArray;
-    } else if (layerName == "traktor" && localStorage.mapMode == 0) {
-      return new Style({
+    }
+    return new Style({
+      zIndex: europaVag ? 10 : 3,
+      stroke: new Stroke({
+        color: colorArray[localStorage.mapMode]["belagd"],
+        width: roadWidth[feature.get("objekttyp")] || 3,
+      }),
+      text: new Text({
+        declutterMode: "declutter",
+        text: String(vagNummer),
+        font: "bold 14px arial, sans-serif",
+        padding: [50, 50, 50, 50],
+        placement: "point",
+        fill: new Fill({
+          color: "white",
+        }),
         stroke: new Stroke({
-          color: colorArray[localStorage.mapMode][feature.get("objekttyp")],
+          color: europaVag ? "#4daf4a" : "#377eb8",
+          width: 10,
+        }),
+        // backgroundFill: new Fill({
+        //   color: europaVag ? "#4daf4a" : "#377eb8",
+        // }),
+      }),
+    });
+  } else if (layerName == "ralstrafik") {
+    return [
+      new Style({
+        stroke: new Stroke({
+          color: "black",
           width: 3,
+        }),
+      }),
+      new Style({
+        stroke: new Stroke({
+          color: "white",
+          width: 2,
           lineDash: [10, 10],
           lineDashOffset: 10,
           lineCap: "square",
         }),
-      });
-    } else if (layerName == "markkantlinje" && localStorage.mapMode == 0) {
-      return new Style({
-        zIndex: 2,
+      }),
+    ];
+  } else if (layerName == "hydrolinje") {
+    return new Style({
+      stroke: new Stroke({
+        color: colorArray[localStorage.mapMode][feature.get("objekttyp")],
+        width: Number(feature.get("storleksklass")) || 3,
+        lineCap: "round",
+      }),
+    });
+  }
+
+
+  // polygon
+  else if (
+    (layerName == "skyddadnatur" && localStorage.mapMode == 0) ||
+    layerName == "militart_omrade"
+  ) {
+    // no fill only border
+    return new Style({
+      zIndex: 5,
+      stroke: new Stroke({
+        color: colorArray[localStorage.mapMode][feature.get("objekttyp")],
+        lineDash: dashPolygon.includes(feature.get("objekttyp")) ? [10, 10] : undefined,
+        width: 4,
+      }),
+    });
+  } else if (layerName == "byggnad") {
+    return new Style({
+      zIndex: 5,
+      fill: new Fill({
+        color: "#7d7d7d",
+      }),
+
+    });
+  } else if (layerName == "landningsbana") {
+    return new Style({
+      zIndex: 15,
+      fill: new Fill({
+        color: colorArray[localStorage.mapMode][feature.get("objekttyp")],
+      }),
+
+    });
+  } else if (layerName == "mark") {
+    return new Style({
+      fill: new Fill({
+        color: colorArray[localStorage.mapMode][feature.get("objekttyp")],
+      }),
+    });
+  }
+
+
+  // point
+  else if (layerName == "textpunkt") {
+    return new Style({
+      zIndex: (feature.get("textstorleksklass") * 10) || 100,
+      text: new Text({
+        declutterMode: "none",
+        text: feature.get("textstrang"),
+        textAlign: textAlign[feature.get("textlage")],
+        textBaseline: textBaseline[feature.get("textlage")],
+        rotation: degToRad(360 - feature.get("textriktning")),
+        rotateWithView: !!feature.get("textriktning"),
+        font: getTextFont(feature),
+        fill: new Fill({
+          color: textColor[feature.get("textkategori")] || colorArray[localStorage.mapMode]["textColorFill"],
+        }),
         stroke: new Stroke({
-          color: "#00a6ff",
-          width: 1,
+          color: colorArray[localStorage.mapMode]["textColorStroke"],
+          width: Number(feature.get("textstorleksklass") * 0.3) + 3,
         }),
-      });
-    } else if (layerName == "kurvighet" && localStorage.mapMode == 0) {
+      }),
+    });
+  } else if (layerName == "Rastplats") {
+    return new Style({
+      zIndex: 18,
+      image: new Icon({
+        declutterMode: "none",
+        // anchor: [0.5, 1],
+        src: "https://www.transportstyrelsen.se/globalassets/global/vag/vagmarken2/h.-lokaliseringsmarken-for-upplysning-om-serviceanlaggningar/h13.-rastplats/h13-1.png",
+        scale: 0.07,
+      }),
+    })
+  } else if (layerName == "anlaggningsomradespunkt") {
+    if (feature.get("andamal") in kartsymboler) {
       return new Style({
-        zIndex: 2,
-        stroke: new Stroke({
-          color: "#df006840",
-          width: 12,
-        }),
-      });
-    } else if (layerName == "hojdlinje" && localStorage.mapMode == 0) {
-      return new Style({
-        stroke: new Stroke({
-          color: "#00000050",
-          width: feature.get("stodkurva") == "Ja" ? 2 : 1,
-        }),
-      });
-    } else if (layerName == "ledningslinje") {
-      return new Style({
-        stroke: new Stroke({
-          color: "#000000a2",
-          width: 2,
-        }),
-      });
-    } else if (layerName == "vaglinje") {
-      let vagNummer = "";
-      let europaVag = false;
-      if (feature.get("vardvagnummer")) {
-        if (Array.from(feature.get("vardvagnummer"))[0] == "E" || feature.get("vardvagnummer") < 500) {
-          vagNummer = feature.get("vardvagnummer").split(".")[0];
-          europaVag = Array.from(feature.get("vardvagnummer"))[0] == "E"
-        }
-      }
-      return new Style({
-        zIndex: europaVag ? 10 : 3,
-        stroke: new Stroke({
-          color: colorArray[localStorage.mapMode]["belagd"],
-          width: roadWidth[feature.get("objekttyp")] || 3,
-        }),
-        text: new Text({
-          declutterMode: "declutter",
-          text: String(vagNummer),
-          font: "bold 14px arial, sans-serif",
-          padding: [50, 50, 50, 50],
-          placement: "point",
-          fill: new Fill({
-            color: "white",
-          }),
-          stroke: new Stroke({
-            color: europaVag ? "#4daf4a" : "#377eb8",
-            width: 10,
-          }),
-          // backgroundFill: new Fill({
-          //   color: europaVag ? "#4daf4a" : "#377eb8",
-          // }),
-        }),
-      });
-    } else if (layerName == "ralstrafik") {
-      return [
-        new Style({
-          stroke: new Stroke({
-            color: "black",
-            width: 3,
-          }),
-        }),
-        new Style({
-          stroke: new Stroke({
-            color: "white",
-            width: 2,
-            lineDash: [10, 10],
-            lineDashOffset: 10,
-            lineCap: "square",
-          }),
-        }),
-      ];
-    } else if (layerName == "hydrolinje") {
-      return new Style({
-        stroke: new Stroke({
-          color: colorArray[localStorage.mapMode][feature.get("objekttyp")],
-          width: Number(feature.get("storleksklass")) || 3,
-          lineCap: "round",
+        image: new Icon({
+          rotation: degToRad(360 - feature.get("rotation")),
+          rotateWithView: !!feature.get("rotation"),
+          src: kartsymboler[feature.get("andamal")],
         }),
       });
       // } else {
       //   console.table(feature.getProperties());
     }
-
-  }
-
-  if (featureType == "Polygon" || featureType == "MultiPolygon") {
-    if (
-      (layerName == "skyddadnatur" && localStorage.mapMode == 0) ||
-      layerName == "militart_omrade"
-    ) {
-      // no fill only border
-      return new Style({
-        zIndex: 5,
-        stroke: new Stroke({
-          color: colorArray[localStorage.mapMode][feature.get("objekttyp")],
-          lineDash: dashPolygon.includes(feature.get("objekttyp")) ? [10, 10] : undefined,
-          width: 4,
-        }),
-      });
-    } else if (layerName == "byggnad") {
-      return new Style({
-        zIndex: 5,
+  } else if (layerName == "Trafikplats") {
+    return new Style({
+      zIndex: 20,
+      text: new Text({
+        offsetX: 12,
+        offsetY: 1,
+        declutterMode: "none",
+        text: feature.get("trafikplatsnummer"),
+        font: "bold 16px arial, sans-serif",
         fill: new Fill({
-          color: "#7d7d7d",
+          color: "black",
         }),
-
-      });
-    } else if (layerName == "landningsbana") {
-      return new Style({
-        zIndex: 15,
+      }),
+      image: new Icon({
+        declutterMode: "none",
+        src: "https://jole84.se/kartsymboler/f27-1.svg",
+        scale: 0.18,
+      }),
+    })
+  } else if (layerName == "NVDB_DK_O_24_Hojdhinder45dm" && localStorage.mapMode != 0) {
+    return new Style({
+      zIndex: 30,
+      text: new Text({
+        // declutterMode: "none",
+        text: feature.get("Fri_hojd").toFixed(1) + "m",
+        rotateWithView: true,
+        rotation: feature.get("rotation") - Math.PI,
+        font: "bold 10px arial, sans-serif",
         fill: new Fill({
-          color: colorArray[localStorage.mapMode][feature.get("objekttyp")],
+          color: "black",
         }),
-
-      });
-    } else if (layerName == "mark") {
-      return new Style({
-        fill: new Fill({
-          color: colorArray[localStorage.mapMode][feature.get("objekttyp")],
-        }),
-      });
-      // } else {
-      //   console.table(feature.getProperties());
-    }
-  }
-
-  if (featureType == "Point") {
-    if (layerName == "textpunkt") {
-      return new Style({
-        zIndex: (feature.get("textstorleksklass") * 10) || 100,
-        text: new Text({
-          declutterMode: "none",
-          text: feature.get("textstrang"),
-          textAlign: textAlign[feature.get("textlage")],
-          textBaseline: textBaseline[feature.get("textlage")],
-          rotation: degToRad(360 - feature.get("textriktning")),
-          rotateWithView: !!feature.get("textriktning"),
-          font: getTextFont(feature),
-          fill: new Fill({
-            color: textColor[feature.get("textkategori")] || colorArray[localStorage.mapMode]["textColorFill"],
-          }),
-          stroke: new Stroke({
-            color: colorArray[localStorage.mapMode]["textColorStroke"],
-            width: Number(feature.get("textstorleksklass") * 0.3) + 3,
-          }),
-        }),
-      });
-    } else if (layerName == "Rastplats") {
-      return new Style({
-        zIndex: 18,
+      }),
+      image: new Icon({
+        // declutterMode: "none",
+        rotateWithView: true,
+        rotation: feature.get("rotation") - Math.PI,
+        src: "https://jole84.se/kartsymboler/c17-1.svg",
+        scale: 0.07,
+      }),
+    });
+  } else if (layerName == "VIS_DK_O_90_P_ficka") {
+    return new Style({
+      zIndex: 18,
+      image: new Icon({
+        declutterMode: "none",
+        src: "https://jole84.se/kartsymboler/e19-1.svg",
+        scale: feature.get("Placering") == 'Avskild från vägen' ? 0.1 : 0.07,
+      }),
+    })
+  } else if (layerName == "atk") {
+    return [
+      new Style({
+        zIndex: 20,
         image: new Icon({
           declutterMode: "none",
           // anchor: [0.5, 1],
-          src: "https://www.transportstyrelsen.se/globalassets/global/vag/vagmarken2/h.-lokaliseringsmarken-for-upplysning-om-serviceanlaggningar/h13.-rastplats/h13-1.png",
-          scale: 0.07,
+          src: "https://jole84.se/kartsymboler/e24-1.svg",
+          scale: 0.06,
+          rotateWithView: true,
+          rotation: degToRad(feature.get("Bearing")) - Math.PI,
+          displacement: [15, 0],
         }),
-      })
-    } else if (layerName == "anlaggningsomradespunkt") {
-      if (feature.get("andamal") in kartsymboler) {
-        return new Style({
-          image: new Icon({
-            rotation: degToRad(360 - feature.get("rotation")),
-            rotateWithView: !!feature.get("rotation"),
-            src: kartsymboler[feature.get("andamal")],
-          }),
-        });
-        // } else {
-        //   console.table(feature.getProperties());
-      }
-    } else if (layerName == "Trafikplats") {
-      return new Style({
+      }),
+      new Style({
         zIndex: 20,
-        text: new Text({
-          offsetX: 12,
-          offsetY: 1,
-          declutterMode: "none",
-          text: feature.get("trafikplatsnummer"),
-          font: "bold 16px arial, sans-serif",
-          fill: new Fill({
-            color: "black",
-          }),
-        }),
         image: new Icon({
           declutterMode: "none",
-          src: "https://jole84.se/kartsymboler/f27-1.svg",
-          scale: 0.18,
-        }),
-      })
-    } else if (layerName == "NVDB_DK_O_24_Hojdhinder45dm" && localStorage.mapMode != 0) {
-      return new Style({
-        zIndex: 30,
-        text: new Text({
-          // declutterMode: "none",
-          text: feature.get("Fri_hojd").toFixed(1) + "m",
           rotateWithView: true,
-          rotation: feature.get("rotation") - Math.PI,
-          font: "bold 10px arial, sans-serif",
-          fill: new Fill({
-            color: "black",
-          }),
-        }),
-        image: new Icon({
-          // declutterMode: "none",
-          rotateWithView: true,
-          rotation: feature.get("rotation") - Math.PI,
-          src: "https://jole84.se/kartsymboler/c17-1.svg",
+          rotation: degToRad(feature.get("Bearing")) - Math.PI,
+          src: "https://jole84.se/kartsymboler/c31-3.svg",
+          displacement: [15, 28],
           scale: 0.07,
         }),
-      });
-    } else if (layerName == "VIS_DK_O_90_P_ficka") {
-      return new Style({
-        zIndex: 18,
-        image: new Icon({
+        text: new Text({
           declutterMode: "none",
-          src: "https://jole84.se/kartsymboler/e19-1.svg",
-          scale: feature.get("Placering") == 'Avskild från vägen' ? 0.1 : 0.07,
-        }),
-      })
-    } else if (layerName == "atk") {
-      return [
-        new Style({
-          zIndex: 20,
-          image: new Icon({
-            declutterMode: "none",
-            // anchor: [0.5, 1],
-            src: "https://jole84.se/kartsymboler/e24-1.svg",
-            scale: 0.06,
-            rotateWithView: true,
-            rotation: degToRad(feature.get("Bearing")) - Math.PI,
-            displacement: [15, 0],
+          offsetX: 15,
+          offsetY: -26,
+          text: feature.get("HTHAST"),
+          rotateWithView: true,
+          rotation: degToRad(feature.get("Bearing")) - Math.PI,
+          font: "bold 19px arial, sans-serif",
+          fill: new Fill({
+            color: "black",
           }),
         }),
-        new Style({
-          zIndex: 20,
-          image: new Icon({
-            declutterMode: "none",
-            rotateWithView: true,
-            rotation: degToRad(feature.get("Bearing")) - Math.PI,
-            src: "https://jole84.se/kartsymboler/c31-3.svg",
-            displacement: [15, 28],
-            scale: 0.07,
-          }),
-          text: new Text({
-            declutterMode: "none",
-            offsetX: 15,
-            offsetY: -26,
-            text: feature.get("HTHAST"),
-            rotateWithView: true,
-            rotation: degToRad(feature.get("Bearing")) - Math.PI,
-            font: "bold 19px arial, sans-serif",
-            fill: new Fill({
-              color: "black",
-            }),
-          }),
-        }),
-      ]
-    } else if (
-      [
-        "byggnadspunkt",
-        "byggnadsanlaggningspunkt",
-        "kultur_lamning_punkt",
-        "vagpunkt",
-        "hydroanlaggningspunkt",
-      ].includes(layerName)
-    ) {
-      if (feature.get("objekttypnr") in kartsymboler) {
-        return new Style({
-          // zIndex: 5,
-          image: new Icon({
-            declutterMode: "none",
-            rotation: degToRad(360 - feature.get("rotation")) || 0,
-            rotateWithView: feature.get("rotation") == 0 ? false : true,
-            src: kartsymboler[feature.get("objekttypnr")],
-            scale: 1.5,
-          }),
-        });
-        // } else {
-        //   console.table(feature.getProperties());
-      }
-      // } else {
-      //   console.table(feature.getProperties());
-    }
+      }),
+    ]
+  } else if (
+    [
+      "byggnadspunkt",
+      "byggnadsanlaggningspunkt",
+      "kultur_lamning_punkt",
+      "vagpunkt",
+      "hydroanlaggningspunkt",
+    ].includes(layerName) && feature.get("objekttypnr") in kartsymboler
+  ) {
+    return new Style({
+      // zIndex: 5,
+      image: new Icon({
+        declutterMode: "none",
+        rotation: degToRad(360 - feature.get("rotation")) || 0,
+        rotateWithView: feature.get("rotation") == 0 ? false : true,
+        src: kartsymboler[feature.get("objekttypnr")],
+        scale: 1.5,
+      }),
+    });
+    // } else {
+    //   console.table(feature.getProperties());
   }
 }
