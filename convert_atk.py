@@ -6,6 +6,7 @@ from shapely import wkt
 url = "https://api.trafikinfo.trafikverket.se/v2/data.json"
 headers = {'Content-Type': 'application/xml'}
 authenticationkey = "fa68891ca1284d38a637fe8d100861f0"
+timeout = 1
 
 def searchByVagnummer(long, lat, vagnummer):
     xmlpayload = f"""
@@ -20,14 +21,14 @@ def searchByVagnummer(long, lat, vagnummer):
             </QUERY>
         </REQUEST>
     """
-    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers)
+    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers, timeout=timeout)
     data = json.loads(response.content)
     return data['RESPONSE']['RESULT'][0]["Vägnummer"][0]["Element_Id"]
 
 def searchByGatunamn(long, lat, gatunamn):
     xmlpayload = f"""
         <REQUEST>
-            <LOGIN authenticationkey="demokey"/>
+            <LOGIN authenticationkey="{authenticationkey}"/>
             <QUERY objecttype="Gatunamn" namespace="vägdata.nvdb_dk_o" schemaversion="1.2" limit="10">
                 <FILTER>
                 <NEAR name='Geometry.WKT-WGS84-3D' value="{long} {lat}" maxdistance="20m" />
@@ -36,7 +37,7 @@ def searchByGatunamn(long, lat, gatunamn):
             </QUERY>
         </REQUEST>
     """
-    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers)
+    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers, timeout=timeout)
     data = json.loads(response.content)
     return data['RESPONSE']['RESULT'][0]["Gatunamn"][0]["Element_Id"]
 
@@ -52,7 +53,7 @@ def searchSpeedlimitByCoordinate(long, lat):
             </QUERY>
         </REQUEST>
     """
-    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers)
+    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers, timeout=timeout)
     data = json.loads(response.content)
     return data['RESPONSE']['RESULT'][0]['Hastighetsgräns'][0]["Högsta_tillåtna_hastighet"]
 
@@ -69,7 +70,7 @@ def searchSpeedlimitByElementId(long, lat, elementId):
             </QUERY>
         </REQUEST>
     """
-    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers)
+    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers, timeout=timeout)
     data = json.loads(response.content)
     return data['RESPONSE']['RESULT'][0]['Hastighetsgräns'][0]["Högsta_tillåtna_hastighet"]
 
@@ -119,7 +120,7 @@ xmlpayloadatk = f"""
 </REQUEST>
 """
 
-response = requests.post(url, data=xmlpayloadatk.encode('utf-8'), headers=headers)
+response = requests.post(url, data=xmlpayloadatk.encode('utf-8'), headers=headers, timeout=timeout)
 # print(response.text)
 data = json.loads(response.content)
 

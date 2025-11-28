@@ -360,7 +360,7 @@ export function styleStuff(feature, currentResolution) {
   } else if (layerName == "hojdlinje" && localStorage.mapMode == 0) {
     return new Style({
       stroke: new Stroke({
-        color: "#00000050",
+        color: "rgba(150, 127, 105, 0.6)",
         width: feature.get("stodkurva") == "Ja" ? 2 : 1,
       }),
     });

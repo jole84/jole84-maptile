@@ -137,14 +137,14 @@
     "hojdlinje250": {
         "target_name": "hojdlinje",
         "minzoom": 9,
-        "maxzoom": 11
-    },
-    "hojdlinje100": {
-        "target_name": "hojdlinje",
-        "minzoom": 12,
-        "maxzoom": 12
+        "maxzoom": 10
     },
     "hojdlinje100-": {
+        "target_name": "hojdlinje",
+        "minzoom": 11,
+        "maxzoom": 12
+    },
+    "hojdlinje100": {
         "target_name": "hojdlinje",
         "minzoom": 13,
         "maxzoom": 14
