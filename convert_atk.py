@@ -6,9 +6,9 @@ from shapely import wkt
 url = "https://api.trafikinfo.trafikverket.se/v2/data.json"
 headers = {'Content-Type': 'application/xml'}
 authenticationkey = "fa68891ca1284d38a637fe8d100861f0"
-timeout = 1
+timeout = 2
 
-def searchByVagnummer(long, lat, vagnummer):
+def searchByRoadNumber(long, lat, vagnummer):
     xmlpayload = f"""
         <REQUEST>
             <LOGIN authenticationkey="{authenticationkey}"/>
@@ -84,8 +84,8 @@ def getSpeedLimit(row):
 
     try:
         try:
-            vagnummer = int(row["RoadNumber"].replace("E", ""))
-            elementId = searchByVagnummer(long, lat, vagnummer)
+            roadNumber = int(row["RoadNumber"].replace("E", ""))
+            elementId = searchByRoadNumber(long, lat, roadNumber)
             errorString = "vägnummer OK"
         except:
             errorString = "söker på vägnamn"
@@ -120,7 +120,7 @@ xmlpayloadatk = f"""
 </REQUEST>
 """
 
-response = requests.post(url, data=xmlpayloadatk.encode('utf-8'), headers=headers, timeout=timeout)
+response = requests.post(url, data=xmlpayloadatk.encode('utf-8'), headers=headers, timeout=timeout + 5)
 # print(response.text)
 data = json.loads(response.content)
 
