@@ -37,13 +37,10 @@ const textAlign = {
 const kartsymboler = {
   // 1052:	"Skyddsvärn",
   // 1050:	"https://jole84.se/kartsymboler/" + "Raststuga" + ".svg",
-  // 2016:	"https://jole84.se/kartsymboler/" + "Klockstapel" + ".svg",
   // 2032:	"https://jole84.se/kartsymboler/" + "Enslig stuga i fjällen" + ".svg",
   // 2048:	"https://jole84.se/kartsymboler/" + "Forskningsstation" + ".svg",
   // 2041:	"https://jole84.se/kartsymboler/" + "Turiststuga/övernattningsstuga" + ".svg",
   // 2050:	"https://jole84.se/kartsymboler/" + "Naturum" + ".svg",
-  // 2512:	"Fornlämning, mindre",
-  // 2516:	"Övrig kulturhistorisk lämning, mindre",
   // "Sjöräddningsstation": "https://jole84.se/kartsymboler/ ",
 
   "Badplats": "https://jole84.se/kartsymboler/badplats.svg",
@@ -61,7 +58,7 @@ const kartsymboler = {
   1042: "https://jole84.se/kartsymboler/kyrka.svg",
   1044: "https://jole84.se/kartsymboler/kata.svg",
   1045: "https://jole84.se/kartsymboler/torn.svg",
-  1046: "https://jole84.se/kartsymboler/vindskydd1.svg",
+  1046: "https://jole84.se/kartsymboler/vindskydd2.svg",
   1047: "https://jole84.se/kartsymboler/vaderkvarn.svg",
   1051: "https://jole84.se/kartsymboler/fyr.svg",
   1742: "https://jole84.se/kartsymboler/transformator.svg",
