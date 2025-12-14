@@ -98,7 +98,7 @@ def getSpeedLimit(row):
     print("{:<15}{:<35}{:<25}{:<15}{:<15}".format(
         str(current_number) + "/" + total_cameras_number,
         row["Name"],
-        "väg: " + roadNumber,
+        "väg: " + str(roadNumber),
         str(speedLimit) + "km/h",
         errorString
     ))
