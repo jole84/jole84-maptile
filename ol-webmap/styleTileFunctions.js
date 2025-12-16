@@ -496,8 +496,8 @@ export function styleStuff(feature, currentResolution) {
       image: new Icon({
         declutterMode: "none",
         // anchor: [0.5, 1],
-        src: "https://www.transportstyrelsen.se/globalassets/global/vag/vagmarken2/h.-lokaliseringsmarken-for-upplysning-om-serviceanlaggningar/h13.-rastplats/h13-1.png",
-        scale: 0.07,
+        src: "https://jole84.se/kartsymboler/h13-1.svg",
+        scale: 0.05,
       }),
     })
   } else if (layerName == "anlaggningsomradespunkt") {
