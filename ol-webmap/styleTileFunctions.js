@@ -308,7 +308,7 @@ export function styleStuff(feature, currentResolution) {
           zIndex: europaVag ? 10 : 9,
           text: new Text({
             text: europaVag ? "E" + String(feature.get("Huvnr_556_1")) : String(feature.get("Huvnr_556_1")),
-            font: "bold 14px arial, sans-serif",
+            font: "bold 16px arial, sans-serif",
             placement: "point",
             padding: [
               75,
