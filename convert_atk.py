@@ -2,6 +2,8 @@
 import requests, json
 import geopandas as gpd
 from shapely import wkt
+from os.path import exists
+from os import rename
 
 # Checks what speed the road closest to speedcamera have
 # 1. Downloads all cameras
@@ -11,6 +13,10 @@ from shapely import wkt
 # 5.    Get speedlimit with elementId
 # 6.    If no elementId, get speedlimit by camera coordinate
 # 7. Save to geopackage
+output = "ATK.gpkg"
+
+if exists(output):
+    rename(output, "ATK_old.gpkg")
 
 url = "https://api.trafikinfo.trafikverket.se/v2/data.json"
 headers = {'Content-Type': 'application/xml'}
@@ -148,4 +154,4 @@ gdf["HTHAST"] = gdf.apply(getSpeedLimit, axis=1)
 
 # print(gdf)
 gdf = gdf.to_crs(3857)
-gdf.to_file('ATK.gpkg', driver='GPKG')
+gdf.to_file(output, driver='GPKG')
