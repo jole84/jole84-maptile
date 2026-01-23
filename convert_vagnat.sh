@@ -8,7 +8,6 @@ echo "Skapar vägnät..."
 ogr2ogr $OUTPUT \
     -nln "TNE_FT_VAGDATA" \
     -nlt MULTILINESTRING \
-    -progress \
     -skipfailures \
     -t_srs "EPSG:3857" \
     -where "Vagtr_474 = 1" \
@@ -18,7 +17,6 @@ echo "Skapar vägnät union..."
 ogr2ogr $OUTPUT_UNION \
     -nln "TNE_FT_VAGDATA" \
     -nlt MULTILINESTRING \
-    -progress \
     -skipfailures \
     -sql @/home/johan/git/jole84-maptile/vagnat_union.sql \
     $OUTPUT

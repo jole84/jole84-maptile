@@ -6,13 +6,15 @@ from shutil import rmtree
 # maxzoom 8 släcks på >10 (+2)
 
 chdir('/home/johan/git/jole84-maptile/ol-webmap')
-# chdir('/home/johan/Karta')
 
-# clipsrc = ""
 clipsrc = "-clipsrc 1550000 7900000 1650000 8000000" # jönköping  128s 19,9mb (simp0 125s 22,3mb)
 # clipsrc = "-clipsrc 1450000 7800000 1700000 8100000" # jönköping++    150s 180mb   
 # clipsrc = "-clipsrc 1200000 7400000 2200000 8350000" # götaland      
 # sverige   48min   2,7gb   43min 2,3gb
+
+# create full map:
+# chdir('/home/johan/Karta')
+# clipsrc = ""
 
 try:
     rmtree('tiles')
@@ -28,7 +30,7 @@ cmd = " ".join([
     '-dsco MINZOOM=5',
     '-dsco MAXZOOM=14',
     '-dsco SIMPLIFICATION=5',
-    # '-dsco SIMPLIFICATION_MAX_ZOOM=2',
+    '-dsco SIMPLIFICATION_MAX_ZOOM=2',
     '-dsco COMPRESS=NO',
     '-dsco conf=/home/johan/git/jole84-maptile/mvt/layerconf.json',
     '/home/johan/git/jole84-maptile/mvt/layers.vrt',
