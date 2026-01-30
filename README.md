@@ -6,6 +6,8 @@
 	Cirkulationsplats(Framriktningen)
 	Driftbidrag statligt/Vägdelsnr
 	Funktionell vägklass/Klass
+	Förbud mot trafik (Framriktningen)
+	Förbud mot trafik (Bakriktningen)
 	Gatunamn/Namn
 	Gatutyp/Typ
 	Hastighetsgräns/Högsta tillåtna hastighet (Bakriktningen)

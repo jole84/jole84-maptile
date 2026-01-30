@@ -5,6 +5,7 @@ from shapely import wkt
 from os.path import exists
 from os import rename
 
+requests.packages.urllib3.util.connection.HAS_IPV6 = False # force IPV4
 # Checks what speed the road closest to speedcamera have
 # 1. Downloads all cameras
 # 2. Apply getSpeedLimit function
@@ -21,7 +22,6 @@ if exists(output):
 url = "https://api.trafikinfo.trafikverket.se/v2/data.json"
 headers = {'Content-Type': 'application/xml'}
 authenticationkey = "fa68891ca1284d38a637fe8d100861f0"
-timeout = 2
 
 def searchByRoadNumber(long, lat, vagnummer):
     xmlpayload = f"""
@@ -36,7 +36,7 @@ def searchByRoadNumber(long, lat, vagnummer):
             </QUERY>
         </REQUEST>
     """
-    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers, timeout=timeout)
+    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers)
     data = json.loads(response.content)
     return data['RESPONSE']['RESULT'][0]["Vägnummer"][0]["Element_Id"]
 
@@ -52,7 +52,7 @@ def searchByGatunamn(long, lat, gatunamn):
             </QUERY>
         </REQUEST>
     """
-    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers, timeout=timeout)
+    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers)
     data = json.loads(response.content)
     return data['RESPONSE']['RESULT'][0]["Gatunamn"][0]["Element_Id"]
 
@@ -68,7 +68,7 @@ def searchSpeedlimitByCoordinate(long, lat):
             </QUERY>
         </REQUEST>
     """
-    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers, timeout=timeout)
+    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers)
     data = json.loads(response.content)
     return data['RESPONSE']['RESULT'][0]['Hastighetsgräns'][0]["Högsta_tillåtna_hastighet"]
 
@@ -85,7 +85,7 @@ def searchSpeedlimitByElementId(long, lat, elementId):
             </QUERY>
         </REQUEST>
     """
-    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers, timeout=timeout)
+    response = requests.post(url, data=xmlpayload.encode('utf-8'), headers=headers)
     data = json.loads(response.content)
     return data['RESPONSE']['RESULT'][0]['Hastighetsgräns'][0]["Högsta_tillåtna_hastighet"]
 
@@ -135,7 +135,7 @@ xmlpayloadatk = f"""
 </REQUEST>
 """
 
-response = requests.post(url, data=xmlpayloadatk.encode('utf-8'), headers=headers, timeout=timeout + 5)
+response = requests.post(url, data=xmlpayloadatk.encode('utf-8'), headers=headers)
 # print(response.text)
 data = json.loads(response.content)
 
