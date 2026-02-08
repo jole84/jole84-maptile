@@ -149,7 +149,7 @@ const colorArray = [
     "Vattendrag": "#00a6ff",
     "Vattendragsyta": "#bfe6ffff",
     "Vattenyta": "#bfe6ffff",
-    "Åker": "#fff7a6ff",
+    "Åker": "#f8fbdfff",
     "Öppen mark": "#ffffeaff",
   },
   {
