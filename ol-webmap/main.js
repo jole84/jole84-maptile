@@ -23,7 +23,7 @@ const localVector = new VectorTileLayer({
 const remoteVector = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVT(),
-    url: 'https://jole84.se/tiles/{z}/{x}/{y}.pbf',
+    url: 'https://jole84.se/phpReadFile.php?url=https://jole84.se/tiles/{z}/{x}/{y}.pbf',
     minZoom: 5,
     maxZoom: 14,
   }),
@@ -100,9 +100,32 @@ document.getElementById("mapMode").value = localStorage.mapMode || 0;
 document.getElementById("mapMode").addEventListener("change", () => {
   document.getElementById("map").style.backgroundColor = localStorage.mapMode == 2 ? "#00263F" : "#bfe6ff";
   localStorage.mapMode = document.getElementById("mapMode").value;
-  localVector.getSource().refresh({ force: true });
-  remoteVector.getSource().refresh({ force: true });
+  changeMapTheme(document.getElementById("mapMode").value);
+  // localVector.getSource().refresh({ force: true });
+  // remoteVector.getSource().refresh({ force: true });
 });
+
+function changeMapTheme(modeIndex) {
+    const mapElement = document.getElementById('map'); // or document.body
+    
+    // Remove existing mode classes
+    mapElement.classList.remove('map-mode-1', 'map-mode-2');
+    
+    // Add new mode class if not default (0)
+    if (modeIndex > 0) {
+        mapElement.classList.add(`map-mode-${modeIndex}`);
+    }
+    
+    // Save to localStorage so it persists
+    localStorage.mapMode = modeIndex;
+    
+    // Clear the OpenLayers style cache and redraw
+    // (Optional: but good if you change variable names)
+    map.getLayers().forEach(layer => {
+        if (layer.getSource().clear) layer.getSource().refresh();
+        layer.changed();
+    });
+}
 
 document.addEventListener("keydown", function (event) {
   if (event.key == "c") {

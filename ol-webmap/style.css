@@ -22,3 +22,82 @@ html, body {
   padding: 3px;
   gap: 3px;
 }
+
+/* ============================================================
+   DEFAULT THEME: Terrängkarta (Mode 0)
+   ============================================================ */
+:root {
+  /* Text & UI */
+  --map-text-fill: #000000;
+  --map-text-stroke: #ffffff;
+
+  /* Land Use & Nature */
+  --map-land-Barr-och-blandskog: #d4eeb7ff;
+  --map-land-Lövskog: #e6f5d0ff;
+  --map-land-Åker: #ffffeaff;
+  --map-land-Sjö: #bfe6ffff;
+  --map-land-Hav: #bfe6ffff;
+  --map-land-Bebyggelse: #f0f0f0ff;
+  --map-land-Kalfjäll: #f5f5f5ff;
+  --map-land-Sankmark: #d2e4f0ff;
+  --map-land-default: #ffffff;
+
+  /* Roads (Vagtyp) */
+  --map-road-belagd: #ff6600;
+  --map-road-grus: #e6c300;
+  --map-road-skogsvag: #a67c52;
+  --map-road-traktor: #b3b3b3;
+  --map-road-rondell: #ff6600;
+  --map-road-stratvag: #ff3300;
+  --map-road-forbud: #808080;
+  --map-road-ovrigvag: #cccccc;
+
+  /* Infrastructure */
+  --map-water-line: #0070ff;
+  --map-runway: #dcdcdc;
+  --map-military: #ff0000;
+  
+  /* Protected Areas */
+  --map-protected-Nationalpark: #419821;
+  --map-protected-Naturreservat: #419821;
+  --map-protected-Kulturreservat: #a67c52;
+}
+
+/* ============================================================
+   VÄGKARTA THEME (Mode 1)
+   ============================================================ */
+.map-mode-1 {
+  --map-text-fill: #333333;
+  --map-land-Barr-och-blandskog: #ededed;
+  --map-land-Lövskog: #f5f5f5;
+  --map-land-Åker: #ffffff;
+  --map-land-Sjö: #b7d5e5;
+  --map-land-Hav: #b7d5e5;
+  --map-road-belagd: #555555;
+}
+
+/* ============================================================
+   VÄGKARTA MÖRK (Mode 2)
+   ============================================================ */
+.map-mode-2 {
+  /* Dark Mode Overrides */
+  --map-text-fill: #e9e9e9;
+  --map-text-stroke: #1a1a1a;
+
+  --map-land-Barr-och-blandskog: #1a1a1a;
+  --map-land-Lövskog: #1f1f1f;
+  --map-land-Åker: #2a2a2a;
+  --map-land-Sjö: #00263f;
+  --map-land-Hav: #00263f;
+  --map-land-Bebyggelse: #333333;
+  --map-land-default: #121212;
+
+  --map-road-belagd: #e9e9e9;
+  --map-road-grus: #8c8c8c;
+  --map-road-stratvag: #ffffff;
+  --map-road-ovrigvag: #444444;
+
+  --map-water-line: #005bb5;
+  --map-runway: #444444;
+  --map-military: #8b0000;
+}
