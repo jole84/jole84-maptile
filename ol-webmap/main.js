@@ -100,9 +100,9 @@ document.getElementById("mapMode").value = localStorage.mapMode || 0;
 document.getElementById("mapMode").addEventListener("change", () => {
   document.getElementById("map").style.backgroundColor = localStorage.mapMode == 2 ? "#00263F" : "#bfe6ff";
   localStorage.mapMode = document.getElementById("mapMode").value;
-  changeMapTheme(document.getElementById("mapMode").value);
-  // localVector.getSource().refresh({ force: true });
-  // remoteVector.getSource().refresh({ force: true });
+  // changeMapTheme(document.getElementById("mapMode").value);
+  localVector.getSource().refresh({ force: true });
+  remoteVector.getSource().refresh({ force: true });
 });
 
 function changeMapTheme(modeIndex) {
