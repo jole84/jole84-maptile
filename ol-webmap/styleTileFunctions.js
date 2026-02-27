@@ -328,7 +328,7 @@ const handlers = {
 
   "Trafikplats": (feature) => new Style({
     zIndex: 20,
-    text: new Text({ offsetX: 12, offsetY: 1, text: feature.get("trafikplatsnummer"), font: "bold 16px arial, sans-serif", fill: getFill("black") }),
+    text: new Text({ declutterMode: "none", offsetX: 12, offsetY: 1, text: feature.get("trafikplatsnummer"), font: "bold 16px arial, sans-serif", fill: getFill("black") }),
     image: getIcon("https://jole84.se/kartsymboler/f27-1.svg", 0.18)
   }),
 
@@ -337,8 +337,9 @@ const handlers = {
     return [
       new Style({ zIndex: 20, image: getIcon("https://jole84.se/kartsymboler/e24-1.svg", 0.06, bearing, true, [15, 0]) }),
       new Style({
+
         zIndex: 20, image: getIcon("https://jole84.se/kartsymboler/c31-3.svg", 0.07, bearing, true, [15, 28]),
-        text: new Text({ offsetX: 15, offsetY: -26, text: feature.get("HTHAST"), rotateWithView: true, rotation: bearing, font: "bold 19px arial, sans-serif", fill: getFill("black") })
+        text: new Text({ declutterMode: "none", offsetX: 15, offsetY: -26, text: feature.get("HTHAST"), rotateWithView: true, rotation: bearing, font: "bold 19px arial, sans-serif", fill: getFill("black") })
       })
     ];
   }
@@ -361,5 +362,28 @@ export function styleStuff(feature, currentResolution) {
     return new Style({
       image: getIcon(iconSrc, 1.5, rotation, !!feature.get("rotation"))
     });
+  }
+  // Fix missing icons
+  if (mode > 0) {
+    if (layerName == "NVDB_DK_O_24_Hojdhinder45dm") {
+        return new Style({
+            zIndex: 30,
+            text: new Text({
+                declutterMode: "none",
+                text: feature.get("Fri_hojd").toFixed(1) + "m",
+                rotateWithView: true,
+                rotation: feature.get("rotation") - Math.PI,
+                font: "bold 10px arial, sans-serif",
+                fill: getFill("black"),
+            }),
+            image: getIcon("https://jole84.se/kartsymboler/c17-1.svg", 0.07, feature.get("rotation") - Math.PI, !!feature.get("rotation")),
+        });
+    }
+    if (layerName == "VIS_DK_O_90_P_ficka") {
+      return new Style({
+        zIndex: 18,
+        image: getIcon("https://jole84.se/kartsymboler/e19-1.svg", feature.get("Placering") == 'Avskild från vägen' ? 0.1 : 0.07, 0, !!feature.get("rotation")),
+      })
+    }
   }
 }
