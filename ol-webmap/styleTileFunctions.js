@@ -217,7 +217,7 @@ const getIcon = (src, scale = 1, rotation = 0, rotateWithView = false, displacem
 const getTextFont = (feature) => {
   const italicText = ["Administrativ indelning", "Fjällupplysningstext", "Hydrografi", "Kulturhistorisk lämning", "Skyddad natur", "Terrängnamn", "Upplysningstext"];
   const isItalic = italicText.includes(feature.get("textkategori")) ? "italic " : "";
-  const size = (feature.get("textstorleksklass") * 2.5) + 6;
+  const size = (feature.get("textstorleksklass") * 3) + 8;
   return `${isItalic}${size}px arial, sans-serif`;
 };
 
@@ -240,7 +240,7 @@ const handlers = {
       styles.push(new Style({
         zIndex: 10,
         text: new Text({
-          text: feature.get("Namn_132") || feature.get("Namn_130"), font: "12px arial, sans-serif", placement: "line",
+          text: feature.get("Namn_132") || feature.get("Namn_130"), font: "14px arial, sans-serif", placement: "line",
           fill: getFill("#000000"), stroke: getStroke("#ffffff", 4)
         })
       }));
@@ -314,7 +314,7 @@ const handlers = {
       text: new Text({
         text: feature.get("textstrang"), textAlign: textAlign[feature.get("textlage")], textBaseline: textBaseline[feature.get("textlage")],
         rotation: degToRad(360 - feature.get("textriktning")), rotateWithView: !!feature.get("textriktning"), font: getTextFont(feature),
-        fill: getFill(kategoriColor || "#000000"), stroke: getStroke("#ffffff", (feature.get("textstorleksklass") * 0.3) + 3)
+        fill: getFill(kategoriColor || "#000000"), stroke: getStroke("#ffffff", (feature.get("textstorleksklass") * 0.2) + 2)
       })
     });
   },
