@@ -242,7 +242,7 @@ const handlers = {
         zIndex: 10,
         text: new Text({
           text: feature.get("Namn_132") || feature.get("Namn_130"), font: "14px arial, sans-serif", placement: "line",
-          fill: getFill("#000000"), stroke: getStroke("#ffffff", 4)
+          fill: getFill(colorArray[mode]["textColorFill"]), stroke: getStroke(colorArray[mode]["textColorStroke"], 4)
         })
       }));
     }
@@ -315,7 +315,7 @@ const handlers = {
       text: new Text({
         text: feature.get("textstrang"), textAlign: textAlign[feature.get("textlage")], textBaseline: textBaseline[feature.get("textlage")],
         rotation: degToRad(360 - feature.get("textriktning")), rotateWithView: !!feature.get("textriktning"), font: getTextFont(feature),
-        fill: getFill(kategoriColor || "#000000"), stroke: getStroke("#ffffff", (feature.get("textstorleksklass") * 0.2) + 2)
+        fill: getFill(kategoriColor || colorArray[mode]["textColorFill"]), stroke: getStroke(colorArray[mode]["textColorStroke"], (feature.get("textstorleksklass") * 0.2) + 2)
       })
     });
   },

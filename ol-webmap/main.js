@@ -23,7 +23,8 @@ const localVector = new VectorTileLayer({
 const remoteVector = new VectorTileLayer({
   source: new VectorTileSource({
     format: new MVT(),
-    url: 'https://jole84.se/phpReadFile.php?url=https://jole84.se/tiles/{z}/{x}/{y}.pbf',
+    // url: 'https://jole84.se/phpReadFile.php?url=https://jole84.se/tiles/{z}/{x}/{y}.pbf',
+    url: 'https://jole84.se/tiles/{z}/{x}/{y}.pbf',
     minZoom: 5,
     maxZoom: 14,
   }),
