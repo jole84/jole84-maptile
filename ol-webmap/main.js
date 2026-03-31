@@ -5,7 +5,7 @@ import VectorTileLayer from 'ol/layer/VectorTile.js';
 import VectorTileSource from 'ol/source/VectorTile.js';
 import MVT from 'ol/format/MVT.js';
 import TileDebug from 'ol/source/TileDebug.js';
-import { styleStuff } from './styleTileFunctions';
+import { styleStuff } from './styleTileFunctions.js';
 
 localStorage.mapMode = localStorage.mapMode || 0;
 

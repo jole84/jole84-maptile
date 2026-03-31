@@ -1,4 +1,5 @@
-import { Stroke, Style, Icon, Fill, Text } from "ol/style.js";
+// import { Stroke, Style, Icon, Fill, Text } from "ol/style.js";
+import { Stroke, Style, Icon, Fill, Text } from "https://cdn.jsdelivr.net/npm/ol@latest/style.js";
 
 // --- Constants & Lookups ---
 const degToRad = (deg) => (deg * Math.PI * 2) / 360;
