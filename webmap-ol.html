@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <script src="https://cdn.jsdelivr.net/npm/ol@v10.6.0/dist/ol.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v10.6.0/ol.css">
-  <script src="styleFunctions.js"></script>
+  <!-- <script type="module" src="https://jole84.se/styleTileFunctions.js"></script> -->
 
   <title>Karta</title>
   <style>
@@ -26,7 +26,8 @@
 <body>
   <div id="map"></div>
 
-  <script type="text/javascript">
+  <script type="module">
+    import { styleStuff } from "https://jole84.se/styleTileFunctions.js"
 
     const view = new ol.View({
       center: [1580736, 7925420],
@@ -34,66 +35,23 @@
       enableRotation: true,
     });
 
-    function styleFunction(feature, currentResolution) {
-      // console.log(feature.get("layer"));
-      if (feature.get("layer") == "vaglinje") {
-        console.table(feature.getProperties());
-        return new ol.style.Style({
-          // text: new ol.style.Text({
-          //   text: feature.get("HTHAST") || "hej!",
-          //   font: '14px Roboto,monospace',
-          //   textAlign: 'left',
-          //   offsetX: 10,
-          //   fill: new ol.style.Fill({
-          //     color: '#b41412',
-          //   }),
-          //   // stroke: new ol.style.Stroke({
-          //   //   color: 'white',
-          //   //   width: 4,
-          //   // }),
-          //   backgroundFill: new ol.style.Fill({
-          //     color: [255, 255, 255, 0.9],
-          //   }),
-          //   backgroundStroke: new ol.style.Stroke({
-          //     color: [0, 0, 0, 0.9],
-          //     width: 1.5,
-          //   }),
-          //   padding: [1, 0, 0, 1],
-          // }),
-          stroke: new ol.style.Stroke({
-            color: [Math.random() * 255, Math.random() * 255, Math.random() * 255, 0.8],
-            width: 4,
-          }),
-          fill: new ol.style.Fill({
-            color: [Math.random() * 255, Math.random() * 255, Math.random() * 255, 0.2],
-          }),
-        })
-      }
-    }
-
     const layers = [
-      osm = new ol.layer.Tile({
-        source: new ol.source.OSM({
-          crossOrigin: 'Anonymous',
-        }),
-        visible: true,
-      }),
-      // local map
-      localVector = new ol.layer.VectorTile({
+      new ol.layer.VectorTile({
         source: new ol.source.VectorTile({
           format: new ol.format.MVT(),
           url: 'https://jole84.se/tiles/{z}/{x}/{y}.pbf',
           minZoom: 6,
-          maxZoom: 9
+          maxZoom: 14
         }),
-        style: styleFunction,
+        style: styleStuff,
+        declutter: true,
       }),
 
-      tileDebug = new ol.layer.Tile({
+      new ol.layer.Tile({
         source: new ol.source.TileDebug({
           template: 'z:{z} x:{x} y:{y} -y:{-y}'
         }),
-        visible: false,
+        visible: true,
       }),
 
 
