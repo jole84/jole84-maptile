@@ -347,9 +347,8 @@ const handlers = {
 };
 
 // --- Main Export ---
-export function styleStuff(feature, currentResolution) {
+export function styleStuff(feature, currentResolution, mode = 0) {
   const layerName = feature.get("layer");
-  const mode = localStorage.mapMode || 0;
 
   const handler = handlers[layerName];
   if (handler) return handler(feature, currentResolution, mode);

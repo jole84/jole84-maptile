@@ -43,7 +43,7 @@
           minZoom: 6,
           maxZoom: 14
         }),
-        style: styleStuff,
+        style: (feature, currentResolution) => styleStuff(feature, currentResolution, 0),
         declutter: true,
       }),
 
