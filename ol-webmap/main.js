@@ -17,7 +17,7 @@ const localVector = new VectorTileLayer({
     maxZoom: 14,
   }),
   declutter: true,
-  style: styleStuff
+  style: (feature, currentResolution) => styleStuff(feature, currentResolution, localStorage.mapMode),
 });
 
 const remoteVector = new VectorTileLayer({
@@ -29,7 +29,7 @@ const remoteVector = new VectorTileLayer({
     maxZoom: 14,
   }),
   declutter: true,
-  style: styleStuff,
+  style: (feature, currentResolution) => styleStuff(feature, currentResolution, localStorage.mapMode),
   visible: false,
 });
 
@@ -107,25 +107,25 @@ document.getElementById("mapMode").addEventListener("change", () => {
 });
 
 function changeMapTheme(modeIndex) {
-    const mapElement = document.getElementById('map'); // or document.body
-    
-    // Remove existing mode classes
-    mapElement.classList.remove('map-mode-1', 'map-mode-2');
-    
-    // Add new mode class if not default (0)
-    if (modeIndex > 0) {
-        mapElement.classList.add(`map-mode-${modeIndex}`);
-    }
-    
-    // Save to localStorage so it persists
-    localStorage.mapMode = modeIndex;
-    
-    // Clear the OpenLayers style cache and redraw
-    // (Optional: but good if you change variable names)
-    map.getLayers().forEach(layer => {
-        if (layer.getSource().clear) layer.getSource().refresh();
-        layer.changed();
-    });
+  const mapElement = document.getElementById('map'); // or document.body
+
+  // Remove existing mode classes
+  mapElement.classList.remove('map-mode-1', 'map-mode-2');
+
+  // Add new mode class if not default (0)
+  if (modeIndex > 0) {
+    mapElement.classList.add(`map-mode-${modeIndex}`);
+  }
+
+  // Save to localStorage so it persists
+  localStorage.mapMode = modeIndex;
+
+  // Clear the OpenLayers style cache and redraw
+  // (Optional: but good if you change variable names)
+  map.getLayers().forEach(layer => {
+    if (layer.getSource().clear) layer.getSource().refresh();
+    layer.changed();
+  });
 }
 
 document.addEventListener("keydown", function (event) {
