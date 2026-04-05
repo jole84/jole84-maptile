@@ -60,7 +60,7 @@ map.on("singleclick", function (evt) {
 });
 
 function switchMap() {
-  document.getElementById("map").style.backgroundColor = localStorage.mapMode == 2 ? "#00263F" : "#bfe6ff";
+  document.getElementById("map").style.backgroundColor = localStorage.mapMode == 2 ? "#00263F" : "#CBEAFF";
   sessionStorage.layerSelector = document.getElementById("layerSelector").value;
   if (document.getElementById("layerSelector").value == "remote") {
     localVector.setVisible(false);
