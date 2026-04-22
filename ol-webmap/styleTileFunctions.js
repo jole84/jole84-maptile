@@ -228,7 +228,7 @@ const handlers = {
     const vagtyp = feature.get("vagtyp");
     const width = feature.get("width") / 8;
     const styles = [new Style({
-      zIndex: vagtyp === 'rondell' ? 100 : vagtyp === 'stratvag' ? 50 : vagtyp === 'forbud' ? 40 : vagtyp === 'belagd' ? 20 : 0,
+      zIndex: vagtyp === 'rondell' ? 100 : vagtyp === 'stratvag' ? 50 : vagtyp === 'forbud' ? 40 : vagtyp === 'belagd' ? 20 : 5,
       stroke: getStroke(colorArray[mode][vagtyp], width, vagtyp === 'ovrigvag' ? [10, 12] : undefined)
     })];
 
