@@ -290,9 +290,9 @@ const handlers = {
     new Style({ stroke: getStroke("white", 2, [10, 10], "square") })
   ],
 
-  "hydrolinje": (feature, res, mode) => new Style({
+  "hydrolinje": (feature, res, mode) => mode == 0 ? new Style({
     stroke: getStroke(colorArray[mode][feature.get("objekttyp")], Number(feature.get("storleksklass")) || 3, undefined, "round")
-  }),
+  }) : null,
 
   "skyddadnatur": (feature, res, mode) => mode == 0 ? new Style({
     zIndex: 5, stroke: getStroke(colorArray[mode][feature.get("objekttyp")], 4, dashPolygon.includes(feature.get("objekttyp")) ? [10, 10] : undefined)
