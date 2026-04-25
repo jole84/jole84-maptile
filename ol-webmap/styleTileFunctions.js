@@ -251,9 +251,9 @@ const handlers = {
     if (huvnr < 500 && !feature.get("Namn_130")) {
       const isEuropa = feature.get("Evag_555") == -1;
       styles.push(new Style({
-        zIndex: isEuropa ? 10 : 9,
+        zIndex: isEuropa ? 50 : 40,
         text: new Text({
-          text: (isEuropa ? "E" : "") + String(huvnr), font: "bold 16px arial, sans-serif", padding: [75, 75, 75, 75],
+          text: (isEuropa ? "E" : "") + String(huvnr), font: "bold 16px arial, sans-serif", padding: [50, 50, 50, 50],
           fill: getFill("white"), stroke: getStroke(isEuropa ? "#4daf4a" : "#377eb8", 10)
         })
       }));
@@ -276,11 +276,11 @@ const handlers = {
       isEuropa = rawNum[0] == "E";
     }
     return new Style({
-      zIndex: isEuropa ? 10 : 3,
+      zIndex: isEuropa ? 50 : 40,
       stroke: getStroke(colorArray[mode][feature.get("objekttyp")], roadWidth[feature.get("objekttyp")] || 3),
       text: new Text({
-        text: vagNummer, font: "bold 14px arial, sans-serif", padding: [50, 50, 50, 50],
-        fill: getFill("white"), stroke: getStroke(isEuropa ? "#4daf4a" : "#377eb8", 10)
+        text: vagNummer, font: "bold 14px arial, sans-serif", padding: [20, 20, 20, 20],
+        fill: getFill("white"), stroke: getStroke(isEuropa ? "#4daf4a" : "#377eb8", 8)
       })
     });
   },
@@ -328,7 +328,7 @@ const handlers = {
   },
 
   "Trafikplats": (feature) => new Style({
-    zIndex: 20,
+    zIndex: 60,
     text: new Text({ declutterMode: "none", offsetX: 12, offsetY: 1, text: feature.get("trafikplatsnummer"), font: "bold 16px arial, sans-serif", fill: getFill("black") }),
     image: getIcon("https://jole84.se/kartsymboler/f27-1.svg", 0.18)
   }),
