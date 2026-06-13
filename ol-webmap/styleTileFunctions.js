@@ -229,7 +229,7 @@ const handlers = {
     const width = feature.get("width") / 8;
     const styles = [new Style({
       zIndex: vagtyp === 'rondell' ? 100 : vagtyp === 'stratvag' ? 50 : vagtyp === 'forbud' ? 40 : vagtyp === 'belagd' ? 20 : 5,
-      stroke: getStroke(colorArray[mode][vagtyp], width, vagtyp === 'ovrigvag' ? [10, 12] : undefined)
+      stroke: getStroke(colorArray[mode][vagtyp], width || 2, vagtyp === 'ovrigvag' ? [10, 12] : undefined)
     })];
 
     if (mode == 0 && res < 80) {
@@ -313,6 +313,7 @@ const handlers = {
     return new Style({
       zIndex: (feature.get("textstorleksklass") * 10) || 100,
       text: new Text({
+        declutterMode: "none",
         text: feature.get("textstrang"), textAlign: textAlign[feature.get("textlage")], textBaseline: textBaseline[feature.get("textlage")],
         rotation: degToRad(360 - feature.get("textriktning")), rotateWithView: !!feature.get("textriktning"), font: getTextFont(feature),
         fill: getFill(kategoriColor || colorArray[mode]["textColorFill"]), stroke: getStroke(colorArray[mode]["textColorStroke"], (feature.get("textstorleksklass") * 0.2) + 2)

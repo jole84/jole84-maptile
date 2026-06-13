@@ -17,6 +17,7 @@ ogr2ogr tiles/ -f MVT \
     -dsco SIMPLIFICATION_MAX_ZOOM=2 \
     -dsco COMPRESS=NO \
     -dsco conf=$HOME/git/jole84-maptile/mvt/layerconf.json \
+    -dialect sqlite \
     $HOME/git/jole84-maptile/mvt/layers.vrt
 
 

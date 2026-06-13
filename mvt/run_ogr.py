@@ -25,6 +25,7 @@ cmd = " ".join([
     'time',
     'ogr2ogr tiles/ -f MVT',
     clipsrc,
+    '-dialect sqlite',
     '-t_srs "EPSG:3857"',
     '-skipfailures',
     '-dsco MINZOOM=5',
