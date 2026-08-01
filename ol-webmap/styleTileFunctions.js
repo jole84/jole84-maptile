@@ -235,6 +235,7 @@ const handlers = {
     if (mode == 0 && res < 80) {
       if (vagtyp === "bidrag") styles.push(new Style({ zIndex: 10, stroke: getStroke("black", width, [6, 12], "butt") }));
       if (vagtyp === "grus" && feature.get("Klass_181") <= 7) styles.push(new Style({ zIndex: 10, stroke: getStroke("red", width, [6, 12], "butt") }));
+      if (vagtyp === "grus" && (feature.get("Namn_130") || feature.get("Namn_132"))) styles.push(new Style({ zIndex: 10, stroke: getStroke("yellow", width, [6, 12], "butt") }));
     }
 
     if (res < 9) {
