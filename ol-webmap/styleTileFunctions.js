@@ -280,7 +280,7 @@ const handlers = {
       zIndex: isEuropa ? 50 : 40,
       stroke: getStroke(colorArray[mode][feature.get("objekttyp")], roadWidth[feature.get("objekttyp")] || 3),
       text: new Text({
-        text: vagNummer, font: "bold 14px arial, sans-serif", padding: [20, 20, 20, 20],
+        text: vagNummer, font: "bold 14px arial, sans-serif", padding: [10, 10, 10, 10],
         fill: getFill("white"), stroke: getStroke(isEuropa ? "#4daf4a" : "#377eb8", 8)
       })
     });
