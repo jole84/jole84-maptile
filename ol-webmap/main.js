@@ -5,6 +5,7 @@ import VectorTileLayer from 'ol/layer/VectorTile.js';
 import VectorTileSource from 'ol/source/VectorTile.js';
 import MVT from 'ol/format/MVT.js';
 import TileDebug from 'ol/source/TileDebug.js';
+import { styleStuff as styleStuffRemote } from "https://jole84.se/styleTileFunctions.js"
 import { styleStuff } from './styleTileFunctions.js';
 
 localStorage.mapMode = localStorage.mapMode || 0;
@@ -17,7 +18,7 @@ const localVector = new VectorTileLayer({
     maxZoom: 14,
   }),
   declutter: true,
-  style: (feature, currentResolution) => styleStuff(feature, currentResolution, localStorage.mapMode),
+  style: (feature, currentResolution) => document.getElementById("styleSelector").value == "local" ? styleStuff(feature, currentResolution, localStorage.mapMode) : styleStuffRemote(feature, currentResolution, localStorage.mapMode),
 });
 
 const remoteVector = new VectorTileLayer({
@@ -29,7 +30,7 @@ const remoteVector = new VectorTileLayer({
     maxZoom: 14,
   }),
   declutter: true,
-  style: (feature, currentResolution) => styleStuff(feature, currentResolution, localStorage.mapMode),
+  style: (feature, currentResolution) =>  document.getElementById("styleSelector").value == "local" ? styleStuff(feature, currentResolution, localStorage.mapMode) : styleStuffRemote(feature, currentResolution, localStorage.mapMode),
   visible: false,
 });
 
@@ -77,6 +78,11 @@ document.getElementById("layerSelector").addEventListener("change", () => {
 });
 switchMap();
 // document.body.classList.add("darkmode");
+
+document.getElementById("styleSelector").addEventListener("change", () => {
+  localVector.getSource().refresh({ force: true });
+  remoteVector.getSource().refresh({ force: true });
+});
 
 window.onbeforeunload = function () {
   localStorage.centerCoordinate = JSON.stringify(view.getCenter());

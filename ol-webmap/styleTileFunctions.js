@@ -254,7 +254,7 @@ const handlers = {
       styles.push(new Style({
         zIndex: isEuropa ? 50 : 40,
         text: new Text({
-          text: (isEuropa ? "E" : "") + String(huvnr), font: "bold 16px arial, sans-serif", padding: [75, 75, 75, 75],
+          text: (isEuropa ? "E" : "") + String(huvnr), font: "bold 16px arial, sans-serif", padding: [60, 60, 60, 60],
           fill: getFill("white"), stroke: getStroke(isEuropa ? "#4daf4a" : "#377eb8", 10)
         })
       }));
